@@ -1,6 +1,7 @@
 # Integrantes
 
 Gabryel Rodrigues Alves da Silva - 235394
+
 Pedro Henrique Antoine Cortez Daccache - 251572
 
 # Descrição do Projeto

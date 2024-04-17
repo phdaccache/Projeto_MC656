@@ -3,9 +3,11 @@ name: Main Node.js CI
 on:
   pull_request:
     branches: [ "develop", "main" ]
+  push:
+    branches: ["feature/**"]
 
 jobs:
-  build:
+  test:
 
     runs-on: ubuntu-latest
 

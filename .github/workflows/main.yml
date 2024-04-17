@@ -17,6 +17,5 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20.x'
-      - run: cd backend
-      - run: npm install
-      - run: npm run test
+      - run: npm --prefix ./backend install
+      - run: npm --prefix ./backend run test

@@ -8,7 +8,9 @@ const dbClient = new Client({
     port: 5432,
 });
 
-dbClient.connect();
+(async function() {
+    await dbClient.connect();
+})();
 
 const errorHandler = (err, res) => {
     if (err) {

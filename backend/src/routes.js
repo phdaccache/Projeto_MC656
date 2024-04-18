@@ -2,31 +2,19 @@ const express = require("express");
 
 const routes = express.Router();
 
+const dbClient = require("./lib/dbConnection");
 
-const { Client } = require('pg');
-
-routes.get("/list_users", async (req, res) => {
-    const client = new Client({
-        user: 'backend_user',
-        host: 'localhost',
-        database: 'olimpiada',
-        password: 'S3cret',
-        port: 5432,
-    });
-
-    client.connect();
-
+routes.get("/list_users", async (req, res) => {    
     const query = `
         SELECT * FROM users;
     `;
 
-    await client.query(query, async (err, resp) => {
+    await dbClient.query(query, async (err, resp) => {
         if (err) {
             console.error(err);
             return res.send("Internal error").status(500);
         }
-        console.log(resp.rows);
-        await client.end();
+        console.log(resp.rows);        
         return res.send(resp.rows).status(200);
     });
 });

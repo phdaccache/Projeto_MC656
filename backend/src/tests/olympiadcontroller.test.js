@@ -10,4 +10,13 @@ describe("GET /list_olympiad responses", () => {
                     expect(res.statusCode).toBe(200);
                 })
     });
+
+    it("should be empty", async () => {
+        return request(app)
+                .get("/list_olympiad")
+                .expect(200)
+                .then((res) => {
+                    expect(res.body).toEqual([]);
+                })
+    });
 });

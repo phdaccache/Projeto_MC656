@@ -10,4 +10,13 @@ describe("GET /list_user responses", () => {
                     expect(res.statusCode).toBe(200);
                 })
     });
+
+    it("should be empty", async () => {
+        return request(app)
+                .get("/list_user")
+                .expect(200)
+                .then((res) => {
+                    expect(res.body.user_list).toEqual([]);
+                })
+    });
 });

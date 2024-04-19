@@ -51,12 +51,6 @@ describe("POST /insert_olympiad responses", () => {
             description: "This is a test olympiad"
         };
 
-        // Primeira
-        await request(app)
-                .post("/insert_olympiad")
-                .send(newOlympiad)
-                .expect(200);
-
         return request(app)
             .post("/insert_olympiad")
             .send(newOlympiad)

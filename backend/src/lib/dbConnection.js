@@ -30,8 +30,8 @@ const createTables = async () => {
 
     // Dados das olimpíadas
     const queryOlympiadsTable = `
-        DROP TABLE IF EXISTS OLYMPIAD;
-        CREATE TABLE OLYMPIAD (
+        DROP TABLE IF EXISTS olympiad;
+        CREATE TABLE olympiad (
             name VARCHAR,
             date_start DATE,
             date_end DATE,

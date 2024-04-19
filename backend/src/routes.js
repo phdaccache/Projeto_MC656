@@ -31,6 +31,6 @@ routes.get("/", (req, res) => {
 ======================= OLIMPÍADAS =======================
 */
 routes.get('/list_olympiad', OlympiadController.index);
-routes.post('/insert_olympiad/:name/:date_start/:date_end/:school/:description', OlympiadController.store);
+routes.post('/insert_olympiad', OlympiadController.store);
 
 module.exports = routes;

@@ -1,31 +1,5 @@
 const request = require("supertest");
 const app = require("../app");
-const dbClient = require("../lib/dbConnection");
-
-const init = async() => {
-    const client = await dbClient.connect();
-
-    const queryUsersTable = `
-            DROP TABLE IF EXISTS users;
-            CREATE TABLE users (
-                email varchar,
-                firstName varchar,
-                lastName varchar,
-                age int
-            );
-            DROP TABLE IF EXISTS OLYMPIAD;
-            CREATE TABLE OLYMPIAD (
-                name VARCHAR,
-                date_start DATE,
-                date_end DATE,
-                school VARCHAR,
-                description VARCHAR
-            );
-            `;
-    await client.query(queryUsersTable);
-    client.release(true);
-}
-init();
 
 describe("GET /list_olympiad responses", () => {
     it("should be 200", async () => {
@@ -64,7 +38,8 @@ describe("POST /insert_olympiad responses", () => {
             .then((res) => {
                 expect(res.body).toHaveProperty('ok');
                 expect(res.body.ok).toBe(true);
-            })
+            });
+
     });
 
     it("shouldn't allow duplicates", async () => {

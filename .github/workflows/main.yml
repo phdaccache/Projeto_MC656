@@ -1,8 +1,10 @@
 name: Main Node.js CI
+run-name: ${{ github.actor }} is running the main CI workflow
 
+# same workflow for all branches
 on:
   pull_request:
-    branches: [ "develop", "main" ]
+    branches: [ "main", "develop" ]
   push:
     branches: ["feature/**"]
 
@@ -30,4 +32,4 @@ jobs:
         with:
           node-version: '20.x'
       - run: npm --prefix ./backend install
-      - run: npm --prefix ./backend run test
+      - run: npm --prefix ./backend run test # each branch has its own tests

@@ -1,5 +1,5 @@
 name: Main Node.js CI
-run-name: ${{ github.actor }} is running the main CI workflow
+run-name: ${{ github.actor }} is running the main CI workflow for a ${{ github.event_name }} on ${{ github.ref_name }}
 
 # same workflow for all branches
 on:

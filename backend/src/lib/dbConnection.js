@@ -1,6 +1,6 @@
-const { Client } = require("pg");
+const { Pool } = require("pg");
 
-const dbClient = new Client({
+const dbClient = new Pool({
     user: 'backend_user',
     host: 'localhost',
     database: 'olimpiada',
@@ -8,20 +8,13 @@ const dbClient = new Client({
     port: 5432,
 });
 
-(async function() {
-    await dbClient.connect();
-})();
-
-const errorHandler = (err, res) => {
-    if (err) {
-        console.error(err);
-        // @TODO dbClient.end() (async)            
-        return;
-    }
-}
+// Error handler
+dbClient.on("error", (err, client) => {
+    console.error("Error:", err);
+});
 
 const createTables = async () => {
-    const usersTable = `
+    const queryUsersTable = `
     DROP TABLE IF EXISTS users;
     CREATE TABLE users (
         email varchar,
@@ -30,9 +23,11 @@ const createTables = async () => {
         age int
     );
     `;
-    await dbClient.query(usersTable, errorHandler);
-    console.log("Table users created");
+    const client = await dbClient.connect();
+    await client.query(queryUsersTable);
+    // console.log("Table users created");
     // Create other tables here ...
+    await client.release(true);
 }
 
 // Create tables

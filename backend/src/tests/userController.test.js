@@ -41,4 +41,30 @@ describe("POST /insert_user responses", () => {
                 expect(res.body.ok).toBe('User created');
             })
     });
+
+    it("shouldn't allow duplicates", async () => {
+        const newUser = {
+            name: "Test User33",
+            birth_date: "2022-01-01",
+            email: "testuseremail33@gmail.com",
+            school: "Test School",
+            gender: "Test gender",
+            phone_number: "95124-9087"
+        };
+
+        // Primeira
+        await request(app)
+                .post("/insert_user")
+                .send(newUser)
+                .expect(200);
+
+        return request(app)
+            .post("/insert_user")
+            .send(newUser)
+            .expect(400)
+            .then((res) => {
+                expect(res.body).toHaveProperty('ok');
+                expect(res.body.ok).toBe("User already exists");
+            })
+    });
 });

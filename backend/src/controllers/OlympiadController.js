@@ -5,19 +5,17 @@ module.exports = {
         const client = await dbClient.connect();
 
         const query = `
-            SELECT * FROM olympiad LIMIT 10;
+            SELECT * FROM OLYMPIAD LIMIT 10;
         `
-        await client.query(query, async (err, resp) => {
-            if (err) {
-                console.error(err);
-                await client.release(true);
-                return res.status(500).json({ok : "Internal error"});
-            }
 
-            // console.log(resp.rows);
-            await client.release(true);
-            return res.status(200).json(resp.rows);
-        });
+        try {
+            const result = await client.query(query);
+            return res.status(200).json(result.rows);
+        } catch (error) {
+            return res.status(500).json({ok : "Internal error"});
+        }
+
+        await client.release(true);
     },
 
     async store(req, res) {
@@ -27,7 +25,7 @@ module.exports = {
 
         // Verificar se a olimpíada já existe
         const userExists = await client.query(`
-            SELECT * FROM olympiad WHERE name = '${name}';
+            SELECT * FROM OLYMPIAD WHERE name = '${name}';
         `);
         if (userExists.rowCount > 0) {
             await client.release(true);
@@ -36,19 +34,17 @@ module.exports = {
 
         // Inserir a olimpíada
         const query = `
-            INSERT INTO olympiad (name, date_start, date_end, school, description)
+            INSERT INTO OLYMPIAD (name, date_start, date_end, school, description)
             VALUES ('${name}', '${date_start}', '${date_end}', '${school}', '${description}');
         `;
 
-        await client.query(query, async (err, resp) => {
-            if (err) {
-                console.error(err);
-                await client.release(true);
-                return res.status(500).json({ok : "Internal error"});
-            }
 
-            await client.release(true);
+        try {
+            await client.query(query);
             return res.status(200).json({ok: true});
-        });
+        } catch (error) {
+            return res.status(500).json({ok : "Internal error"});
+        }
+        await client.release(true);
     }
 };

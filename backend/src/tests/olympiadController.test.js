@@ -1,6 +1,6 @@
 const request = require("supertest");
 const app = require("../app");
-const dbHandle = require(../lib/dbConnection.js);
+const dbHandle = require("../lib/dbConnection");
 
 describe("GET /list_olympiad responses", () => {
     it("should be 200", async () => {

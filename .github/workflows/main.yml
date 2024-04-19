@@ -7,10 +7,22 @@ on:
     branches: ["feature/**"]
 
 jobs:
-  test:
-
+  test:    
     runs-on: ubuntu-latest
-
+    services:
+      postgres:
+        image: postgres:14-alpine
+        env:
+          POSTGRES_PASSWORD: S3cret
+          POSTGRES_USER: backend_user
+          POSTGRES_DB: olimpiada
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js

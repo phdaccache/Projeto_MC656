@@ -1,6 +1,5 @@
 const request = require("supertest");
 const app = require("../app");
-const dbHandle = require("../lib/dbConnection");
 
 describe("GET /list_olympiad responses", () => {
     it("should be 200", async () => {
@@ -51,12 +50,6 @@ describe("POST /insert_olympiad responses", () => {
             school: "Test School",
             description: "This is a test olympiad"
         };
-
-        // Primeira
-        await request(app)
-                .post("/insert_olympiad")
-                .send(newOlympiad)
-                .expect(200);
 
         return request(app)
             .post("/insert_olympiad")

@@ -11,12 +11,12 @@ module.exports = {
             if (err) {
                 // console.error(err);
                 await client.release(true);
-                return res.json({ok : "Internal error"}).status(500);
+                return res.status(500).json({ok : "Internal error"});
             }
 
             // console.log(resp.rows);
             await client.release(true);
-            return res.json(resp.rows).status(200);
+            return res.status(200).json(resp.rows);
         });
     },
 
@@ -31,7 +31,7 @@ module.exports = {
         `);
         if (userExists.rowCount > 0) {
             await client.release(true);
-            return res.json({ok : "Olimpíada já cadastrada."}).status(400);
+            return res.status(400).json({ok : "Olimpíada já cadastrada."});
         }
 
         // Inserir a olimpíada
@@ -44,11 +44,11 @@ module.exports = {
             if (err) {
                 // console.error(err);
                 await client.release(true);
-                return res.json({ok : "Internal error"}).status(500);
+                return res.status(500).json({ok : "Internal error"});
             }
 
             await client.release(true);
-            return res.json({ok: true}).status(200);
+            return res.status(200).json({ok: true});
         });
     }
 };

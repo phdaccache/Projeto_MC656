@@ -11,12 +11,12 @@ module.exports = {
             if (err) {
                 // console.error(err);
                 await client.release(true);
-                return res.json({ok : "Internal error"}).status(500);
+                return res.status(500).json({ok : "Internal error"});
             }
             const user_list = resp.rows;
             // console.log(user_list);
             await client.release(true);
-            return res.json({ user_list }).status(200);
+            return res.status(200).json({ user_list });
         });
     },
 
@@ -29,14 +29,14 @@ module.exports = {
         const email_regex = /^\S+@\S+\.\S+$/;
         if (!email_regex.test(email)) {
             await client.release(true);
-            return res.json({ok : "Invalid email"}).status(400);
+            return res.status(400).json({ok : "Invalid email"});
         }
 
         // Check if phone number is valid
         const phone_number_regex = /^\d{5}-\d{4}$/;
         if (!phone_number_regex.test(phone_number)) {
             await client.release(true);
-            return res.json({ok : "Invalid phone number"}).status(400);
+            return res.status(400).json({ok : "Invalid phone number"});
         }
 
 
@@ -49,11 +49,11 @@ module.exports = {
             if (err) {
                 console.error(err);
                 await client.release(true);
-                return res.json({ok : "Internal error"}).status(500);
+                return res.status(500).json({ok : "Internal error"});
             }
             if (resp.rows.length > 0) {
                 await client.release(true);
-                return res.json({ok : "User already exists"}).status(400);
+                return res.status(400).json({ok : "User already exists"});
             }
 
             // Insert new user
@@ -66,10 +66,10 @@ module.exports = {
                 if (err) {
                     // console.error(err);
                     await client.release(true);
-                    return res.json({ok : "Internal error"}).status(500);
+                    return res.status(500).json({ok : "Internal error"});
                 }
                 await client.release(true);
-                return res.json({ok : "User created"}).status(200);
+                return res.status(200).json({ok : "User created"});
             });
         });
     },

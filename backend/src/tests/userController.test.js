@@ -20,3 +20,25 @@ describe("GET /list_user responses", () => {
                 })
     });
 });
+
+describe("POST /insert_user responses", () => {
+    it("should insert a new user", async () => {
+        const newUser = {
+            name: "Test User",
+            birth_date: "2022-01-01",
+            email: "testuseremail@gmail.com",
+            school: "Test School",
+            gender: "Test gender",
+            phone_number: "95124-9087"
+        };
+
+        return request(app)
+            .post("/insert_user")
+            .send(newUser)
+            .expect(200)
+            .then((res) => {
+                expect(res.body).toHaveProperty('ok');
+                expect(res.body.ok).toBe('User created');
+            })
+    });
+});

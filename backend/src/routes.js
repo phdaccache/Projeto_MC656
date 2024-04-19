@@ -7,16 +7,17 @@ const dbClient = require("./lib/dbConnection");
 routes.get("/list_users", async (req, res) => {    
     const query = `
         SELECT * FROM users;
-    `;
-
-    await dbClient.query(query, async (err, resp) => {
+    `;    
+    const client = await dbClient.connect();
+    await client.query(query, async (err, resp) => {
         if (err) {
             console.error(err);
             return res.send("Internal error").status(500);
         }
-        console.log(resp.rows);        
+        console.log(resp.rows);                       
         return res.send(resp.rows).status(200);
-    });
+    });    
+    await client.release(true);
 });
 
 routes.get("/", (req, res) => {

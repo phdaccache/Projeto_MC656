@@ -67,4 +67,24 @@ describe("POST /insert_user responses", () => {
                 expect(res.body.ok).toBe("User already exists");
             })
     });
+
+    it("shouldn't allow invalid emails", async () => {
+        const newUser = {
+            name: "Test User email",
+            birth_date: "2022-01-01",
+            email: "testuseremail2@gmailcom",
+            school: "Test School",
+            gender: "Test gender",
+            phone_number: "95124-9087"
+        };
+
+        return request(app)
+            .post("/insert_user")
+            .send(newUser)
+            .expect(400)
+            .then((res) => {
+                expect(res.body).toHaveProperty('ok');
+                expect(res.body.ok).toBe("Invalid email");
+            })
+    });
 });

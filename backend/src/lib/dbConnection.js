@@ -2,7 +2,7 @@ const { Pool } = require("pg");
 
 const dbClient = new Pool({
     user: 'backend_user',
-    host: '127.0.0.1',
+    host: 'localhost',
     database: 'olimpiada',
     password: 'S3cret',
     port: 5432,

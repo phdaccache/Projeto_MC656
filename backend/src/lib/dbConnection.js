@@ -14,18 +14,34 @@ dbClient.on("error", (err, client) => {
 });
 
 const createTables = async () => {
-    const queryUsersTable = `
-    DROP TABLE IF EXISTS users;
-    CREATE TABLE users (
-        email varchar,
-        firstName varchar,
-        lastName varchar,
-        age int
-    );
-    `;
     const client = await dbClient.connect();
+
+    const queryUsersTable = `
+        DROP TABLE IF EXISTS users;
+        CREATE TABLE users (
+            email varchar,
+            firstName varchar,
+            lastName varchar,
+            age int
+        );
+    `;
     await client.query(queryUsersTable);
     // console.log("Table users created");
+
+    // Dados das olimpíadas
+    const queryOlympiadsTable = `
+        DROP TABLE IF EXISTS OLYMPIAD;
+        CREATE TABLE OLYMPIAD (
+            name VARCHAR,
+            date_start DATE,
+            date_end DATE,
+            school VARCHAR,
+            description VARCHAR
+        );
+    `;
+    await client.query(queryOlympiadsTable);
+    // console.log("Table olympiads created");
+
     // Create other tables here ...
     await client.release(true);
 }

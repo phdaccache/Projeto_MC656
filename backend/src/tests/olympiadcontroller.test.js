@@ -40,4 +40,29 @@ describe("POST /insert_olympiad responses", () => {
                 expect(res.body.ok).toBe(true);
             })
     });
+
+    it("shouldn't allow duplicates", async () => {
+        const newOlympiad = {
+            name: "Test Olympiad",
+            date_start: "2022-01-01",
+            date_end: "2022-12-31",
+            school: "Test School",
+            description: "This is a test olympiad"
+        };
+
+        // Primeira
+        await request(app)
+                .post("/insert_olympiad")
+                .send(newOlympiad)
+                .expect(200);
+
+        return request(app)
+            .post("/insert_olympiad")
+            .send(newOlympiad)
+            .expect(400)
+            .then((res) => {
+                expect(res.body).toHaveProperty('ok');
+                expect(res.body.ok).toBe("Olimpíada já cadastrada.");
+            })
+    });
 });

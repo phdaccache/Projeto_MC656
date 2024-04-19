@@ -15,13 +15,15 @@ dbClient.on("error", (err, client) => {
 
 const createTables = async () => {
     const queryUsersTable = `
-    DROP TABLE IF EXISTS users;
-    CREATE TABLE users (
-        email varchar,
-        firstName varchar,
-        lastName varchar,
-        age int
-    );
+        DROP TABLE IF EXISTS USERS;
+        CREATE TABLE USERS (
+            name VARCHAR,
+            birth_date DATE,
+            email VARCHAR,
+            school VARCHAR,
+            gender VARCHAR,
+            phone_number VARCHAR
+        );
     `;
     const client = await dbClient.connect();
     await client.query(queryUsersTable);

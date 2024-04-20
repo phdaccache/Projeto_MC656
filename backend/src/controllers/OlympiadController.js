@@ -10,10 +10,10 @@ module.exports = {
 
         try {
             const result = await client.query(query);
-            console.log(result);
             await client.release(true);
             return res.status(200).json(result.rows);
         } catch (error) {
+            console.log(error)
             await client.release(true);
             return res.status(500).json({ok : "Internal error"});
         }

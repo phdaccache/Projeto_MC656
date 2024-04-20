@@ -3,7 +3,7 @@ const app = require("../app");
 
 describe("GET /list_olympiad responses", () => {
     it("should be 200", async () => {
-        return awaitrequest(app)
+        return await request(app)
                 .get("/list_olympiad")
                 .expect(200);
     });
@@ -28,7 +28,7 @@ describe("POST /insert_olympiad responses", () => {
             description: "This is a test olympiad"
         };
 
-        return request(app)
+        return await request(app)
             .post("/insert_olympiad")
             .send(newOlympiad)
             .expect(200)
@@ -48,7 +48,7 @@ describe("POST /insert_olympiad responses", () => {
             description: "This is a test olympiad"
         };
 
-        return request(app)
+        return await request(app)
             .post("/insert_olympiad")
             .send(newOlympiad)
             .expect(400)

@@ -1,18 +1,5 @@
-const express = require("express");
+const app = require("./app");
 
-const server = express();
-
-
-const { Client } = require('pg');
-
-const client = new Client({
-    user: 'backend_user',
-    host: 'localhost',
-    database: 'olimpiada',
-    password: 'S3cret',
-    port: 5432,
+app.listen(3000, () => {
+    console.log("Example app listening on port 3000!");
 });
-
-client.connect();
-
-server.listen(3000);

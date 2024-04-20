@@ -1,0 +1,37 @@
+name: Main Node.js CI
+run-name: ${{ github.actor }} is running the main CI workflow for a ${{ github.event_name }} on ${{ github.ref_name }}
+
+# same workflow for all branches
+on:
+  pull_request:
+    branches: [ "main", "develop" ]
+  push:
+    branches: ["feature/**"]
+  workflow_dispatch:
+
+jobs:
+  test:    
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:14-alpine
+        env:
+          POSTGRES_PASSWORD: S3cret
+          POSTGRES_USER: backend_user
+          POSTGRES_DB: olimpiada
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+      - run: npm --prefix ./backend install
+      - run: psql -d postgresql://backend_user:S3cret@localhost/olimpiada -f ./backend/src/tests/init-db.sql
+      - run: npm --prefix ./backend run test # each branch has its own tests

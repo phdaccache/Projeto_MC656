@@ -23,6 +23,7 @@ const createTables = async () => {
             firstName varchar,
             lastName varchar,
             age int
+
         );
     `;
     await client.query(queryUsersTable);

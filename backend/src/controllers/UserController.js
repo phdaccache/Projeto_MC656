@@ -64,7 +64,7 @@ module.exports = {
 
             await client.query(insert_query, async (err, resp) => {
                 if (err) {
-                    // console.error(err);
+                    console.error(err);
                     await client.release(true);
                     return res.status(500).json({ok : "Internal error"});
                 }

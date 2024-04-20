@@ -5,7 +5,7 @@ module.exports = {
         // GET
         const client = await dbClient.connect();
         const query = `
-        SELECT * FROM USERS;
+        SELECT * FROM users;
         `;
         await client.query(query, async (err, resp) => {
             if (err) {
@@ -42,7 +42,7 @@ module.exports = {
 
         // Check if user already exists
         const query = `
-        SELECT * FROM USERS WHERE email = '${email}';
+        SELECT * FROM users WHERE email = '${email}';
         `;
 
         await client.query(query, async (err, resp) => {
@@ -58,7 +58,7 @@ module.exports = {
 
             // Insert new user
             const insert_query = `
-            INSERT INTO USERS (name, birth_date, email, school, gender, phone_number)
+            INSERT INTO users (name, birth_date, email, school, gender, phone_number)
             VALUES ('${name}', '${birth_date}', '${email}', '${school}', '${gender}', '${phone_number}');
             `;
 

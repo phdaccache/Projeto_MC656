@@ -11,12 +11,13 @@ module.exports = {
         try {
             const result = await client.query(query);
             console.error(result);
+            await client.release(true);
             return res.status(200).json(result.rows);
         } catch (error) {
+            await client.release(true);
             return res.status(500).json({ok : "Internal error"});
         }
 
-        await client.release(true);
     },
 
     async store(req, res) {
@@ -42,10 +43,11 @@ module.exports = {
 
         try {
             await client.query(query);
+            await client.release(true);
             return res.status(200).json({ok: true});
         } catch (error) {
+            await client.release(true);
             return res.status(500).json({ok : "Internal error"});
         }
-        await client.release(true);
     }
 };

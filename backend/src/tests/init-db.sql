@@ -1,10 +1,12 @@
 DROP TABLE IF EXISTS users;
 
 CREATE TABLE users (
+    name varchar,
+    birth_date date,
     email varchar,
-    firstName varchar,
-    lastName varchar,
-    age int
+    school varchar,
+    gender varchar,
+    phone_number varchar    
 );
 
 DROP TABLE IF EXISTS olympiad;

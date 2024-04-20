@@ -1,5 +1,6 @@
 const request = require("supertest");
 const app = require("../app");
+const dbClient = require("../lib/dbConnection"); // force DB init before running
 
 describe("GET /list_olympiad responses", () => {
     it("should be 200", async () => {

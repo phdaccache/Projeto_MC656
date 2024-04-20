@@ -10,7 +10,7 @@ module.exports = {
 
         try {
             const result = await client.query(query);
-            console.error(result);
+            console.log(result);
             await client.release(true);
             return res.status(200).json(result.rows);
         } catch (error) {

@@ -1,5 +1,5 @@
 const express = require("express");
-const UserController = require("./controllers/UserController");
+const OlympiadController = require('./controllers/OlympiadController');
 
 const routes = express.Router();
 
@@ -8,10 +8,11 @@ routes.get("/", (req, res) => {
 })
 
 /*
-======================= USUÁRIOS =======================
+======================= OLIMPÍADAS =======================
 */
-routes.get("/list_user", UserController.index);
-routes.post("/insert_user", UserController.store);
+routes.get('/list_olympiad', OlympiadController.index);
+routes.post('/insert_olympiad', OlympiadController.store);
+
 
 module.exports = routes;
 

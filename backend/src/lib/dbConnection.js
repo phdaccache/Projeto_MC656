@@ -2,7 +2,7 @@ const { Pool } = require("pg");
 
 const dbClient = new Pool({
     user: 'backend_user',
-    host: '127.0.0.1',
+    host: 'localhost',
     database: 'olimpiada',
     password: 'S3cret',
     port: 5432,
@@ -14,20 +14,35 @@ dbClient.on("error", (err, client) => {
 });
 
 const createTables = async () => {
+    const client = await dbClient.connect();
+
     const queryUsersTable = `
-        DROP TABLE IF EXISTS USERS;
-        CREATE TABLE USERS (
-            name VARCHAR,
-            birth_date DATE,
-            email VARCHAR,
-            school VARCHAR,
-            gender VARCHAR,
-            phone_number VARCHAR
+        DROP TABLE IF EXISTS users;
+        CREATE TABLE users (
+            email varchar,
+            firstName varchar,
+            lastName varchar,
+            age int
+
         );
     `;
-    const client = await dbClient.connect();
     await client.query(queryUsersTable);
     // console.log("Table users created");
+
+    // Dados das olimpíadas
+    const queryOlympiadsTable = `
+        DROP TABLE IF EXISTS olympiad;
+        CREATE TABLE olympiad (
+            name VARCHAR,
+            date_start DATE,
+            date_end DATE,
+            school VARCHAR,
+            description VARCHAR
+        );
+    `;
+    await client.query(queryOlympiadsTable);
+    // console.log("Table olympiads created");
+
     // Create other tables here ...
     await client.release(true);
 }

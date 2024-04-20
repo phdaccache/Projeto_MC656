@@ -14,3 +14,4 @@ routes.get("/list_user", UserController.index);
 routes.post("/insert_user", UserController.store);
 
 module.exports = routes;
+

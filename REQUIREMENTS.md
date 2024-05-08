@@ -1,6 +1,6 @@
 Inicialmente foram identificadas como principais fontes de informação a análise dos principais stakeholders e o conhecimento do domínio por parte do grupo de desenvolvedores, visto que a equipe já participou de eventos esportivos no formato proposto pelo sistema. Foi considerada, também, a proposta do projeto de que “o objetivo principal é auxiliar professores e orientadores a organizar um ‘interclasses olímpico’ dentro de seus colégios, bem como fornecer uma plataforma intuitiva para os alunos e funcionários acompanharem os resultados das competições.”.
 
-Como principais stakeholders envolvidos no processo, houve um destaque para os stakeholders de professores coordenadores de Educação Física, que são os principais usuários envolvidos na criação de eventos olímpicos, e alunos de colégios, que são os participantes dos eventos.
+Como principais stakeholders envolvidos no processo, houve um destaque para os stakeholders de professores coordenadores de Educação Física, que são os principais usuários envolvidos na criação de eventos olímpicos, e alunos de colégios, que são os participantes dos eventos. Apesar dos stakeholders da diretoria da escola desempenharem um importante papel na decisão final de aceitação do software, foi considerado que os usuários finais iriam influenciar mais nas características do produto.
 
 Para a elicitação de requisitos, foram escolhidas as técnicas de benchmarking e de brainstorming. Para se ter uma noção melhor de como encontrar soluções, foi feita uma análise dos principais softwares envolvidos no contexto de organização/planejamento e de eventos esportivos por meio de uma reunião com o grupo.
 
@@ -28,9 +28,33 @@ Com isso, o grupo conseguiu ter uma visão ainda maior sobre como o software pod
 
 Em um tempo especificado de 30 minutos, cada membro da equipe pensaria e escreveria todas as funcionalidades que conseguisse pensar sobre o sistema. O objetivo era gerar o máximo de ideias possíveis individualmente para depois discuti-las e combiná-las conjuntamente. Com isso definido, a técnica foi executada e as ideias foram levantadas por cada um. As ideias pensadas foram:
 
-
-
-
+1. Design acessível e de fácil entendimento.
+2. Sistema rápido que não fica demorando para carregar.
+3. Mostrar um exemplo de evento para o usuário ter uma ideia de como organizar o seu próprio.
+4. Cadastros de escolas, professores e alunos.
+5. Permitir a criação de olimpíadas.
+6. Agendamento de eventos e treinos.
+7. Criação de novos esportes (com criação das descrições e regras).
+8. Criação de enquetes para consultar adesão aos eventos.
+9. Criação de enquetes para palpites.
+10. Gerenciamento de recursos (quadras, salas, objetos, juízes).
+11. Personalização de perfil (medidas, interesses, fotos, etc).
+12. Criação de questionários para avaliação física dos alunos.
+13. Sistema de feedback para cada evento.
+14. Notificações e confirmações de eventos.
+15. Possibilidade de enviar convites para alunos, que podem aceitar ou não participar de alguma olimpíada ou esporte específico.
+16. Chat ao vivo entre alunos.
+17. Fórum da comunidade para discutir jogos e estratégias.
+18. Sistema de pontuação automática para rankear os times.
+19. Sistema de matching automático para os próximos jogos.
+20. Sugestões de horários baseadas nas agendas da escola, dos professores e dos competidores + calendário integrado dos eventos.
+21. Reagendamentos automáticos.
+22. Atualizações instantâneas dos resultados.
+23. Estatísticas e análises de desempenho de times e alunos.
+24. Acompanhamento de participação dos alunos.
+25. Recursos de aprendizagem para cada esporte (descrição, regras).
+26. Suporte para vários idiomas.
+27. Histórico de partidas.
 
 Depois disso, houve uma discussão para entender melhor as ideias. O entendimento e a consolidação das ideias permitiu identificar as seguintes ideias principais:
 

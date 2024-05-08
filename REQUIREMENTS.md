@@ -65,3 +65,6 @@ Jornada do Usuário:
 
 
 
+Analisando essa jornada, vimos que Eduardo claramente precisa de uma conta para utilizar o sistema. Com essa informação, levamos em conta os pensamentos, pontos críticos e oportunidades de melhoria, e extraímos o primeiro épico necessário, o do Gerenciamento de Usuários. Após o cadastro e vinculação de escolas no sistema, nossa persona também cadastra dados relevantes relacionados aos materiais da escola. Novamente, analisando todas informações relevantes dessa ação, levantamos o segundo épico, o do Gerenciamento de Materiais/Recursos. Finalmente, a funcionalidade mais marcante e importante do sistema, também mencionada anteriormente no planejamento, que é a criação do evento de olimpíadas, foi identificada na jornada e levantada para nosso terceiro épico, o da Criação de uma Olimpíada.
+
+O detalhamento dos épicos e das histórias referentes a eles, juntamente com os cards, está disponível nas issues do GitHub.

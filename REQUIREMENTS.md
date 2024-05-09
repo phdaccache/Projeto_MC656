@@ -17,7 +17,7 @@ Primeiramente, uma análise do Google Agenda (Google Calendar) foi feita para id
 #### Informações em um evento novo:
 ![Calendar](/assets/images/google_calendar.png)
 
-Depois, para compreender melhor soluções que existem no contexto esportivo, foi feita uma análise do Flashscore, que é uma plataforma de visualização de resultados de esportes.. Percebeu-se que essa plataforma permite uma visualização de todos os esportes diretamente para o usuário. Além disso, é possível clicar sobre um determinado resultado para ver mais informações, como estatísticas da partida e odds anteriores ao jogo.
+Depois, para compreender melhor soluções que existem no contexto esportivo, foi feita uma análise do Flashscore, que é uma plataforma de visualização de resultados de esportes. Percebeu-se que essa plataforma permite uma visualização de todos os esportes diretamente para o usuário. Além disso, é possível clicar sobre um determinado resultado para ver mais informações, como estatísticas da partida e odds anteriores ao jogo.
 
 #### Esportes disponíveis:
 ![Esportes](/assets/images/esportes.png)
@@ -104,6 +104,6 @@ Finalmente, para pensar especificamente em como essa persona interage com o sist
 
 ## Épicos e Histórias
 
-Analisando essa jornada, vimos que Eduardo claramente precisa de uma conta para utilizar o sistema. Com essa informação, levamos em conta os pensamentos, pontos críticos e oportunidades de melhoria, e extraímos o primeiro épico necessário, o do Gerenciamento de Usuários. Após o cadastro e vinculação de escolas no sistema, nossa persona também cadastra dados relevantes relacionados aos materiais da escola. Novamente, analisando todas informações relevantes dessa ação, levantamos o segundo épico, o do Gerenciamento de Materiais/Recursos. Finalmente, a funcionalidade mais marcante e importante do sistema, também mencionada anteriormente no planejamento, que é a criação do evento de olimpíadas, foi identificada na jornada e levantada para nosso terceiro épico, o da Criação de uma Olimpíada.
+Analisando essa jornada, vimos que Eduardo claramente precisa de uma conta para utilizar o sistema. Com essa informação, levamos em conta os pensamentos, pontos críticos e oportunidades de melhoria, e extraímos o primeiro épico necessário, o do _Gerenciamento de Usuários_. Após o cadastro e vinculação de escolas no sistema, nossa persona também cadastra dados relevantes relacionados aos materiais da escola. Novamente, analisando todas informações relevantes dessa ação, levantamos o segundo épico, o do _Gerenciamento de Materiais/Recursos_. Finalmente, a funcionalidade mais marcante e importante do sistema, também mencionada anteriormente no planejamento, que é a criação do evento de olimpíadas, foi identificada na jornada e levantada para nosso terceiro épico, o da _Criação de uma Olimpíada_.
 
-O detalhamento dos épicos e das histórias referentes a eles, juntamente com os cards, está disponível nas issues do GitHub.
+O detalhamento dos épicos e das histórias menores está nos cards, que estão disponíveis nas issues do GitHub.

@@ -63,6 +63,13 @@ Em um tempo especificado de 30 minutos, cada membro da equipe pensaria e escreve
 25. Recursos de aprendizagem para cada esporte (descrição, regras).
 26. Suporte para vários idiomas.
 27. Histórico de partidas.
+28. Barra de pesquisa para consultar informações sobre esportes, jogos, alunos e professores.
+29. Opções de filtro para visualização dos esportes e jogos.
+30. Forma rápida e simples de atualizar os resultados dos jogos no sistema.
+31. Criação de prêmios e rankings específicos para cada esporte (melhor time, melhor da partida, artilheiro, etc).
+32. Possibilidade de adicionar vídeos e clipes de cada jogo.
+33. Próximos jogos facilmente visualizados na página inicial.
+34. Aba de notícias locais sobre os eventos ou esportes no geral.
 
 Depois disso, houve uma discussão para entender melhor as ideias. O entendimento e a consolidação das ideias permitiu identificar as seguintes ideias principais:
 

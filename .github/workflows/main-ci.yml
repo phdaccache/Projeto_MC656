@@ -4,13 +4,13 @@ run-name: ${{ github.actor }} is running the main CI workflow for a ${{ github.e
 # same workflow for all branches
 on:
   pull_request:
-    branches: [ "main", "develop" ]
+    branches: ["main", "develop"]
   push:
     branches: ["feature/**"]
   workflow_dispatch:
 
 jobs:
-  test:    
+  test:
     runs-on: ubuntu-latest
     services:
       postgres:
@@ -27,11 +27,19 @@ jobs:
         ports:
           - 5432:5432
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20.x'
-      - run: npm --prefix ./backend install
-      - run: psql -d postgresql://backend_user:S3cret@localhost/olimpiada -f ./backend/src/tests/init-db.sql
-      - run: npm --prefix ./backend run test # each branch has its own tests
+          node-version: "20.x"
+      - name: Install backend dependencies
+        run: npm --prefix ./backend ci
+      - name: Install frontend dependencies
+        run: npm --prefix ./frontend ci
+      - name: Start Database
+        run: psql -d postgresql://backend_user:S3cret@localhost/olimpiada -f ./backend/src/tests/init-db.sql
+      - name: Run backend tests
+        run: npm --prefix ./backend run test # each branch has its own tests
+      - name: Run frontend tests
+        run: npm --prefix ./frontend run test # each branch has its own tests

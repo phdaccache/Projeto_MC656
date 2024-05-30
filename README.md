@@ -14,27 +14,6 @@ André Rodrigues Alves da Silva - 231392
 
 # Instalação
 
-Instale a versão 20.12.2 (LTS) do [NodeJS](https://nodejs.org/en/download) e [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) e a ultima versão do [Docker](https://docs.docker.com/engine/install/).
-Clone o repositório
+Instale a versão 20.12.2 (LTS) do [NodeJS](https://nodejs.org/en/download) e [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) e a ultima versão do [Docker](https://docs.docker.com/engine/install/) para executar localmente o projeto.
 
-```
-git clone git@github.com:phdaccache/Projeto_MC656.git && cd Projeto_MC656
-```
-
-```
-git fetch && git checkout develop
-```
-
-Para inicializar o banco de dados, na raiz do projeto execute:
-
-```
-sudo docker compose up -d
-```
-
-Logo após isso, inicialize o servidor:
-
-```
-cd backend
-npm install
-npm run dev
-```
+Para instruções detalhadas de instalação, consulte o arquivo [INSTALL.md](./INSTALL.md)

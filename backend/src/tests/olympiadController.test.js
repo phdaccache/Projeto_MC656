@@ -35,7 +35,7 @@ describe("POST /insert_olympiad responses", () => {
             .expect(200)
             .then((res) => {
                 expect(res.body).toHaveProperty('ok');
-                expect(res.body.ok).toBe(true);
+                expect(res.body.ok).toBe("Olimpíada criada");
             });
 
     });

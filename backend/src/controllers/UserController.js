@@ -56,7 +56,7 @@ class UserController {
 
         const queryMessage = `
         INSERT INTO users (name, birth_date, email, school, gender, phone_number)
-        VALUES ('${name}', '${birth_date}', '${email}', '${school}', '${gender}', '${phone_number}');
+        VALUES ('${name}', '${birthDate}', '${email}', '${school}', '${gender}', '${phoneNumber}');
         `;
 
         const userInsertion = await client.query(queryMessage);

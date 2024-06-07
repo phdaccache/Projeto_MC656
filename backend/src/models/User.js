@@ -2,7 +2,7 @@ const DbClient = require("../lib/dbConnection");
 
 class UserModel {
   static async listUsers() {
-    const databaseConnection = new DbClient();
+    const databaseConnection = DbClient.getInstance();
 
     const queryMessage = `SELECT * FROM users;`;
     const queryResult = await databaseConnection.query(queryMessage);
@@ -11,7 +11,7 @@ class UserModel {
   }
 
   static async createUser(userData) {
-    const databaseConnection = new DbClient();
+    const databaseConnection = DbClient.getInstance();
 
     const {
       name,
@@ -32,7 +32,7 @@ class UserModel {
   }
 
   static async findUser(userData) {
-    const databaseConnection = new DbClient();
+    const databaseConnection = DbClient.getInstance();
 
     const { email } = userData;
 

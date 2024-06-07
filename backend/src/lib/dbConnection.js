@@ -1,18 +1,40 @@
 const { Pool } = require("pg");
 
-class DbClient {
-  constructor() {
-    this.client = new Pool({
-      user: "backend_user",
-      host: "localhost",
-      database: "olimpiada",
-      password: "S3cret",
-      port: 5432,
-    });
+// Permitir a criação apenas pela própria classe (construtor privado)
+const creationKey = Symbol();
 
-    this.client.on("error", (err, client) => {
-      console.error("Error:", err);
-    });
+class DbClient {
+  constructor(usedKey) {
+    if (usedKey !== creationKey) {
+      throw new Error(
+        "You can't require a new Database connection directly. Use getInstance()!"
+      );
+    }
+
+    if (!DbClient.instance) {
+      this.client = new Pool({
+        user: "backend_user",
+        host: "localhost",
+        database: "olimpiada",
+        password: "S3cret",
+        port: 5432,
+      });
+
+      this.client.on("error", (err, client) => {
+        console.error("Error:", err);
+      });
+
+      DbClient.instance = this;
+    }
+
+    return DbClient.instance;
+  }
+
+  static getInstance() {
+    if (!DbClient.instance) {
+      DbClient.instance = new DbClient(creationKey);
+    }
+    return DbClient.instance;
   }
 
   async query(query, values) {

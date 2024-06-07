@@ -16,7 +16,7 @@ describe("GET /list_user responses", () => {
       .get("/list_user")
       .expect(200)
       .then((res) => {
-        expect(res.body.user_list).toEqual([]);
+        expect(res.body.userList).toEqual([]);
       });
   });
 });

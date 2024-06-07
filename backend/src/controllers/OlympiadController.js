@@ -1,8 +1,8 @@
-const dbClient = require("../lib/dbConnection");
+const DbClient = require("../lib/dbConnection");
 
-module.exports = {
-    async index(req, res) {
-        const client = await dbClient.connect();
+class OlympiadController {
+    static async index(req, res) {
+        const client = new DbClient();
 
         const query = `
             SELECT * FROM OLYMPIAD LIMIT 10;
@@ -10,44 +10,53 @@ module.exports = {
 
         try {
             const result = await client.query(query);
-            await client.release(true);
             return res.status(200).json(result.rows);
         } catch (error) {
             console.log(error)
-            await client.release(true);
-            return res.status(500).json({ok : "Internal error"});
-        }
-
-    },
-
-    async store(req, res) {
-        const client = await dbClient.connect();
-
-        const {name, date_start, date_end, school, description} = req.body;
-
-        // Verificar se a olimpíada já existe
-        const userExists = await client.query(`
-            SELECT * FROM OLYMPIAD WHERE name = '${name}';
-        `);
-        if (userExists.rowCount > 0) {
-            await client.release(true);
-            return res.status(400).json({ok : "Olimpíada já cadastrada."});
-        }
-
-        // Inserir a olimpíada
-        const query = `
-            INSERT INTO OLYMPIAD (name, date_start, date_end, school, description)
-            VALUES ('${name}', '${date_start}', '${date_end}', '${school}', '${description}');
-        `;
-
-
-        try {
-            await client.query(query);
-            await client.release(true);
-            return res.status(200).json({ok: true});
-        } catch (error) {
-            await client.release(true);
             return res.status(500).json({ok : "Internal error"});
         }
     }
-};
+
+    static async #checkIfOlympiadExists(client, olympiadData) {
+        const {name} = olympiadData;
+
+        const queryMessage = `
+        SELECT * FROM olympiad WHERE name = '${name}';
+        `;
+
+        const olympiadLookup = await client.query(queryMessage);
+
+        if (olympiadLookup.rows.length > 0) {
+            return {ok : "Olimpíada já cadastrada."};
+        }
+
+        return {ok : "Olimpíada não foi cadastrada."};
+    }
+
+    static async #insertOlympiad(client, olympiadData) {
+        const {name, date_start: dateStart, date_end: dateEnd, school, description} = olympiadData;
+
+        const queryMessage = `
+        INSERT INTO olympiad (name, date_start, date_end, school, description)
+        VALUES ('${name}', '${dateStart}', '${dateEnd}', '${school}', '${description}');
+        `;
+
+        const olympiadInsertion = await client.query(queryMessage);
+
+        return {ok : "Olimpíada criada"};
+    }
+
+    static async store(req, res) {
+        const client = new DbClient();
+
+        const olympiadExists = await OlympiadController.#checkIfOlympiadExists(client, req.body);
+        if (olympiadExists.ok === "Olimpíada já cadastrada.") {
+            return res.status(400).json(olympiadExists);
+        }
+
+        const insertionResult = await OlympiadController.#insertOlympiad(client, req.body);
+        return res.status(200).json(insertionResult);
+    }
+}
+
+module.exports = OlympiadController;

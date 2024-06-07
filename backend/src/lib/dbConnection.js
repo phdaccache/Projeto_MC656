@@ -1,55 +1,26 @@
 const { Pool } = require("pg");
 
-const dbClient = new Pool({
-    user: 'backend_user',
-    host: 'localhost',
-    database: 'olimpiada',
-    password: 'S3cret',
-    port: 5432,
-});
+class DbClient {
+    constructor() {
+        this.client = new Pool({
+            user: 'backend_user',
+            host: 'localhost',
+            database: 'olimpiada',
+            password: 'S3cret',
+            port: 5432,
+        });
 
-// Error handler
-dbClient.on("error", (err, client) => {
-    console.error("Error:", err);
-});
+        this.client.on("error", (err, client) => {
+            console.error("Error:", err);
+        });
+    }
 
-const createTables = async () => {
-    const client = await dbClient.connect();
-
-    const queryUsersTable = `
-        DROP TABLE IF EXISTS users;
-        CREATE TABLE users (
-            name varchar,
-            birth_date date,
-            email varchar,
-            school varchar,
-            gender varchar,
-            phone_number varchar  
-        );
-    `;
-    await client.query(queryUsersTable);
-    // console.log("Table users created");
-
-    // Dados das olimpíadas
-    const queryOlympiadsTable = `
-        DROP TABLE IF EXISTS olympiad;
-        CREATE TABLE olympiad (
-            name VARCHAR,
-            date_start DATE,
-            date_end DATE,
-            school VARCHAR,
-            description VARCHAR
-        );
-    `;
-    await client.query(queryOlympiadsTable);
-    // console.log("Table olympiads created");
-
-    // Create other tables here ...
-    await client.release(true);
+    async query(query, values) {
+        const client = await this.client.connect();
+        const res = await client.query(query, values);
+        client.release();
+        return res;
+    }
 }
 
-// Create tables
-createTables();
-
-// Export the client
-module.exports = dbClient;
+module.exports = DbClient;

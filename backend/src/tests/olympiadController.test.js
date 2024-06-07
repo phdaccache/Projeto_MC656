@@ -12,7 +12,7 @@ describe("GET /list_olympiad responses", () => {
       .get("/list_olympiad")
       .expect(200)
       .then((res) => {
-        expect(res.body).toEqual([]);
+        expect(res.body.olympiadList).toEqual([]);
       });
   });
 });

@@ -17,3 +17,19 @@ André Rodrigues Alves da Silva - 231392
 Instale a versão 20.12.2 (LTS) do [NodeJS](https://nodejs.org/en/download) e [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) e a ultima versão do [Docker](https://docs.docker.com/engine/install/) para executar localmente o projeto.
 
 Para instruções detalhadas de instalação, consulte o arquivo [INSTALL.md](./INSTALL.md)
+
+# Arquitetura
+
+Descrição arquitetura aqui.
+
+## C1
+Imagem aqui.
+Explicação aqui.
+
+## C2
+Imagem aqui.
+Explicação aqui.
+
+## C3
+Imagem aqui.
+Explicação aqui.

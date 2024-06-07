@@ -10,11 +10,9 @@ class UserController {
 
         await client.query(query, async (err, resp) => {
             if (err) {
-                // console.error(err);
                 return res.status(500).json({ok : "Internal error"});
             }
             const user_list = resp.rows;
-            // console.log(user_list);
             return res.status(200).json({ user_list });
         });
     }

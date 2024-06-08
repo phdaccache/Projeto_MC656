@@ -32,18 +32,26 @@ Além disso, esse padrão permite que a visão funcione quase como algo secundá
 Por fim, como os objetos não são necessariamente visuais, fica mais fácil testar cada funcionalidade do sistema sem ter que necessariamente se preocupar com as apresentações dos mesmos.
 
 ## Diagrama C4 para a Arquitetura
+O diagrama C4 é um diagrama baseado em 4 diagramas (de Contexto, de Container, de Componentes e de Código). Os dois primeiros diagramas foram feitos para auxiliar e complementar o diagrama de nível 3 (de componentes) que é o foco da atividade.
 
-### Diagrama de Contexto do Sistema
+
+### Diagrama de Contexto do Sistema (nível 1)
 descrição
 
 imagem
 
-### Diagrama de Container
+### Diagrama de Container (nível 2)
 descrição
 
 imagem
 
-### Diagrama de Componentes
+### Diagrama de Componentes (nível 3)
 descrição
 
 imagem
+
+#### Detalhamento Componente 1
+Explicação aqui.
+
+#### Detalhamento Componente 2
+Explicação aqui.

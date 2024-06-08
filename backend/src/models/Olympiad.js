@@ -2,7 +2,7 @@ const DbClient = require("../lib/dbConnection");
 
 class OlympiadModel {
   static async listOlympiads() {
-    const databaseConnection = new DbClient();
+    const databaseConnection = DbClient.getInstance();
 
     const queryMessage = `SELECT * FROM olympiad;`;
     const queryResult = await databaseConnection.query(queryMessage);
@@ -11,7 +11,7 @@ class OlympiadModel {
   }
 
   static async createOlympiad(olympiadData) {
-    const databaseConnection = new DbClient();
+    const databaseConnection = DbClient.getInstance();
 
     const {
       name,
@@ -32,7 +32,7 @@ class OlympiadModel {
   }
 
   static async findOlympiad(olympiadData) {
-    const databaseConnection = new DbClient();
+    const databaseConnection = DbClient.getInstance();
 
     const { name } = olympiadData;
 

@@ -36,12 +36,12 @@ O diagrama C4 é um diagrama baseado em 4 diagramas (de Contexto, de Container, 
 
 
 ### Diagrama de Contexto do Sistema (nível 1)
-descrição
+O foco principal desse diagrama é mostrar os usuários e como eles interagem com os diferentes sistemas do software. Devido à pequena complexidade arquitetural desse projeto, esse diagram contém apenas um usuário (que pode ser tanto o professor quanto o aluno) interagindo com o sistema.
 
 imagem
 
 ### Diagrama de Container (nível 2)
-descrição
+Esse segundo diagrama é como um zoom-in do diagrama anterior. O container mostra, em alto nível, o formato da arquitetura do software e como as responsabilidades são distribúidas nele. Aqui também são mostradas algumas tecnologias que serão utilizadas e como os containers se comunicam.
 
 imagem
 

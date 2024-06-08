@@ -28,8 +28,10 @@ O padrão arquitetural escolhido para o projeto foi o MVC (Model-View-Controller
 * Controladoras: tratam e interpretam eventos gerados por dispositivos de entrada.
 * Modelo: armazenam os dados manipulados pela aplicação.
 
-Esse padrão foi adotado porque, dentre outras vantagens, favorece a especialização do trabalho em desenvolvimento. Dessa forma, como o trabalho é feito em grupo, é possível que uma pessoa esteja preocupada em desenvolver a questão da interface gráfica por exemplo (visão + controladoras) e a outra pessoa o armazenamento dos dados (modelo).
-Além disso, esse padrão permite que a visão funcione quase como algo secundário do sistema no contexto da disciplina. A ideia é fazer o sistema funcionar de forma adequada. Porém, a forma como isso será apresentado ao usuário pode variar de acordo com o conhecimento e capacidade do grupo.
+Esse padrão foi adotado porque, dentre outras vantagens, favorece a especialização do trabalho em desenvolvimento. Dessa forma, como o trabalho é feito em grupo, é possível que uma pessoa esteja preocupada em desenvolver a questão da interface gráfica por exemplo e a outra pessoa o armazenamento dos dados.
+
+Cada grupo tem suas responsabilidades específicas e, com isso, fica mais simples pensar nos métodos e funções necessárias para implementar cada parte específica.
+
 Por fim, como os objetos não são necessariamente visuais, fica mais fácil testar cada funcionalidade do sistema sem ter que necessariamente se preocupar com as apresentações dos mesmos.
 
 ## Diagrama C4 para a Arquitetura

@@ -33,4 +33,17 @@ Por fim, como os objetos não são necessariamente visuais, fica mais fácil tes
 
 ## Diagrama C4 para a Arquitetura
 
-imagem.
+### Diagrama de Contexto do Sistema
+descrição
+
+imagem
+
+### Diagrama de Container
+descrição
+
+imagem
+
+### Diagrama de Componentes
+descrição
+
+imagem

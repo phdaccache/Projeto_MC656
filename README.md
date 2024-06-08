@@ -30,7 +30,7 @@ O padrão arquitetural escolhido para o projeto foi o MVC (Model-View-Controller
 
 Esse padrão foi adotado porque, dentre outras vantagens, favorece a especialização do trabalho em desenvolvimento. Dessa forma, como o trabalho é feito em grupo, é possível que uma pessoa esteja preocupada em desenvolver a questão da interface gráfica por exemplo e a outra pessoa o armazenamento dos dados.
 
-Cada grupo tem suas responsabilidades específicas e, com isso, fica mais simples pensar nos métodos e funções necessárias para implementar cada parte específica.
+Cada grupo tem suas responsabilidades específicas e, com isso, fica mais simples pensar nos métodos e funções que são necessários para implementar cada parte específica.
 
 Por fim, como os objetos não são necessariamente visuais, fica mais fácil testar cada funcionalidade do sistema sem ter que necessariamente se preocupar com as apresentações dos mesmos.
 

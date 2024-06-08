@@ -6,7 +6,7 @@ CREATE TABLE users (
     email varchar,
     school varchar,
     gender varchar,
-    phone_number varchar    
+    phone_number varchar
 );
 
 DROP TABLE IF EXISTS olympiad;

@@ -1,83 +1,41 @@
-const DbClient = require("../lib/dbConnection");
+const User = require("../models/User");
 
 class UserController {
-    static async index (req, res) {
-        const client = new DbClient();
+  static async index(req, res) {
+    const userList = await User.listUsers();
+    return res.status(200).json({ userList });
+  }
 
-        const query = `
-        SELECT * FROM users;
-        `;
+  static #validateUserData(userData) {
+    const { email, phone_number: phoneNumber } = userData;
 
-        await client.query(query, async (err, resp) => {
-            if (err) {
-                return res.status(500).json({ok : "Internal error"});
-            }
-            const user_list = resp.rows;
-            return res.status(200).json({ user_list });
-        });
+    const emailRegex = /^\S+@\S+\.\S+$/;
+    if (!emailRegex.test(email)) {
+      return { ok: "Invalid email" };
     }
 
-    static #validateUserData(userData) {
-        const {email, phone_number: phoneNumber} = userData;
-
-        const emailRegex = /^\S+@\S+\.\S+$/;
-        if (!emailRegex.test(email)) {
-            return {ok : "Invalid email"};
-        }
-
-        const phoneNumberRegex = /^\d{5}-\d{4}$/;
-        if (!phoneNumberRegex.test(phoneNumber)) {
-            return {ok : "Invalid phone number"};
-        }
-
-        return {ok : "Valid data"};
+    const phoneNumberRegex = /^\d{5}-\d{4}$/;
+    if (!phoneNumberRegex.test(phoneNumber)) {
+      return { ok: "Invalid phone number" };
     }
 
-    static async #checkIfUserExists(client, userData) {
-        const {email} = userData;
+    return { ok: "Valid data" };
+  }
 
-        const queryMessage = `
-        SELECT * FROM users WHERE email = '${email}';
-        `;
-
-        const userLookup = await client.query(queryMessage);
-
-        if (userLookup.rows.length > 0) {
-            return {ok : "User already exists"};
-        }
-
-        return {ok : "User does not exist"};
+  static async store(req, res) {
+    const validation = UserController.#validateUserData(req.body);
+    if (validation.ok !== "Valid data") {
+      return res.status(400).json(validation);
     }
 
-    static async #insertUser(client, userData) {
-        const { name, birth_date: birthDate, email, school, gender, phone_number: phoneNumber } = userData;
-
-        const queryMessage = `
-        INSERT INTO users (name, birth_date, email, school, gender, phone_number)
-        VALUES ('${name}', '${birthDate}', '${email}', '${school}', '${gender}', '${phoneNumber}');
-        `;
-
-        const userInsertion = await client.query(queryMessage);
-
-        return {ok : "User created"};
+    const userExists = await User.findUser(req.body);
+    if (userExists.length > 0) {
+      return res.status(400).json({ ok: "User already exists" });
     }
 
-    static async store (req, res) {
-        const client = new DbClient();
-
-        const validation = UserController.#validateUserData(req.body);
-        if (validation.ok !== "Valid data") {
-            return res.status(400).json(validation);
-        }
-
-        const userExists = await UserController.#checkIfUserExists(client, req.body);
-        if (userExists.ok !== "User does not exist") {
-            return res.status(400).json(userExists);
-        }
-
-        const insertionResult = await UserController.#insertUser(client, req.body);
-        return res.status(200).json(insertionResult);
-    }
+    const insertionResult = await User.createUser(req.body);
+    return res.status(200).json({ ok: "User created" });
+  }
 }
 
 module.exports = UserController;

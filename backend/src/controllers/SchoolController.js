@@ -19,7 +19,6 @@ class SchoolController {
     const { manager } = req.body;
     const managerExists = await User.findUser({ email: manager });
     if (managerExists.length <= 0) {
-      console.log("rip");
       return res.status(400).json({ ok: "Manager doesn't exist" });
     }
 

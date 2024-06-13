@@ -25,6 +25,18 @@ class SchoolController {
     const insertionResult = await School.createSchool(req.body);
     return res.status(200).json({ ok: "School created" });
   }
+
+  static async delete(req, res) {
+    const { id: name } = req.params;
+
+    const school = await School.findSchool({ name });
+    if (!school) {
+      return res.status(400).json({ ok: "School not found" });
+    }
+
+    const deletionResult = await School.deleteSchool({ name });
+    return res.status(200).json({ ok: "School deleted" });
+  }
 }
 
 module.exports = SchoolController;

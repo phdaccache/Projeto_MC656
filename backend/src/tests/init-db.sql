@@ -6,8 +6,14 @@ CREATE TABLE users (
     email varchar,
     school varchar,
     gender varchar,
-    phone_number varchar
+    phone_number varchar,
+
+    PRIMARY KEY (email)
 );
+
+-- Default user to manage the schools
+INSERT INTO users (name, email)
+            VALUES ('Manager', 'schoolmanager@gmail.com');
 
 DROP TABLE IF EXISTS olympiad;
 
@@ -18,3 +24,14 @@ CREATE TABLE olympiad (
     school VARCHAR,
     description VARCHAR
 );
+
+DROP TABLE IF EXISTS School;
+
+CREATE TABLE School (
+    name VARCHAR,
+    manager VARCHAR,
+
+    PRIMARY KEY (name),
+    FOREIGN KEY (manager)
+        REFERENCES users (email)
+)

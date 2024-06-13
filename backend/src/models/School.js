@@ -14,6 +14,34 @@ class SchoolModel {
 
     return queryResult.rows;
   }
+
+  static async findSchool(schoolData) {
+    const databaseConnection = DbClient.getInstance();
+
+    const { name } = schoolData;
+
+    const queryMessage = `
+            SELECT * FROM School
+            WHERE name = '${name}';
+            `;
+    const queryResult = await databaseConnection.query(queryMessage);
+
+    return queryResult.rows;
+  }
+
+  static async deleteSchool(schoolData) {
+    const databaseConnection = DbClient.getInstance();
+
+    const { name } = schoolData;
+
+    const queryMessage = `
+            DELETE FROM School
+            WHERE name = '${name}';
+            `;
+    const queryResult = await databaseConnection.query(queryMessage);
+
+    return queryResult.rows;
+  }
 }
 
 module.exports = SchoolModel;

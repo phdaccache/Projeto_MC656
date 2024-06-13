@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS School;
 DROP TABLE IF EXISTS users;
 
 CREATE TABLE users (
@@ -25,8 +26,6 @@ CREATE TABLE olympiad (
     description VARCHAR
 );
 
-DROP TABLE IF EXISTS School;
-
 CREATE TABLE School (
     name VARCHAR,
     manager VARCHAR,
@@ -34,4 +33,4 @@ CREATE TABLE School (
     PRIMARY KEY (name),
     FOREIGN KEY (manager)
         REFERENCES users (email)
-)
+);

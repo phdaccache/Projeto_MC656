@@ -27,5 +27,6 @@ routes.post("/insert_user", UserController.store);
 ======================= SCHOOLS =======================
 */
 routes.post("/school", SchoolController.store);
+routes.delete("/school/:id", SchoolController.delete);
 
 module.exports = routes;

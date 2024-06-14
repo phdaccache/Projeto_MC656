@@ -17,14 +17,13 @@ class UserModel {
       name,
       birth_date: birthDate,
       email,
-      school,
       gender,
       phone_number: phoneNumber,
     } = userData;
 
     const queryMessage = `
-            INSERT INTO users (name, birth_date, email, school, gender, phone_number)
-            VALUES ('${name}', '${birthDate}', '${email}', '${school}', '${gender}', '${phoneNumber}');
+            INSERT INTO users (name, birth_date, email, gender, phone_number)
+            VALUES ('${name}', '${birthDate}', '${email}', '${gender}', '${phoneNumber}');
             `;
     const queryResult = await databaseConnection.query(queryMessage);
 

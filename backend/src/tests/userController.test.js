@@ -1,5 +1,10 @@
 const request = require("supertest");
 const app = require("../app");
+const DbClient = require("../lib/dbConnection");
+
+afterAll(async () => {
+  await DbClient.getInstance().close();
+});
 
 describe("GET /list_user responses", () => {
   it("should be 200", async () => {
@@ -11,12 +16,12 @@ describe("GET /list_user responses", () => {
       });
   });
 
-  it("should be empty", async () => {
+  it("should not be empty", async () => {
     return request(app)
       .get("/list_user")
       .expect(200)
       .then((res) => {
-        expect(res.body.userList).toEqual([]);
+        expect(res.body.userList).not.toEqual([]);
       });
   });
 });

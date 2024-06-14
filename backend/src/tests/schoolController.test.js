@@ -1,5 +1,10 @@
 const request = require("supertest");
 const app = require("../app");
+const DbClient = require("../lib/dbConnection");
+
+afterAll(async () => {
+  await DbClient.getInstance().close();
+});
 
 describe("POST /school responses", () => {
   it("should insert a new school", async () => {

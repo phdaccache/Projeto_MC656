@@ -1,5 +1,10 @@
 const request = require("supertest");
 const app = require("../app");
+const DbClient = require("../lib/dbConnection");
+
+afterAll(async () => {
+  await DbClient.getInstance().close();
+});
 
 describe("GET /list_user responses", () => {
   it("should be 200", async () => {

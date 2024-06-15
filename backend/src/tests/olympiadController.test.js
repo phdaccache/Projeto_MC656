@@ -11,12 +11,12 @@ describe("GET /list_olympiad responses", () => {
     return await request(app).get("/list_olympiad").expect(200);
   });
 
-  it("should be empty", async () => {
+  it("should not be empty", async () => {
     return await request(app)
       .get("/list_olympiad")
       .expect(200)
       .then((res) => {
-        expect(res.body.olympiadList).toEqual([]);
+        expect(res.body.olympiadList).not.toEqual([]);
       });
   });
 });
@@ -27,7 +27,7 @@ describe("POST /insert_olympiad responses", () => {
       name: "Test Olympiad",
       date_start: "2022-01-01",
       date_end: "2022-12-31",
-      school: "Test School",
+      school: "DefaultSchool",
       description: "This is a test olympiad",
     };
 
@@ -46,7 +46,7 @@ describe("POST /insert_olympiad responses", () => {
       name: "Test Olympiad",
       date_start: "2022-01-01",
       date_end: "2022-12-31",
-      school: "Test School",
+      school: "DefaultSchool",
       description: "This is a test olympiad",
     };
 

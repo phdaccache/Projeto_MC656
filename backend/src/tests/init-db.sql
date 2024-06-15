@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS SchoolUsers;
+DROP TABLE IF EXISTS Olympiad;
 DROP TABLE IF EXISTS School;
 DROP TABLE IF EXISTS Users;
-DROP TABLE IF EXISTS Olympiad;
 
 CREATE TABLE Users (
     name varchar,
@@ -13,16 +13,6 @@ CREATE TABLE Users (
     PRIMARY KEY (email)
 );
 
-CREATE TABLE Olympiad (
-    name VARCHAR,
-    date_start DATE,
-    date_end DATE,
-    school VARCHAR,
-    description VARCHAR,
-
-    PRIMARY KEY (name, school)
-);
-
 CREATE TABLE School (
     name VARCHAR,
     manager VARCHAR,
@@ -30,6 +20,18 @@ CREATE TABLE School (
     PRIMARY KEY (name),
     FOREIGN KEY (manager)
         REFERENCES users (email)
+);
+
+CREATE TABLE Olympiad (
+    name VARCHAR,
+    school VARCHAR,
+    date_start DATE,
+    date_end DATE,
+    description VARCHAR,
+
+    PRIMARY KEY (name, school),
+    FOREIGN KEY (school)
+        REFERENCES School (name)
 );
 
 CREATE TABLE SchoolUsers (

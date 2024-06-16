@@ -66,7 +66,7 @@ CREATE TABLE Sports (
     name VARCHAR,
     min_players INT,
     max_players INT,
-    duration TIME,
+    duration INTERVAL,
     ruleset VARCHAR,
     extra_info VARCHAR,
 
@@ -100,4 +100,4 @@ INSERT INTO Olympiad (name, school, date_start, date_end, description)
 
 -- Default sport
 INSERT INTO Sports (name, min_players, max_players, duration, ruleset, extra_info)
-            VALUES ('Athletics', 1, 1, '00:30:00', 'DefaultRuleset', 'DefaultExtraInfo');
+            VALUES ('Athletics', 1, 1, '30M', 'DefaultRuleset', 'DefaultExtraInfo');

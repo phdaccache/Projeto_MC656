@@ -1,5 +1,6 @@
 DROP TABLE IF EXISTS SchoolUsers;
 DROP TABLE IF EXISTS OlympiadUsers;
+DROP TABLE IF EXISTS OlympiadSports;
 DROP TABLE IF EXISTS Olympiad;
 DROP TABLE IF EXISTS School;
 DROP TABLE IF EXISTS Users;
@@ -70,6 +71,19 @@ CREATE TABLE Sports (
     extra_info VARCHAR,
 
     PRIMARY KEY (name)
+);
+
+CREATE TABLE OlympiadSports (
+    olympiad VARCHAR,
+    school VARCHAR,
+    sport VARCHAR,
+    date_start DATE,
+
+    PRIMARY KEY (olympiad, school, sport),
+    FOREIGN KEY (olympiad, school)
+        REFERENCES Olympiad (name, school),
+    FOREIGN KEY (sport)
+        REFERENCES Sports (name)
 );
 
 -- Default user to manage the schools

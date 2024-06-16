@@ -4,6 +4,7 @@ const UserController = require("./controllers/UserController");
 const SchoolController = require("./controllers/SchoolController");
 const SchoolUsersController = require("./controllers/SchoolUsersController");
 const OlympiadUsersController = require("./controllers/OlympiadUsersController");
+const SportsController = require("./controllers/SportsController");
 
 const routes = express.Router();
 
@@ -42,5 +43,11 @@ routes.delete("/schoolusers/:id/", SchoolUsersController.delete);
 */
 routes.post("/olympiadusers", OlympiadUsersController.store);
 routes.put("/olympiadusers", OlympiadUsersController.update);
+
+/*
+======================= SPORTS =======================
+*/
+routes.post("/sports", SportsController.store);
+routes.put("/sports", SportsController.update);
 
 module.exports = routes;

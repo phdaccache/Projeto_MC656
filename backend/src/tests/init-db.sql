@@ -3,6 +3,7 @@ DROP TABLE IF EXISTS OlympiadUsers;
 DROP TABLE IF EXISTS Olympiad;
 DROP TABLE IF EXISTS School;
 DROP TABLE IF EXISTS Users;
+DROP TABLE IF EXISTS Sports;
 
 CREATE TABLE Users (
     name varchar,
@@ -60,6 +61,17 @@ CREATE TABLE OlympiadUsers (
         REFERENCES Users (email)
 );
 
+CREATE TABLE Sports (
+    name VARCHAR,
+    min_players INT,
+    max_players INT,
+    duration TIME,
+    ruleset VARCHAR,
+    extra_info VARCHAR,
+
+    PRIMARY KEY (name)
+);
+
 -- Default user to manage the schools
 INSERT INTO Users (name, email)
             VALUES ('Manager', 'schoolmanager@gmail.com');
@@ -71,3 +83,7 @@ INSERT INTO School (name, manager)
 -- Default olympiad
 INSERT INTO Olympiad (name, school, date_start, date_end, description)
             VALUES ('DefaultOlympiad', 'DefaultSchool', '2024-01-01', '2024-01-02', 'DefaultOlympiadDescription');
+
+-- Default sport
+INSERT INTO Sports (name, min_players, max_players, duration, ruleset, extra_info)
+            VALUES ('Athletics', 1, 1, '00:30:00', 'DefaultRuleset', 'DefaultExtraInfo');

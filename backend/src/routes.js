@@ -16,8 +16,8 @@ routes.get("/", (req, res) => {
 /*
 ======================= OLIMPÍADAS =======================
 */
-routes.get("/list_olympiad", OlympiadController.index);
-routes.post("/insert_olympiad", OlympiadController.store);
+routes.get("/olympiad", OlympiadController.index);
+routes.post("/olympiad", OlympiadController.store);
 
 /*
 ======================= USUÁRIOS =======================

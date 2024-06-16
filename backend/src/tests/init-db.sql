@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS UserOlympiadSports;
 DROP TABLE IF EXISTS SchoolUsers;
 DROP TABLE IF EXISTS OlympiadUsers;
 DROP TABLE IF EXISTS OlympiadSports;
@@ -84,6 +85,20 @@ CREATE TABLE OlympiadSports (
         REFERENCES Olympiad (name, school),
     FOREIGN KEY (sport)
         REFERENCES Sports (name)
+);
+
+CREATE TABLE UserOlympiadSports (
+    olympiad VARCHAR,
+    school VARCHAR,
+    sport VARCHAR,
+    email VARCHAR,
+    preference BOOLEAN,
+
+    PRIMARY KEY (olympiad, school, sport, email),
+    FOREIGN KEY (olympiad, school, sport)
+        REFERENCES OlympiadSports (olympiad, school, sport),
+    FOREIGN KEY (email)
+        REFERENCES Users (email)
 );
 
 -- Default user to manage the schools

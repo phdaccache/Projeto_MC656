@@ -105,6 +105,9 @@ CREATE TABLE UserOlympiadSports (
 INSERT INTO Users (name, email)
             VALUES ('Manager', 'schoolmanager@gmail.com');
 
+INSERT INTO Users (name, email)
+            VALUES ('Student', 'student@gmail.com');
+
 -- Default school
 INSERT INTO School (name, manager)
             VALUES ('DefaultSchool', 'schoolmanager@gmail.com');
@@ -113,6 +116,13 @@ INSERT INTO School (name, manager)
 INSERT INTO Olympiad (name, school, date_start, date_end, description)
             VALUES ('DefaultOlympiad', 'DefaultSchool', '2024-01-01', '2024-01-02', 'DefaultOlympiadDescription');
 
--- Default sport
+-- Default sports
 INSERT INTO Sports (name, min_players, max_players, duration, ruleset, extra_info)
             VALUES ('Athletics', 1, 1, '30M', 'DefaultRuleset', 'DefaultExtraInfo');
+
+INSERT INTO Sports (name, min_players, max_players, duration, ruleset, extra_info)
+            VALUES ('Default Sport', 1, 1, '60M', 'DefaultRuleset', 'DefaultExtraInfo');
+
+-- Default olympiad sport
+INSERT INTO OlympiadSports (olympiad, school, sport, date_start)
+            VALUES ('DefaultOlympiad', 'DefaultSchool', 'Default Sport', '2024-01-01');

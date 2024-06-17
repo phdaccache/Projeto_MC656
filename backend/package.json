@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "main": "index.js",
   "scripts": {
+    "init": "psql -d postgresql://backend_user:S3cret@localhost/olimpiada -f ./src/tests/init-db.sql",
     "test": "jest --runInBand",
     "dev": "nodemon src/server.js"
   },

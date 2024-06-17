@@ -6,33 +6,33 @@ afterAll(async () => {
   await DbClient.getInstance().close();
 });
 
-describe("GET /list_olympiad responses", () => {
+describe("GET /olympiad responses", () => {
   it("should be 200", async () => {
-    return await request(app).get("/list_olympiad").expect(200);
+    return await request(app).get("/olympiad").expect(200);
   });
 
-  it("should be empty", async () => {
+  it("should not be empty", async () => {
     return await request(app)
-      .get("/list_olympiad")
+      .get("/olympiad")
       .expect(200)
       .then((res) => {
-        expect(res.body.olympiadList).toEqual([]);
+        expect(res.body.olympiadList).not.toEqual([]);
       });
   });
 });
 
-describe("POST /insert_olympiad responses", () => {
+describe("POST /olympiad responses", () => {
   it("should insert a new olympiad", async () => {
     const newOlympiad = {
       name: "Test Olympiad",
       date_start: "2022-01-01",
       date_end: "2022-12-31",
-      school: "Test School",
+      school: "DefaultSchool",
       description: "This is a test olympiad",
     };
 
     return await request(app)
-      .post("/insert_olympiad")
+      .post("/olympiad")
       .send(newOlympiad)
       .expect(200)
       .then((res) => {
@@ -46,12 +46,12 @@ describe("POST /insert_olympiad responses", () => {
       name: "Test Olympiad",
       date_start: "2022-01-01",
       date_end: "2022-12-31",
-      school: "Test School",
+      school: "DefaultSchool",
       description: "This is a test olympiad",
     };
 
     return await request(app)
-      .post("/insert_olympiad")
+      .post("/olympiad")
       .send(newOlympiad)
       .expect(400)
       .then((res) => {

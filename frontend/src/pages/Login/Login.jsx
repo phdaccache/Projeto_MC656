@@ -3,7 +3,7 @@ import "./Login.css"
 
 export default function Login() {
     return (
-        <div className="root-div-flex-row flex-center-vh">
+        <div className="login-signup-background root-div-flex-row flex-center-vh">
             <div className="login-container">
                 <h2>Bem-Vindo ao Sistema!</h2>
                 <h3>Insira suas credenciais</h3>

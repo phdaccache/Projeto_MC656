@@ -6,6 +6,7 @@ const SchoolUsersController = require("./controllers/SchoolUsersController");
 const OlympiadUsersController = require("./controllers/OlympiadUsersController");
 const SportsController = require("./controllers/SportsController");
 const OlympiadSportsController = require("./controllers/OlympiadSportsController");
+const UserOlympiadSportsController = require("./controllers/UserOlympiadSportsController");
 
 const routes = express.Router();
 
@@ -62,6 +63,15 @@ routes.put(
 routes.delete(
   "/olympiadsports/:olympiad/:school/:sport",
   OlympiadSportsController.delete
+);
+
+/*
+======================= USER PREFERENCE FOR OLYMPIAD SPORTS =======================
+*/
+routes.post("/userolympiadsports", UserOlympiadSportsController.store);
+routes.put(
+  "/userolympiadsports/:olympiad/:school/:sport/:email",
+  UserOlympiadSportsController.update
 );
 
 module.exports = routes;

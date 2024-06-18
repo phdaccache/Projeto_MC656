@@ -1,3 +1,8 @@
+.main-sidebar-background {
+  background: rgb(36,41,62);
+  background: linear-gradient(248deg, rgba(36,41,62,1) 0%, rgba(28,31,34,1) 35%, rgba(36,41,62,1) 67%, rgba(23,30,32,1) 95%);
+}
+
 .sidebar-style {
   /* font-family: 'Poppins', sans-serif; */
   display: flex;

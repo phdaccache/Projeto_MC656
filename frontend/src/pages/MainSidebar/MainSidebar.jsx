@@ -22,7 +22,7 @@ export default function MainSidebar() {
   // @TODO Add logout confirmation and functionality
 
   return (
-    <div className="root-div-flex-row">
+    <div className="main-sidebar-background root-div-flex-row">
       <nav className={`sidebar-style ${sidebar ? "main-sidebar" : "main-sidebar-collapsed"}`}>
         <div className='toggle-sidebar' onClick={showSidebar}>
           <i className ={sidebar ? "fa-solid fa-chevron-left" : "fa-solid fa-chevron-right"}></i>

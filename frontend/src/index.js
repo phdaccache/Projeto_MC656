@@ -11,12 +11,17 @@ import Login from "./pages/Login/Login";
 import SignUp from "./pages/SignUp/SignUp";
 import Main from "./pages/Main";
 import SettingsPage from "./pages/SettingsPage/SettingsPage";
+import Home from "./pages/Home/Home";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Main />,
     children: [
+      {
+        path: "/home",
+        element: <Home />,
+      },
       {
         path: "/settings",
         element: <SettingsPage />,

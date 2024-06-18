@@ -10,7 +10,7 @@
     font-size: 1rem;
     box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
     transform: translateY(1.875rem);
-    animation: fadeIn 1s linear;
+    animation: fadeIn 0.9s linear, fadeOut 0.8s linear 2.45s;
     overflow: hidden;
 }
 

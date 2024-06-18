@@ -38,7 +38,7 @@ export default function SettingsComponent({ settingName, settingValue, onSave })
 
         setTimeout(() => {
           setSettingsSaved(false);
-        }, 2230);
+        }, 3130);
       } catch (error) {
         console.error(error);
       }

@@ -9,11 +9,12 @@ import "./index.css";
 import App from "./App";
 import Login from "./pages/Login/Login";
 import SignUp from "./pages/SignUp/SignUp";
+import Main from "./pages/Main";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <Main />,
   },
   {
     path: "/login",

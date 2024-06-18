@@ -27,15 +27,16 @@ describe("GET /list_user responses", () => {
 });
 
 describe("POST /insert_user responses", () => {
-  it("should insert a new user", async () => {
-    const newUser = {
-      name: "Test User",
-      birth_date: "2022-01-01",
-      email: "testuseremail@gmail.com",
-      school: "Test School",
-      gender: "Test gender",
-      phone_number: "95124-9087",
-    };
+    it("should insert a new user", async () => {
+        const newUser = {
+            name: "Test User",
+            birth_date: "2022-01-01",
+            email: "testuseremail@gmail.com",
+            password: "Senh@123",
+            school: "Test School",
+            gender: "Test gender",
+            phone_number: "95124-9087"
+        };
 
     return request(app)
       .post("/insert_user")
@@ -47,15 +48,16 @@ describe("POST /insert_user responses", () => {
       });
   });
 
-  it("shouldn't allow duplicates", async () => {
-    const newUser = {
-      name: "Test User33",
-      birth_date: "2022-01-01",
-      email: "testuseremail33@gmail.com",
-      school: "Test School",
-      gender: "Test gender",
-      phone_number: "95124-9087",
-    };
+    it("shouldn't allow duplicates", async () => {
+        const newUser = {
+            name: "Test User33",
+            birth_date: "2022-01-01",
+            email: "testuseremail33@gmail.com",
+            password: "Senh@123",
+            school: "Test School",
+            gender: "Test gender",
+            phone_number: "95124-9087"
+        };
 
     // Primeira
     await request(app).post("/insert_user").send(newUser).expect(200);
@@ -70,15 +72,16 @@ describe("POST /insert_user responses", () => {
       });
   });
 
-  it("shouldn't allow invalid emails", async () => {
-    const newUser = {
-      name: "Test User email",
-      birth_date: "2022-01-01",
-      email: "testuseremail2@gmailcom",
-      school: "Test School",
-      gender: "Test gender",
-      phone_number: "95124-9087",
-    };
+    it("shouldn't allow invalid emails", async () => {
+        const newUser = {
+            name: "Test User email",
+            birth_date: "2022-01-01",
+            email: "testuseremail2@gmailcom",
+            password: "Senh@123",
+            school: "Test School",
+            gender: "Test gender",
+            phone_number: "95124-9087"
+        };
 
     return request(app)
       .post("/insert_user")
@@ -90,15 +93,16 @@ describe("POST /insert_user responses", () => {
       });
   });
 
-  it("shouldn't allow invalid phone numbers", async () => {
-    const newUser = {
-      name: "Test User",
-      birth_date: "2022-01-01",
-      email: "testuserphone@gmail.com",
-      school: "Test School",
-      gender: "Test gender",
-      phone_number: "5a24-907",
-    };
+    it("shouldn't allow invalid phone numbers", async () => {
+        const newUser = {
+            name: "Test User",
+            birth_date: "2022-01-01",
+            email: "testuserphone@gmail.com",
+            password: "Senh@123",
+            school: "Test School",
+            gender: "Test gender",
+            phone_number: "5a24-907"
+        };
 
     // Primeira
     return request(app)

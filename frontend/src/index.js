@@ -10,11 +10,18 @@ import App from "./App";
 import Login from "./pages/Login/Login";
 import SignUp from "./pages/SignUp/SignUp";
 import Main from "./pages/Main";
+import Settings from "./pages/Settings/Settings";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Main />,
+    children: [
+      {
+        path: "/settings",
+        element: <Settings />,
+      },
+    ],
   },
   {
     path: "/login",

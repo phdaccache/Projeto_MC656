@@ -1,13 +1,13 @@
 import { React, useState, useRef, useEffect } from "react";
 import "./SettingsComponent.css";
-// import SettingsSavedPopup from './SettingsSavedPopup';
+import StatusPopup from "../StatusPopup/StatusPopup";
 
 export default function SettingsComponent({ settingName, settingValue, onSave }) {
   const [editando, setEditando] = useState(false);
   const [inputValue, setInputValue] = useState(settingValue);
   const inputRef = useRef(null);
 
-  // const [settingsSaved, setSettingsSaved] = useState(false);
+  const [settingsSaved, setSettingsSaved] = useState(false);
 
   const toggleEditing = () => {
     setEditando(!editando);
@@ -34,11 +34,11 @@ export default function SettingsComponent({ settingName, settingValue, onSave })
         // const data = await response.json();
         console.log("Saved value:", inputValue);
         onSave(settingName, inputValue);
-        // setSettingsSaved(true);
+        setSettingsSaved(true);
 
-        // setTimeout(() => {
-        //   setSettingsSaved(false);
-        // }, 3000);
+        setTimeout(() => {
+          setSettingsSaved(false);
+        }, 2230);
       } catch (error) {
         console.error(error);
       }
@@ -89,11 +89,12 @@ export default function SettingsComponent({ settingName, settingValue, onSave })
           </div>
         )}
       </div>
-      {/* {settingsSaved ? (
-        <div className="fade-in">
-          <SettingsSavedPopup />
-        </div>
-      ) : null} */}
+      {settingsSaved ? (
+        <StatusPopup
+          status="success"
+          message="Configurações salvas!"
+        />
+      ) : null}
     </>
   );
 }

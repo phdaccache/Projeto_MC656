@@ -11,6 +11,7 @@ CREATE TABLE Users (
     name varchar,
     birth_date date,
     email varchar,
+    password varchar,
     gender varchar,
     phone_number varchar,
 

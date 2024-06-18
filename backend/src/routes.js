@@ -27,7 +27,7 @@ routes.post("/olympiad", OlympiadController.store);
 */
 routes.get("/list_user", UserController.index);
 routes.post("/insert_user", UserController.store);
-<<<<<<< HEAD
+routes.post("/login", UserController.login);
 
 /*
 ======================= SCHOOLS =======================
@@ -74,8 +74,6 @@ routes.put(
   "/userolympiadsports/:olympiad/:school/:sport/:email",
   UserOlympiadSportsController.update
 );
-=======
-routes.post("/login", UserController.login);
->>>>>>> c7bfec5 (add: user authentication and auth middleware)
+
 
 module.exports = routes;

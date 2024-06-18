@@ -1,4 +1,6 @@
 const User = require("../models/User");
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 class UserController {
   static async index(req, res) {
@@ -7,7 +9,7 @@ class UserController {
   }
 
   static #validateUserData(userData) {
-    const { email, phone_number: phoneNumber } = userData;
+    const { email, phone_number: phoneNumber, password } = userData;
 
     const emailRegex = /^\S+@\S+\.\S+$/;
     if (!emailRegex.test(email)) {
@@ -17,6 +19,13 @@ class UserController {
     const phoneNumberRegex = /^\d{5}-\d{4}$/;
     if (!phoneNumberRegex.test(phoneNumber)) {
       return { ok: "Invalid phone number" };
+    }
+
+    // Check if password contains at least eight characters, 
+    // at least one letter, one number and one special character:
+    const password_regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+    if (!password_regex.test(password)) {
+        return {ok : "Invalid password"};
     }
 
     return { ok: "Valid data" };
@@ -35,6 +44,29 @@ class UserController {
 
     const insertionResult = await User.createUser(req.body);
     return res.status(200).json({ ok: "User created" });
+  }
+
+  static async login(req, res) {
+    const { email, password } = req.body;
+
+    const findPassword = await User.findPassword(req.body);
+    
+    if (findPassword.length == 0) {
+        return res.status(400).json({ok : "User doesnt exist"});
+    }
+
+    const dbPassword = findPassword[0].password;
+    const passwordMatch = await bcrypt.compare(password, dbPassword);
+    if (!passwordMatch) {
+        return res.status(401).json({ error: 'Authentication failed' });
+    }
+
+    const token = jwt.sign({ userEmail: email }, 'your-secret-key', {
+        expiresIn: '1d',
+    });
+
+    res.status(200).json({ token });
+    
   }
 }
 

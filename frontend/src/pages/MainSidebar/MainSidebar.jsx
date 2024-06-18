@@ -1,5 +1,5 @@
 import { React, useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, Outlet } from 'react-router-dom';
 
 import './MainSidebar.css';
 
@@ -64,6 +64,10 @@ export default function MainSidebar() {
           <div className={`logout-link-a ${showConfirmation ? "active" : ""}`}><p><Link to ="/login">Log Out</Link></p></div>
         </div>
       </nav>
+      <div className={sidebar ? "childApp-normal-sidebar" : "childApp-small-sidebar"}>
+        <header></header>
+        <Outlet />
+      </div>
     </div>
   );
 };

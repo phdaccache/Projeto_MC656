@@ -13,9 +13,9 @@ export default function EventCard({ olympiadName, schoolName, startDate, endDate
           <p className="end-date"><strong>End Date:</strong> {endDate}</p>
         </div>
       </div>
-      <div className="event-card-description">
+      {/* <div className="event-card-description">
         <p>{description}</p>
-      </div>
+      </div> */}
     </div>
   );
 };

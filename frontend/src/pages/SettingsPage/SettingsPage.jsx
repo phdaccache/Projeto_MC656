@@ -63,7 +63,7 @@ export default function SettingsPage() {
         <hr />
         <div className="settings-information">
           <h2>Informações Pessoais</h2>
-          <div className="settings">
+          <div className="all-settings-container">
             {settings.map((setting) => (
               <SettingsComponent
                 settingName={setting.settingName}

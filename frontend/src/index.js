@@ -10,7 +10,7 @@ import App from "./App";
 import Login from "./pages/Login/Login";
 import SignUp from "./pages/SignUp/SignUp";
 import Main from "./pages/Main";
-import Settings from "./pages/Settings/Settings";
+import SettingsPage from "./pages/SettingsPage/SettingsPage";
 
 const router = createBrowserRouter([
   {
@@ -19,7 +19,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/settings",
-        element: <Settings />,
+        element: <SettingsPage />,
       },
     ],
   },

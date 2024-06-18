@@ -6,7 +6,10 @@ import './MainSidebar.css';
 export default function MainSidebar() {
   // State to control sidebar collapse
   const [sidebar, setSidebar] = useState(true);
-  const showSidebar = () => setSidebar(!sidebar);
+  const showSidebar = () => {
+    setSidebar(!sidebar);
+    setShowConfirmation(false);
+  }
 
   // State to control logout button visibility (arrow icon)
   const [showConfirmation, setShowConfirmation] = useState(false);
@@ -61,7 +64,7 @@ export default function MainSidebar() {
             {/* <i className={`fa-solid ${showConfirmation ? 'fa-caret-up' : 'fa-caret-down'}`}></i> */}
             <i className={`fa-solid fa-caret-down arrow-icon ${showConfirmation ? "rotate-up" : ""}`}></i>
           </div>
-          <div className={`logout-link-a ${showConfirmation ? "active" : ""}`}><p><Link to ="/login">Log Out</Link></p></div>
+          <div className={`logout-link-a ${showConfirmation  ? "active" : ""}`}><p><Link to ="/login">Log Out</Link></p></div>
         </div>
       </nav>
       <div className={sidebar ? "childApp-normal-sidebar" : "childApp-small-sidebar"}>

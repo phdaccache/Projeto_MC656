@@ -153,7 +153,7 @@
   opacity: 0; */
   visibility: hidden;
   opacity: 0;
-  transition: visibility 0.8s, opacity 0.5s linear;
+  transition: visibility 0.5s, opacity 0.3s linear;
 }
 
 .logout-link-a.active {
@@ -161,7 +161,7 @@
   opacity: 1;
   transition: all 0.4s ease; */
   visibility: visible;
-  transition: visibility 0.8s, opacity 0.5s linear;
+  transition: visibility 0.5s, opacity 0.3s linear;
   opacity: 1;
 }
 
@@ -173,13 +173,14 @@
   color: #eaeaea;
   font-size: 0.8rem;
   cursor: pointer;
-  transition: all 0.15s ease;
-  text-decoration: none;
+  transition: all 0.3s ease;
+  text-decoration-color: transparent;
+  text-underline-offset: 0.2rem;
 }
 
 .logout-link-a>p:nth-child(1)>a:nth-child(1):hover {
   color: lightcoral;
-  text-decoration: underline;
+  border-bottom: 0.1rem solid lightcoral;
   text-decoration-color: lightcoral;
 }
 

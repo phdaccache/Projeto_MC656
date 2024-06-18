@@ -136,7 +136,7 @@
 
 .main-sidebar .sidebar-footer i:hover {
   color: #8ebbff;
-  transition : all 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .logout-link-a {
@@ -169,7 +169,7 @@
   font-size: 0.8rem;
 }
 
-.logout-link-a > p:nth-child(1) > a:nth-child(1) {
+.logout-link-a>p:nth-child(1)>a:nth-child(1) {
   color: #eaeaea;
   font-size: 0.8rem;
   cursor: pointer;
@@ -177,7 +177,7 @@
   text-decoration: none;
 }
 
-.logout-link-a > p:nth-child(1) > a:nth-child(1):hover {
+.logout-link-a>p:nth-child(1)>a:nth-child(1):hover {
   color: lightcoral;
   text-decoration: underline;
   text-decoration-color: lightcoral;
@@ -192,19 +192,17 @@
 }
 
 .sidebar-style hr {
-	margin: 1rem 0;
-	color: #eaeaea;
-    width: 100%;
-	/* border: 0; */
-	/* border-top: var(--bs-border-width) solid; */
-	opacity: .2;
+  margin: 1rem 0;
+  color: #eaeaea;
+  width: 100%;
+  opacity: .2;
 }
 
 .childApp-normal-sidebar {
-    width: 100%;
-    padding: 2.5rem;
-    margin-left: 15rem;
-    transition: margin-left 0.5s ease;
+  width: 100%;
+  padding: 2.5rem;
+  margin-left: 15rem;
+  transition: margin-left 0.5s ease;
 }
 
 .childApp-small-sidebar {

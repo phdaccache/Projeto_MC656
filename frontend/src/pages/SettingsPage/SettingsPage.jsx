@@ -49,7 +49,7 @@ export default function SettingsPage() {
     <div className="settings-info-page-container">
       <div className="settings-container">
         <div className="settings-profile">
-          <h2>Meu Perfil</h2>
+          <h1>Meu Perfil</h1>
           <img
             src="https://via.placeholder.com/150"
             alt="profile"
@@ -62,7 +62,7 @@ export default function SettingsPage() {
         </div>
         <hr />
         <div className="settings-information">
-          <h2>Informações Pessoais</h2>
+          <h1>Informações Pessoais</h1>
           <div className="all-settings-container">
             {settings.map((setting) => (
               <SettingsComponent

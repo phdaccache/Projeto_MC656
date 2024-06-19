@@ -13,6 +13,9 @@ export default function SignUp() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isTeacher, setIsTeacher] = useState(false);
 
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState(false);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     alert(`nome: ${nome} email: ${email} phone: ${phone} gender: ${gender} date: ${date} school: ${school} password: ${password} confirmPassword: ${confirmPassword} isTeacher: ${isTeacher}`);
@@ -20,7 +23,7 @@ export default function SignUp() {
       alert("As senhas não coincidem!");
       return;
     }
-    // setUser(true);
+    setSuccess(true); // Redireciona para a página de login
     // setError(true);
   }
 
@@ -152,6 +155,7 @@ export default function SignUp() {
 
           <button type="submit">Cadastrar</button>
         </form>
+        {success && (<Navigate to="/login" />)}
       </div>
     </div>
   );

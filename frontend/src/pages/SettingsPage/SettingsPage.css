@@ -8,6 +8,11 @@
   gap: 0.8rem;
 }
 
+.settings-info-page-container .page-title p {
+  width: 85%;
+  margin: 0 auto;
+}
+
 .not-showing {
   visibility: hidden;
   opacity: 0;

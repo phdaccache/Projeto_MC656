@@ -47,9 +47,13 @@ export default function SettingsPage() {
 
   return (
     <div className="settings-info-page-container">
+      <div className="page-title">
+        <h1><span>Minhas Configurações</span></h1>
+        <p>Altere suas informações pessoais e visualize sua política de privacidade.</p>
+      </div>
       <div className="settings-container">
         <div className="settings-profile">
-          <h1>Meu Perfil</h1>
+          <h2>Meu Perfil</h2>
           <img
             src="https://via.placeholder.com/150"
             alt="profile"
@@ -62,7 +66,7 @@ export default function SettingsPage() {
         </div>
         <hr />
         <div className="settings-information">
-          <h1>Informações Pessoais</h1>
+          <h2>Informações Pessoais</h2>
           <div className="all-settings-container">
             {settings.map((setting) => (
               <SettingsComponent

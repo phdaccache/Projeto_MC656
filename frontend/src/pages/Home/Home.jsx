@@ -1,10 +1,11 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import EventCard from "../../components/EventCard/EventCard";
 
 import "./Home.css";
 
 export default function Home() {
+  const navigate = useNavigate();
 
   const events = [
     {
@@ -42,15 +43,17 @@ export default function Home() {
       </div>
       <div className="home-events-container">
         {events.map((event, index) => (
-          <EventCard
-            key={index}
-            olympiadName={event.olympiadName}
-            schoolName={event.schoolName}
-            startDate={event.startDate}
-            endDate={event.endDate}
-            description={event.description}
-            backgroundImage={event.backgroundImage}
-          />
+          <div onClick={() => navigate(`/events/view/${index}`)}>
+            <EventCard
+              key={index}
+              olympiadName={event.olympiadName}
+              schoolName={event.schoolName}
+              startDate={event.startDate}
+              endDate={event.endDate}
+              description={event.description}
+              backgroundImage={event.backgroundImage}
+            />
+          </div>
         ))}
       </div>
       <div className="add-event-button">

@@ -2,10 +2,10 @@
     border: 1px solid #ccc;
     border-radius: 0.625rem;
     padding: 1.25rem;
-    margin: 1.25rem;
-    max-width: 25rem;
-    height: 18.75rem;
+    width: 19rem;
+    min-height: 18.1rem;
     background-size: cover;
+    margin-bottom: 1.2rem;
     background-position: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     position: relative;

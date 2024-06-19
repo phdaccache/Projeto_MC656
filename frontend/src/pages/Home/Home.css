@@ -1,0 +1,10 @@
+.home-container {
+  width: 85%;
+  margin: 0 auto;
+}
+
+.home-events-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5%;
+}

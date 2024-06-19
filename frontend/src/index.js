@@ -12,6 +12,7 @@ import SignUp from "./pages/SignUp/SignUp";
 import Main from "./pages/Main";
 import SettingsPage from "./pages/SettingsPage/SettingsPage";
 import Home from "./pages/Home/Home";
+import CreateEvent from "./pages/CreateEvent/CreateEvent";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
         path: "/settings",
         element: <SettingsPage />,
       },
+      {
+        path: "/events/create",
+        element: <CreateEvent />,
+      }
     ],
   },
   {

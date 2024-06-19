@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 import EventCard from "../../components/EventCard/EventCard";
 
 import "./Home.css";
@@ -50,6 +52,9 @@ export default function Home() {
             backgroundImage={event.backgroundImage}
           />
         ))}
+      </div>
+      <div className="add-event-button">
+        <Link to={"/events/create"}><i class="fa-solid fa-circle-plus"></i></Link>
       </div>
     </div>
   );

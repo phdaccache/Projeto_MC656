@@ -1,11 +1,16 @@
 .all-settings-container {
-  font-size: 1.2rem;
+  font-size: 1.17rem;
   color: rgb(234, 234, 234);
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: flex-start;
   gap: 0.8rem;
+}
+
+.settings-info-page-container .page-title p {
+  width: 85%;
+  margin: 0 auto;
 }
 
 .not-showing {
@@ -20,10 +25,6 @@
   transition: visibility 0.3s, opacity 0.3s linear;
 }
 
-h2 {
-  font-size: 1.8rem;
-}
-
 .settings-information {
   display: flex;
   flex-direction: column;
@@ -36,21 +37,26 @@ h2 {
   color: #eaeaea;
   text-align: center;
   width: 85%;
-  margin: 2rem auto;
+  margin: 0rem auto;
 }
 
 .settings-profile {
-  font-size: 1.2em;
+  /* font-size: 1.2em; */
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 2.22rem;
   align-items: center;
+  text-wrap: nowrap;
 }
 
 .settings-profile img {
   width: 150px;
   height: 150px;
   border-radius: 50%;
+}
+
+.settings-profile h3 {
+  font-size: 1.275rem;
 }
 
 .settings-information h2 {

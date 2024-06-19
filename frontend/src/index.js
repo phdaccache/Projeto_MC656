@@ -11,6 +11,8 @@ import Login from "./pages/Login/Login";
 import SignUp from "./pages/SignUp/SignUp";
 import Main from "./pages/Main";
 import SettingsPage from "./pages/SettingsPage/SettingsPage";
+import Home from "./pages/Home/Home";
+import CreateEvent from "./pages/CreateEvent/CreateEvent";
 
 const router = createBrowserRouter([
   {
@@ -18,9 +20,17 @@ const router = createBrowserRouter([
     element: <Main />,
     children: [
       {
+        path: "/home",
+        element: <Home />,
+      },
+      {
         path: "/settings",
         element: <SettingsPage />,
       },
+      {
+        path: "/events/create",
+        element: <CreateEvent />,
+      }
     ],
   },
   {

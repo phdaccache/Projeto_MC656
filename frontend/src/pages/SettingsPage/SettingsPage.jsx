@@ -47,6 +47,10 @@ export default function SettingsPage() {
 
   return (
     <div className="settings-info-page-container">
+      <div className="page-title">
+        <h1><span>Minhas Configurações</span></h1>
+        <p>Altere suas informações pessoais e visualize sua política de privacidade.</p>
+      </div>
       <div className="settings-container">
         <div className="settings-profile">
           <h2>Meu Perfil</h2>

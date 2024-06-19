@@ -49,12 +49,22 @@
 }
 
 .create-event-form input {
-    padding: 0.5rem 1.15rem;
+    padding: 0.5rem 0.75rem;
     font-size: 1rem;
     display: block;
     width: 70%;
     border: none;
     border-radius: 0.25rem;
+}
+
+.create-event-form textarea {
+    padding: 0.5rem 0.75rem;
+    font-size: 1rem;
+    display: block;
+    width: 70%;
+    border: none;
+    border-radius: 0.25rem;
+    resize: none;
 }
 
 .create-event-form button {

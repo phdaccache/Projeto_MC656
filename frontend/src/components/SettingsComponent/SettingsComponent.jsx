@@ -32,13 +32,17 @@ export default function SettingsComponent({ settingName, settingValue, onSave })
         //     throw new Error('Failed to save setting');
         // }
         // const data = await response.json();
-        console.log("Saved value:", inputValue);
+        alert(`${settingName}: ${inputValue}`);
+
+        /* Para atualizar em outros lugares */
         onSave(settingName, inputValue);
         setSettingsSaved(true);
 
+        /* Define o tempo do Popup de salvar */
         setTimeout(() => {
           setSettingsSaved(false);
         }, 3130);
+
       } catch (error) {
         console.error(error);
       }

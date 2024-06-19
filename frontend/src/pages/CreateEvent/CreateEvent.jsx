@@ -11,7 +11,7 @@ export default function CreateEvent() {
             </div>
             <form className="create-event-form">
                 <h2>Criar uma Olimpíada</h2>
-                <Link to={"/home"} className="signup-back">
+                <Link to={"/home"} className="back-create-form">
                     <i class="fa-solid fa-circle-arrow-left"></i>
                 </Link>
                 <div className="create-event-form-field">

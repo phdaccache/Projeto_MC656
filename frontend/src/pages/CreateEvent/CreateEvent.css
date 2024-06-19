@@ -9,6 +9,19 @@
     left: 1.5rem;
 }
 
+.back-create-form {
+    display: flex;
+    color: rgb(255, 255, 255, 96%);
+    text-decoration: none;
+    font-size: 1.4rem;
+    transition: color 0.3s ease;
+    width: fit-content;
+}
+
+.create-event-form a:hover {
+    color: #8ebbff;
+}
+
 .create-event-form {
     position: relative;
     display: flex;

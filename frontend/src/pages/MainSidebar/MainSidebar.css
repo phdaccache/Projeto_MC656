@@ -205,15 +205,13 @@
 }
 
 .childApp-normal-sidebar {
-  width: 100%;
-  padding: 2.5rem;
+  padding: 1.17rem 0rem 1rem 2.5rem;
   margin-left: 15rem;
   transition: margin-left 0.5s ease;
 }
 
 .childApp-small-sidebar {
-  width: 100%;
-  padding: 2.5rem;
+  padding: 1rem 0rem 1rem 2.5rem;
   margin-left: 5rem;
   transition: margin-left 0.5s ease;
 }

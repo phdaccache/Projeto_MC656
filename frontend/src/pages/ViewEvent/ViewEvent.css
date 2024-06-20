@@ -1,3 +1,189 @@
 .view-event-container {
-    color: burlywood;
+  width: 85%;
+  margin: 0 auto;
+  background-color: #141724;
+  padding: 2rem 0;
+  border-radius: 0.5rem;
+  position: relative;
+}
+
+.back-view-event {
+  position: absolute;
+  top: 0.8rem;
+  left: -2.5rem;
+  color: #eaeaea;
+  text-decoration: none;
+  font-size: 1.5rem;
+  transition: color 0.3s;
+}
+
+.back-view-event:hover {
+  color: #5575A6;
+}
+
+.event-header-background {
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 0.2rem;
+  overflow: hidden;
+  margin: 2rem 0rem;
+  border: 2px solid rgba(255, 255, 255, 0.658);
+}
+
+.event-header-container {
+  /* width: 80%; */
+  display: flex;
+  justify-content: space-between;
+  gap: 8rem;
+  color: #eaeaea;
+  margin-top: 2rem;
+  /* background: rgba(0, 0, 0, 0.73); */
+  border-left: 0.35rem solid white;
+  background-color: #141724;
+  /* padding: 1rem; */
+  margin: 0 2rem;
+  margin-bottom: 2rem;
+  cursor: default;
+}
+
+.event-header-container h1 {
+  font-size: 2.35rem;
+  margin-bottom: 2rem;
+}
+
+.event-header-container b {
+  color: #eaeaea;
+}
+
+.event-header-container p {
+  font-size: 1.15rem;
+  margin-bottom: 1rem;
+  color: #c5c5cf;
+}
+
+.view-event-container hr {
+  margin: 3rem auto;
+  width: 70%;
+}
+
+.event-info-background {
+  width: 63%;
+}
+
+.event-info {
+  /* width: 70%; */
+  /* height: 100%; */
+  padding: 1.5rem;
+  padding-bottom: 0.6rem;
+  border-radius: 0.2rem;
+}
+
+.event-info p {
+  max-width: 88%;
+}
+
+.event-info ul li {
+  margin-left: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.event-title-status {
+  display: flex;
+  gap: 0.9rem;
+}
+
+.event-info span {
+  color: #ffffff;
+  font-size: 1.02rem;
+  padding: 0.2rem 0.4rem;
+  padding-top: 0.125rem;
+  border-radius: 0.3rem;
+  margin-left: 0.5rem;
+  margin-top: 0.95rem;
+  align-self: start;
+}
+
+.event-info span.not-started {
+  background-color: #6ba123;
+}
+
+.event-info span.in-progress {
+  background-color: #b97a05;
+}
+
+.event-info span.finished {
+  background-color: #b92005;
+}
+
+.event-summary {
+  background-color: rgba(0, 0, 0, 0.452);
+  padding: 1.3rem 1.5rem;
+  padding-bottom: 0.6rem;
+  border-radius: 0.6rem;
+  width: 25%;
+  font-size: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  height: 80%;
+  /* justify-content: space-between; */
+  /* padding-left: 2.5rem; */
+  /* border-radius: 0.9rem; */
+}
+
+.event-summary h2 {
+  margin-bottom: 1rem;
+}
+
+.event-status {
+  /* width: 100%; */
+  font-size: 0.63rem;
+  padding: 0.2rem 0rem;
+  /* margin: 1rem; */
+}
+
+.event-status h2 {
+  width: 100%;
+  text-align: center;
+  /* background-color: rgba(0, 0, 0, 0.25); */
+  border-radius: 0.5rem;
+  padding: 0.1rem 0.7rem;
+  padding-bottom: 0.4rem;
+}
+
+.event-summary ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.event-summary ul li {
+  margin-bottom: 1rem;
+}
+
+.event-body-container {
+  padding: 0 1rem;
+}
+
+.event-sports {
+  padding: 0 3.5rem;
+}
+
+.event-sports ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.event-sports ul li {
+  margin-bottom: 2rem;
+}
+
+.event-sports h1 {
+  color: #eaeaea;
+  margin-bottom: 0.5rem;
+}
+
+.event-sports p {
+  color: #c5c5cf;
+  font-size: 1.1rem;
+  margin-bottom: 1.2rem;
 }

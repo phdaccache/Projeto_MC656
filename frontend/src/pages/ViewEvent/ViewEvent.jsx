@@ -74,8 +74,9 @@ export default function ViewEvent() {
       <div className="event-header-container" >
         <div className="event-info">
           <div className="event-title-status">
-            <h1>{event.olympiadName}</h1>
-            <span className={eventStatus}>{eventMessage}</span>
+            <h1>{event.olympiadName}
+              <span className={eventStatus}>{eventMessage}</span>
+            </h1>
           </div>
           <ul>
             <li><p><b>Nome da Olimpíada:</b> {event.olympiadName}</p></li>

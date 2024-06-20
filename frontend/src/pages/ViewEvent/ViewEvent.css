@@ -93,6 +93,11 @@
   gap: 0.9rem;
 }
 
+.event-title-status h1 {
+  position: relative;
+  width: fit-content;
+}
+
 .event-info span {
   color: #ffffff;
   font-size: 1.02rem;
@@ -102,6 +107,10 @@
   margin-left: 0.5rem;
   margin-top: 0.95rem;
   align-self: start;
+  position: absolute;
+  left: 101%;
+  top: 5%;
+  white-space: nowrap;
 }
 
 .event-info span.not-started {

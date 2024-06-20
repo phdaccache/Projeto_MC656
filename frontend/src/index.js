@@ -13,6 +13,7 @@ import Main from "./pages/Main";
 import SettingsPage from "./pages/SettingsPage/SettingsPage";
 import Home from "./pages/Home/Home";
 import CreateEvent from "./pages/CreateEvent/CreateEvent";
+import ViewEvent from "./pages/ViewEvent/ViewEvent";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
       {
         path: "/settings",
         element: <SettingsPage />,
+      },
+      {
+        path: "/events/view/:id",
+        element: <ViewEvent />,
       },
       {
         path: "/events/create",

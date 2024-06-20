@@ -135,6 +135,10 @@
   margin-bottom: 1rem;
 }
 
+.event-summary .summary-data  {
+  color: #c5c5cf;
+}
+
 .event-status {
   /* width: 100%; */
   font-size: 0.63rem;

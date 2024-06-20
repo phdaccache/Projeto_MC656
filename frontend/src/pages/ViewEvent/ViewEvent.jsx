@@ -92,10 +92,10 @@ export default function ViewEvent() {
         <div className="event-summary">
           <h2>Sumário</h2>
           <ul>
-            <li><h3>Participantes:</h3> {participantes}</li>
-            <li><h3>Esportes:</h3> {esportes}</li>
-            <li><h3>Início:</h3> {startDate}</li>
-            <li><h3>Fim:</h3> {endDate}</li>
+            <li><h3>Participantes:</h3> <span className="summary-data">{participantes}</span></li>
+            <li><h3>Esportes:</h3> <span className="summary-data">{esportes}</span></li>
+            <li><h3>Início:</h3> <span className="summary-data">{startDate}</span></li>
+            <li><h3>Fim:</h3> <span className="summary-data">{endDate}</span></li>
           </ul>
         </div>
       </div>

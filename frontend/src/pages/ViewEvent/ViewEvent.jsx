@@ -15,8 +15,8 @@ export default function ViewEvent() {
   const esportes = 10;
 
   const currDateObj = new Date();
-  const startDateObj = new Date(startDate);
-  const endDateObj = new Date(endDate)
+  const startDateObj = new Date(startDate.split("/").reverse().join("-"));
+  const endDateObj = new Date(endDate.split("/").reverse().join("-"))
 
   let eventStatus = "", eventMessage = "";
   if (currDateObj < startDateObj) {

@@ -1,22 +1,15 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import SportComponent from "../../components/SportComponent/SportComponent";
 import "./ViewEvent.css";
 
 export default function ViewEvent() {
-  // TODO get props
-  const nome = "Olimpíada de Esportes Aquáticos";
-  const escola = "Escola Estadual de Campinas";
-  const descricao = "A Olimpíada de Esportes Aquáticos visa promover a integração entre os alunos e estimular a prática esportiva.";
-  const startDate = "05/06/2024";
-  const endDate = "19/06/2024";
-  const backgroundImage = "https://architectureofthegames.net/wp-content/uploads/2018/04/6_RIO-2016-OLYMPIC-STADIUM_88.jpg";
-  const participantes = 100;
-  const esportes = 10;
+  const location = useLocation();
+  const { event } = location.state || {};
 
   const currDateObj = new Date();
-  const startDateObj = new Date(startDate.split("/").reverse().join("-"));
-  const endDateObj = new Date(endDate.split("/").reverse().join("-"))
+  const startDateObj = new Date(event.startDate.split("/").reverse().join("-"));
+  const endDateObj = new Date(event.endDate.split("/").reverse().join("-"))
 
   let eventStatus = "", eventMessage = "";
   if (currDateObj < startDateObj) {
@@ -32,7 +25,8 @@ export default function ViewEvent() {
     eventMessage = "finalizada"
   }
 
-
+  const participantes = 100;
+  const esportes = 10;
   const sports_data = [
     {
       name: "Basquete",
@@ -80,13 +74,13 @@ export default function ViewEvent() {
       <div className="event-header-container" >
         <div className="event-info">
           <div className="event-title-status">
-            <h1>Olimpíada X</h1>
+            <h1>{event.olympiadName}</h1>
             <span className={eventStatus}>{eventMessage}</span>
           </div>
           <ul>
-            <li><p><b>Nome da Olimpíada:</b> {nome}</p></li>
-            <li><p><b>Nome da Escola:</b> {escola}</p></li>
-            <li><p><b>Descrição:</b> {descricao}</p></li>
+            <li><p><b>Nome da Olimpíada:</b> {event.olympiadName}</p></li>
+            <li><p><b>Nome da Escola:</b> {event.schoolName}</p></li>
+            <li><p><b>Descrição:</b> {event.description}</p></li>
           </ul>
         </div>
         <div className="event-summary">
@@ -94,8 +88,8 @@ export default function ViewEvent() {
           <ul>
             <li><h3>Participantes:</h3> <span className="summary-data">{participantes}</span></li>
             <li><h3>Esportes:</h3> <span className="summary-data">{esportes}</span></li>
-            <li><h3>Início:</h3> <span className="summary-data">{startDate}</span></li>
-            <li><h3>Fim:</h3> <span className="summary-data">{endDate}</span></li>
+            <li><h3>Início:</h3> <span className="summary-data">{event.startDate}</span></li>
+            <li><h3>Fim:</h3> <span className="summary-data">{event.endDate}</span></li>
           </ul>
         </div>
       </div>

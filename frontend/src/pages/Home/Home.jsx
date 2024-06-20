@@ -43,7 +43,7 @@ export default function Home() {
       </div>
       <div className="home-events-container">
         {events.map((event, index) => (
-          <div onClick={() => navigate(`/events/view/${index}`)}>
+          <div onClick={() => navigate(`/events/view/${index}`, { state: { event }})}>
             <EventCard
               key={index}
               olympiadName={event.olympiadName}

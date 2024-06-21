@@ -8,8 +8,8 @@ export default function ViewEvent() {
   const { event } = location.state || {};
 
   const currDateObj = new Date();
-  const startDateObj = new Date(event.startDate.split("/").reverse().join("-"));
-  const endDateObj = new Date(event.endDate.split("/").reverse().join("-"))
+  const startDateObj = new Date(event.date_start);
+  const endDateObj = new Date(event.date_end);
 
   let eventStatus = "", eventMessage = "";
   if (currDateObj < startDateObj) {
@@ -63,6 +63,10 @@ export default function ViewEvent() {
   ];
 
   return (
+    // TODO - mudar o design para ficar mais largo
+
+    // TODO - criar botão para participar da olimpíada
+    // TODO - alterar botão registrar/gostar para gostar
     <div className="view-event-container">
       {/* <div className="page-title">
         <h1><span>Visualizar Olimpíada</span></h1>
@@ -74,13 +78,13 @@ export default function ViewEvent() {
       <div className="event-header-container" >
         <div className="event-info">
           <div className="event-title-status">
-            <h1>{event.olympiadName}
+            <h1>{event.name}
               <span className={eventStatus}>{eventMessage}</span>
             </h1>
           </div>
           <ul>
-            <li><p><b>Nome da Olimpíada:</b> {event.olympiadName}</p></li>
-            <li><p><b>Nome da Escola:</b> {event.schoolName}</p></li>
+            <li><p><b>Nome da Olimpíada:</b> {event.name}</p></li>
+            <li><p><b>Nome da Escola:</b> {event.school}</p></li>
             <li><p><b>Descrição:</b> {event.description}</p></li>
           </ul>
         </div>
@@ -89,8 +93,8 @@ export default function ViewEvent() {
           <ul>
             <li><h3>Participantes:</h3> <span className="summary-data">{participantes}</span></li>
             <li><h3>Esportes:</h3> <span className="summary-data">{esportes}</span></li>
-            <li><h3>Início:</h3> <span className="summary-data">{event.startDate}</span></li>
-            <li><h3>Fim:</h3> <span className="summary-data">{event.endDate}</span></li>
+            <li><h3>Início:</h3> <span className="summary-data">{event.date_start}</span></li>
+            <li><h3>Fim:</h3> <span className="summary-data">{event.date_end}</span></li>
           </ul>
         </div>
       </div>

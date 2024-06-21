@@ -1,13 +1,15 @@
+import { useState, useEffect } from "react"; // TODO - importei novos
 import { Link, useNavigate } from "react-router-dom";
+import axios from "../../instances/axios";
 
 import EventCard from "../../components/EventCard/EventCard";
-
 import "./Home.css";
 
 export default function Home() {
   const navigate = useNavigate();
+  const [events, setEvents] = useState([]);
 
-  const events = [
+  const events2 = [
     {
       olympiadName: "Olimpíada do Segundo Bimestre",
       schoolName: "Escola Estadual de Campinas",
@@ -33,8 +35,36 @@ export default function Home() {
       backgroundImage: "https://www.italybyrun.com/draft/wp-content/uploads/2018/02/winter-olympic-games.jpg",
     },
   ];
-  events.push(events[0]);
+  events2.push(events2[0]);
 
+  useEffect(() => {
+    // TODO - necessário usar um effect para buscar os eventos
+    async function fetchData() {
+      try {
+        const response = await axios.get("/olympiad");
+        // console.log("data da api:", response.data.olympiadList);
+        const { olympiadList } =  response.data;
+        // TODO - data estranha
+        olympiadList.forEach((event) => {
+          // TODO - mais papeis de parede, escolher um aleatório
+          event.date_start = new Date(event.date_start).toLocaleDateString("pt-BR");
+          event.date_end = new Date(event.date_end).toLocaleDateString("pt-BR");
+          event.backgroundImage = "https://architectureofthegames.net/wp-content/uploads/2018/04/6_RIO-2016-OLYMPIC-STADIUM_88.jpg"
+        });
+        console.log("eventos:", olympiadList);
+        setEvents(olympiadList);
+        // setEvents(events2);
+      } catch (error) {
+        alert("Ocorreu um erro ao buscar as olimpíadas.");
+      }
+    };
+    fetchData();
+  }, []);
+
+  console.log("eventos:", events);
+
+  // TODO - precisei mudar os nomes das propriedades para seguir o padrão do backend
+  // TODO - estranho os cards não estão na mesma linha
   return (
     <div className="home-container">
       <div className="home-header page-title">
@@ -46,10 +76,10 @@ export default function Home() {
           <div onClick={() => navigate(`/events/view/${index}`, { state: { event }})}>
             <EventCard
               key={index}
-              olympiadName={event.olympiadName}
-              schoolName={event.schoolName}
-              startDate={event.startDate}
-              endDate={event.endDate}
+              olympiadName={event.name}
+              schoolName={event.school}
+              startDate={event.date_start}
+              endDate={event.date_end}
               description={event.description}
               backgroundImage={event.backgroundImage}
             />

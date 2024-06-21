@@ -7,6 +7,10 @@ class SchoolController {
     if (!name || !manager) {
       return { ok: "Invalid data" };
     }
+    const nameWords = name.split(" ");
+    if (nameWords.length < 2) {
+      return { ok: "Invalid data" };
+    }
     return { ok: "Valid data" };
   }
 

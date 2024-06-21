@@ -1,4 +1,5 @@
 const express = require("express");
+const authMiddleware = require("./middlewares/authMiddleware");
 const OlympiadController = require("./controllers/OlympiadController");
 const UserController = require("./controllers/UserController");
 const SchoolController = require("./controllers/SchoolController");
@@ -25,8 +26,9 @@ routes.post("/olympiad", OlympiadController.store);
 /*
 ======================= USUÁRIOS =======================
 */
-routes.get("/list_user", UserController.index);
+routes.get("/list_user", authMiddleware, UserController.index);
 routes.post("/insert_user", UserController.store);
+routes.post("/login", UserController.login);
 
 /*
 ======================= SCHOOLS =======================

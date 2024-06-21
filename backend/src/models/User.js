@@ -1,4 +1,6 @@
 const DbClient = require("../lib/dbConnection");
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 class UserModel {
   static async listUsers() {
@@ -17,13 +19,16 @@ class UserModel {
       name,
       birth_date: birthDate,
       email,
+      password,
       gender,
       phone_number: phoneNumber,
     } = userData;
 
+    const hashedPassword = await bcrypt.hash(password, 10);
+
     const queryMessage = `
-            INSERT INTO users (name, birth_date, email, gender, phone_number)
-            VALUES ('${name}', '${birthDate}', '${email}', '${gender}', '${phoneNumber}');
+            INSERT INTO users (name, birth_date, email, password, gender, phone_number)
+            VALUES ('${name}', '${birthDate}', '${email}', '${hashedPassword}', '${gender}', '${phoneNumber}');
             `;
     const queryResult = await databaseConnection.query(queryMessage);
 
@@ -36,6 +41,20 @@ class UserModel {
     const { email } = userData;
 
     const queryMessage = `SELECT * FROM users WHERE email = '${email}';`;
+    const queryResult = await databaseConnection.query(queryMessage);
+
+    return queryResult.rows;
+  }
+
+  static async findPassword(userData) {
+    const databaseConnection = DbClient.getInstance();
+
+    const { email } = userData;
+
+    const queryMessage = `
+            SELECT email, password FROM users WHERE email = '${email}';
+        `;
+    
     const queryResult = await databaseConnection.query(queryMessage);
 
     return queryResult.rows;

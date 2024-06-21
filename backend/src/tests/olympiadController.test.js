@@ -25,8 +25,8 @@ describe("POST /olympiad responses", () => {
   it("should insert a new olympiad", async () => {
     const newOlympiad = {
       name: "Test Olympiad",
-      date_start: "2022-01-01",
-      date_end: "2022-12-31",
+      date_start: "2024-09-01",
+      date_end: "2024-09-05",
       school: "DefaultSchool",
       description: "This is a test olympiad",
     };
@@ -44,8 +44,8 @@ describe("POST /olympiad responses", () => {
   it("shouldn't allow duplicates", async () => {
     const newOlympiad = {
       name: "Test Olympiad",
-      date_start: "2022-01-01",
-      date_end: "2022-12-31",
+      date_start: "2024-09-01",
+      date_end: "2024-09-05",
       school: "DefaultSchool",
       description: "This is a test olympiad",
     };

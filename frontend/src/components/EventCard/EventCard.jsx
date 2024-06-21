@@ -9,8 +9,8 @@ export default function EventCard({ olympiadName, schoolName, startDate, endDate
           <h3 className="school-name">{schoolName}</h3>
         </div>
         <div className="event-card-dates">
-          <p className="start-date"><strong>Start Date:</strong> {startDate}</p>
-          <p className="end-date"><strong>End Date:</strong> {endDate}</p>
+          <p className="start-date"><strong>Data de Início:</strong> {startDate}</p>
+          <p className="end-date"><strong>Data de Término:</strong> {endDate}</p>
         </div>
       </div>
       {/* <div className="event-card-description">

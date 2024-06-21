@@ -9,11 +9,34 @@ import "./index.css";
 import App from "./App";
 import Login from "./pages/Login/Login";
 import SignUp from "./pages/SignUp/SignUp";
+import Main from "./pages/Main";
+import SettingsPage from "./pages/SettingsPage/SettingsPage";
+import Home from "./pages/Home/Home";
+import CreateEvent from "./pages/CreateEvent/CreateEvent";
+import ViewEvent from "./pages/ViewEvent/ViewEvent";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <Main />,
+    children: [
+      {
+        path: "/home",
+        element: <Home />,
+      },
+      {
+        path: "/settings",
+        element: <SettingsPage />,
+      },
+      {
+        path: "/events/view/:id",
+        element: <ViewEvent />,
+      },
+      {
+        path: "/events/create",
+        element: <CreateEvent />,
+      }
+    ],
   },
   {
     path: "/login",

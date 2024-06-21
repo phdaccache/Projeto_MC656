@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
+import axios from "../../instances/axios";
 
 import "./CreateEvent.css";
 
@@ -14,10 +15,25 @@ export default function CreateEvent() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    alert(`Nome: ${eventName} Início: ${eventStartDate} Término: ${eventEndDate} Descrição: ${eventDescription}`);
-    // TODO - implementar a integração com o backend
-    setSuccess(true); // Redireciona para a página anterior
-    // setError(true);
+    // alert(`Nome: ${eventName} Início: ${eventStartDate} Término: ${eventEndDate} Descrição: ${eventDescription}`);
+
+    let success = false;
+    try {
+      const response = await axios.post("/olympiad", {
+        name: eventName,
+        date_start: eventStartDate,
+        date_end: eventEndDate,
+        school: "DefaultSchool", // TODO - pegar a escola do professor logado
+        description: eventDescription,
+      })
+      success = (response.status === 200);
+    } catch (error) {
+      alert("Ocorreu um erro ao criar a olimpíada.");
+      console.error(error);
+    }
+
+    setSuccess(success);
+    setError(!success);
   };
 
   return (

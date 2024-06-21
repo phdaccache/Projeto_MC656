@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import "./SignUp.css";
+import axios from "../../instances/axios";
 
 export default function SignUp() {
   const [nome, setNome] = useState("");
@@ -18,11 +19,62 @@ export default function SignUp() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    alert(`nome: ${nome} email: ${email} phone: ${phone} gender: ${gender} date: ${date} school: ${school} password: ${password} confirmPassword: ${confirmPassword} isTeacher: ${isTeacher}`);
+
     if (password !== confirmPassword) {
       alert("As senhas não coincidem!");
       return;
     }
+
+    try {
+      const responseUser = await axios.post("/insert_user", {
+        name: nome,
+        birth_date: date,
+        email: email,
+        gender: gender,
+        phone_number: phone
+      });
+    } catch (error) {
+      console.error(error);
+      alert("Ocorreu um erro ao criar o usuário.");
+      return;
+    }
+
+    if (isTeacher) {
+      try {
+        const responseSchool = await axios.post("/school", {
+          name: school,
+          manager: email,
+        });
+        console.log("resposta:", responseSchool);
+      } catch (error) {
+        while (true) {
+          try {
+            const responseDelUser = await axios.delete("/user", {
+              email: email
+            });
+            break;
+          } catch (error) {
+            console.error(error);
+          }
+        }
+        console.error(error);
+        alert("Ocorreu um erro ao criar a escola.");
+        return;
+      }
+    }
+
+    try {
+      const responseSchoolUser = await axios.post("/schoolusers", {
+        user: email,
+        school: school,
+        permission: isTeacher ? "teacher" : "student"
+      });
+    } catch (error) {
+      console.error(error);
+      alert("Ocorreu um erro ao inserir o usuário na escola.");
+      return;
+    }
+
     setSuccess(true); // Redireciona para a página de login
     // setError(true);
   }

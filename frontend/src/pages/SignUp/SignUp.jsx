@@ -25,11 +25,14 @@ export default function SignUp() {
       return;
     }
 
+    // TODO alertar usuário sobre o erro
+
     try {
       const responseUser = await axios.post("/insert_user", {
         name: nome,
         birth_date: date,
         email: email,
+        password,
         gender: gender,
         phone_number: phone
       });

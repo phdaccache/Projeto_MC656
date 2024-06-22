@@ -20,7 +20,7 @@ routes.get("/", (req, res) => {
 /*
 ======================= OLIMPÍADAS =======================
 */
-routes.get("/olympiad", OlympiadController.index);
+routes.get("/olympiad", authMiddleware, OlympiadController.index);
 routes.post("/olympiad", OlympiadController.store);
 
 /*

@@ -50,7 +50,7 @@ export default function SettingsPage() {
   };
 
   const handleDeleteAcc = async () => {
-    const confirm = window.confirm("Deseja salvar as alterações?");
+    const confirm = window.confirm("Você tem certeza que quer excluir sua conta permanentemente?");
 
     if (confirm) {
       try {

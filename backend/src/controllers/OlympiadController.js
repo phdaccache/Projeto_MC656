@@ -1,4 +1,5 @@
 const Olympiad = require("../models/Olympiad");
+const SchoolUsers = require("../models/SchoolUsers");
 
 function formatDate(date) {
   const year = date.getFullYear();
@@ -9,7 +10,11 @@ function formatDate(date) {
 
 class OlympiadController {
   static async index(req, res) {
-    const olympiadList = await Olympiad.listOlympiads();
+    const school = await SchoolUsers.findUserSchool({
+      email: req.userEmail,
+    });
+
+    const olympiadList = await Olympiad.listOlympiadsBySchool(school);
     return res.status(200).json({ olympiadList });
   }
 

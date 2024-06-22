@@ -13,6 +13,22 @@
   margin: 0 auto;
 }
 
+.delete-profile-btn {
+  cursor: pointer;
+  font-size: 0.9rem;
+  background-color: lightgray;
+  color: fieldtext;
+  padding: 0.4375rem;
+  border-radius: 0.5rem;
+  transition: background-color 0.4s ease;
+}
+
+.delete-profile-btn:hover {
+  /* background-color: #d16a58; */
+  background-color: #629aef;
+  color: rgb(255, 255, 255);
+}
+
 .not-showing {
   visibility: hidden;
   opacity: 0;

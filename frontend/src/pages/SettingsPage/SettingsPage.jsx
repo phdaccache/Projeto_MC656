@@ -85,8 +85,8 @@ export default function SettingsPage() {
             className="profile-picture"
           />
           <h3>{settings[0].settingValue}</h3>
-          <div className="delete-profile-btn">
-            <button onClick={handleDeleteAcc}>Delete Profile</button>
+          <div onClick={handleDeleteAcc} className="delete-profile-btn">
+            Apagar Conta
           </div>
         </div>
         <hr />

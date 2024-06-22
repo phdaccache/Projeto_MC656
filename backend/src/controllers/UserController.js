@@ -2,6 +2,13 @@ const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
+function formatDate(date) {
+  const year = date.getFullYear();
+  const month = (date.getMonth() + 1).toString().padStart(2, "0");
+  const day = date.getDate().toString().padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
 class UserController {
   static async index(req, res) {
     const userList = await User.listUsers();
@@ -9,7 +16,13 @@ class UserController {
   }
 
   static #validateUserData(userData) {
-    const { name, email, phone_number: phoneNumber, password } = userData;
+    const {
+      name,
+      birth_date: birthDate,
+      email,
+      phone_number: phoneNumber,
+      password,
+    } = userData;
 
     const nameWords = name.split(" ");
     if (nameWords.length < 2) {
@@ -24,6 +37,11 @@ class UserController {
     const phoneNumberRegex = /^\d{5}-\d{4}$/;
     if (!phoneNumberRegex.test(phoneNumber)) {
       return { ok: "Invalid phone number" };
+    }
+
+    const today = new Date();
+    if (birthDate > formatDate(today)) {
+      return { ok: "Invalid birth date" };
     }
 
     const passwordRegex = /^(?=.*[A-Z])(?=.*\d).{6,}$/;

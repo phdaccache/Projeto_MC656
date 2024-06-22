@@ -1,6 +1,6 @@
 const DbClient = require("../lib/dbConnection");
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 class UserModel {
   static async listUsers() {
@@ -54,7 +54,18 @@ class UserModel {
     const queryMessage = `
             SELECT email, password FROM users WHERE email = '${email}';
         `;
-    
+
+    const queryResult = await databaseConnection.query(queryMessage);
+
+    return queryResult.rows;
+  }
+
+  static async deleteUser(userData) {
+    const databaseConnection = DbClient.getInstance();
+
+    const { email } = userData;
+
+    const queryMessage = `DELETE FROM users WHERE email = '${email}';`;
     const queryResult = await databaseConnection.query(queryMessage);
 
     return queryResult.rows;

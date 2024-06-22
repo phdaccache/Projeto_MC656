@@ -1,3 +1,10 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -10,4 +17,121 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+.root-div-flex-row {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.root-div-flex-col {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-center-vh {
+  justify-content: center;
+  align-items: center;
+}
+
+.hidden {
+  display: none;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.not-showing {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0.5s, opacity 0.5s linear;
+}
+
+.showing {
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 0.5s, opacity 0.5s linear;
+}
+
+.page-title {
+  color: #eaeaea;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.page-title h1 {
+  margin-bottom: 1rem;
+}
+
+.page-title span {
+  display: inline-block;
+  position: relative;
+  line-height: 0;
+  padding-left: 5rem;
+  padding-right: 5rem;
+}
+
+.page-title span:before,
+.page-title span:after {
+  content: "";
+  position: absolute;
+  border-bottom: 0.15rem solid white;
+  border-top: 0.15rem solid white;
+  width: 4.5rem;
+  bottom: -0.37rem;
+}
+
+.page-title span:before {
+  left: 0;
+}
+
+.page-title span:after {
+  right: 0;
+}
+
+.page-title p {
+  font-size: 1.15rem;
+  color: #eaeaeac2;
+}
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background-color: #6d6a6a;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #5f5d5d;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background-color: #413f3f;
+}
+
+/* Corner */
+::-webkit-scrollbar-corner {
+  background-color: transparent;
 }

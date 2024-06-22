@@ -43,6 +43,10 @@ class DbClient {
     client.release();
     return res;
   }
+
+  async close() {
+    await this.client.end();
+  }
 }
 
 module.exports = DbClient;

@@ -1,0 +1,79 @@
+.all-settings-container {
+  font-size: 1.17rem;
+  color: rgb(234, 234, 234);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.8rem;
+}
+
+.settings-info-page-container .page-title p {
+  width: 85%;
+  margin: 0 auto;
+}
+
+.not-showing {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0.3s, opacity 0.3s linear;
+}
+
+.showing {
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 0.3s, opacity 0.3s linear;
+}
+
+.settings-information {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.settings-container {
+  display: flex;
+  gap: 6rem;
+  color: #eaeaea;
+  text-align: center;
+  width: 85%;
+  margin: 0rem auto;
+}
+
+.settings-profile {
+  /* font-size: 1.2em; */
+  display: flex;
+  flex-direction: column;
+  gap: 2.22rem;
+  align-items: center;
+  text-wrap: nowrap;
+}
+
+.settings-profile img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+}
+
+.settings-profile h3 {
+  font-size: 1.275rem;
+}
+
+.settings-information h2 {
+  margin-bottom: 1.2rem;
+}
+
+.politica-privacidade {
+  max-width: 60rem;
+  margin: 2rem auto;
+  color: #eaeaea;
+}
+
+.politica-privacidade h2 {
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.politica-privacidade p {
+  margin-bottom: 1rem;
+}

@@ -37,7 +37,7 @@ describe("GET /list_user responses", () => {
   });
 });
 
-describe("POST /insert_user responses", () => {
+describe("POST /users responses", () => {
   it("should insert a new user", async () => {
     const newUser = {
       name: "Test User",
@@ -50,7 +50,7 @@ describe("POST /insert_user responses", () => {
     };
 
     return request(app)
-      .post("/insert_user")
+      .post("/users")
       .send(newUser)
       .expect(200)
       .then((res) => {
@@ -71,10 +71,10 @@ describe("POST /insert_user responses", () => {
     };
 
     // Primeira
-    await request(app).post("/insert_user").send(newUser).expect(200);
+    await request(app).post("/users").send(newUser).expect(200);
 
     return request(app)
-      .post("/insert_user")
+      .post("/users")
       .send(newUser)
       .expect(400)
       .then((res) => {
@@ -95,7 +95,7 @@ describe("POST /insert_user responses", () => {
     };
 
     return request(app)
-      .post("/insert_user")
+      .post("/users")
       .send(newUser)
       .expect(400)
       .then((res) => {
@@ -117,7 +117,7 @@ describe("POST /insert_user responses", () => {
 
     // Primeira
     return request(app)
-      .post("/insert_user")
+      .post("/users")
       .send(newUser)
       .expect(400)
       .then((res) => {

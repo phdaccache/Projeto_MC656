@@ -28,7 +28,7 @@ routes.post("/olympiad", OlympiadController.store);
 ======================= USUÁRIOS =======================
 */
 routes.get("/list_user", authMiddleware, UserController.index);
-routes.post("/insert_user", UserController.store);
+routes.post("/users", UserController.store);
 routes.post("/login", Login.login);
 
 /*

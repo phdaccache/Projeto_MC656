@@ -1,5 +1,6 @@
 const User = require("../models/User");
 const School = require("../models/School");
+const SchoolUsers = require("../models/SchoolUsers");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const DateChecks = require("../lib/DateChecks");
@@ -80,6 +81,10 @@ class UserController {
         .status(400)
         .json({ ok: "Contact an admin to delete your account" });
     }
+
+    const schoolRemovalResult = await SchoolUsers.removeUserSchool({
+      user: req.params.email,
+    });
 
     const deletionResult = await User.deleteUser(req.params);
     return res.status(200).json({ ok: "User deleted" });

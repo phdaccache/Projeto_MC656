@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const School = require("../models/School");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const DateChecks = require("../lib/DateChecks");
@@ -58,6 +59,30 @@ class UserController {
 
     const insertionResult = await User.createUser(req.body);
     return res.status(200).json({ ok: "User created" });
+  }
+
+  static async delete(req, res) {
+    const { email } = req.params;
+    const { userEmail } = req;
+
+    if (email !== userEmail) {
+      return res.status(400).json({ ok: "Invalid account" });
+    }
+
+    const userExists = await User.findUser(req.params);
+    if (userExists.length <= 0) {
+      return res.status(400).json({ ok: "User doesn't exist" });
+    }
+
+    const managerSchools = await School.getManagerSchools({ email });
+    if (managerSchools.length > 0) {
+      return res
+        .status(400)
+        .json({ ok: "Contact an admin to delete your account" });
+    }
+
+    const deletionResult = await User.deleteUser(req.params);
+    return res.status(200).json({ ok: "User deleted" });
   }
 }
 

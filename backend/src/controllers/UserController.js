@@ -1,6 +1,7 @@
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const DateChecks = require("../lib/DateChecks");
 
 class UserController {
   static async index(req, res) {
@@ -9,7 +10,18 @@ class UserController {
   }
 
   static #validateUserData(userData) {
-    const { email, phone_number: phoneNumber, password } = userData;
+    const {
+      name,
+      birth_date: birthDate,
+      email,
+      phone_number: phoneNumber,
+      password,
+    } = userData;
+
+    const nameWords = name.split(" ");
+    if (nameWords.length < 2) {
+      return { ok: "Invalid name" };
+    }
 
     const emailRegex = /^\S+@\S+\.\S+$/;
     if (!emailRegex.test(email)) {
@@ -19,6 +31,10 @@ class UserController {
     const phoneNumberRegex = /^\d{5}-\d{4}$/;
     if (!phoneNumberRegex.test(phoneNumber)) {
       return { ok: "Invalid phone number" };
+    }
+
+    if (!DateChecks.isBeforeToday(birthDate)) {
+      return { ok: "Invalid birth date" };
     }
 
     const passwordRegex = /^(?=.*[A-Z])(?=.*\d).{6,}$/;

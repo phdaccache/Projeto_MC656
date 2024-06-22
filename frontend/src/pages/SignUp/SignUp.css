@@ -124,6 +124,31 @@
   text-align: left;
 }
 
+.signup-option select {
+  /* display: flex; */
+  /* color: #7656f0; */
+  /* gap: 1rem; */
+  margin-top: 0.5rem;
+  color: rgb(255 255 255 / 96%);
+  background: rgb(255 255 255 / 8%);
+  font-weight: 400;
+  font-size: 1.1rem;
+  padding: 0 1rem;
+  width: 100%;
+  height: 3rem;
+  border: 0;
+  border-radius: 6px;
+}
+
+.signup-option select option {
+  color: #eaeaea;
+  background-color: #4b379b;
+}
+
+.signup-option select option:disabled {
+  color: #999999;
+}
+
 .check-confirm {
   display: flex;
   gap: 1rem;

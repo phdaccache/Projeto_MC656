@@ -1,9 +1,13 @@
-import { React, useState } from "react";
+import { React, useState, useContext } from "react";
 import SettingsComponent from "../../components/SettingsComponent/SettingsComponent";
+import { AuthContext } from "../../context/AuthContext";
+import axios from "../../instances/axios";
 
 import "./SettingsPage.css";
 
 export default function SettingsPage() {
+  const { auth, logout } = useContext(AuthContext);
+
   const [settings, setSettings] = useState([
     {
       settingName: "Name",
@@ -45,6 +49,27 @@ export default function SettingsPage() {
     setSettings(updatedSettings);
   };
 
+  const handleDeleteAcc = async () => {
+    const confirm = window.confirm("Deseja salvar as alterações?");
+
+    if (confirm) {
+      try {
+        const loggedEmail = localStorage.getItem("email");
+
+        const responseDelUser = await axios.delete(`/users/${loggedEmail}`, {
+          headers: {
+            authorization: auth
+          }
+        });
+        alert("Conta deletada com sucesso!");
+        logout();
+      } catch (error) {
+        alert(`Ocorreu um erro ao apagar a conta: '${error.response.data.ok}'`);
+        console.error(error);
+      }
+    }
+  }
+
   return (
     <div className="settings-info-page-container">
       <div className="page-title">
@@ -61,7 +86,7 @@ export default function SettingsPage() {
           />
           <h3>{settings[0].settingValue}</h3>
           <div className="delete-profile-btn">
-            <button>Delete Profile</button>
+            <button onClick={handleDeleteAcc}>Delete Profile</button>
           </div>
         </div>
         <hr />

@@ -9,7 +9,12 @@ class UserController {
   }
 
   static #validateUserData(userData) {
-    const { email, phone_number: phoneNumber, password } = userData;
+    const { name, email, phone_number: phoneNumber, password } = userData;
+
+    const nameWords = name.split(" ");
+    if (nameWords.length < 2) {
+      return { ok: "Invalid name" };
+    }
 
     const emailRegex = /^\S+@\S+\.\S+$/;
     if (!emailRegex.test(email)) {

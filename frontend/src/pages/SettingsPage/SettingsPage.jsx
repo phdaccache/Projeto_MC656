@@ -1,9 +1,13 @@
-import { React, useState } from "react";
+import { React, useState, useContext } from "react";
 import SettingsComponent from "../../components/SettingsComponent/SettingsComponent";
+import { AuthContext } from "../../context/AuthContext";
+import axios from "../../instances/axios";
 
 import "./SettingsPage.css";
 
 export default function SettingsPage() {
+  const { auth, logout } = useContext(AuthContext);
+
   const [settings, setSettings] = useState([
     {
       settingName: "Name",
@@ -45,6 +49,27 @@ export default function SettingsPage() {
     setSettings(updatedSettings);
   };
 
+  const handleDeleteAcc = async () => {
+    const confirm = window.confirm("Você tem certeza que quer excluir sua conta permanentemente?");
+
+    if (confirm) {
+      try {
+        const loggedEmail = localStorage.getItem("email");
+
+        const responseDelUser = await axios.delete(`/users/${loggedEmail}`, {
+          headers: {
+            authorization: auth
+          }
+        });
+        alert("Conta deletada com sucesso!");
+        logout();
+      } catch (error) {
+        alert("Contate um administrador do sistema para apagar sua conta de professor.");
+        console.error(error);
+      }
+    }
+  }
+
   return (
     <div className="settings-info-page-container">
       <div className="page-title">
@@ -60,8 +85,8 @@ export default function SettingsPage() {
             className="profile-picture"
           />
           <h3>{settings[0].settingValue}</h3>
-          <div className="delete-profile-btn">
-            <button>Delete Profile</button>
+          <div onClick={handleDeleteAcc} className="delete-profile-btn">
+            Apagar Conta
           </div>
         </div>
         <hr />

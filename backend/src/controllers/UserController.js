@@ -1,4 +1,6 @@
 const User = require("../models/User");
+const School = require("../models/School");
+const SchoolUsers = require("../models/SchoolUsers");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const DateChecks = require("../lib/DateChecks");
@@ -60,26 +62,32 @@ class UserController {
     return res.status(200).json({ ok: "User created" });
   }
 
-  static async login(req, res) {
-    const { email, password } = req.body;
+  static async delete(req, res) {
+    const { email } = req.params;
+    const { userEmail } = req;
 
-    const findPassword = await User.findPassword(req.body);
-
-    if (findPassword.length == 0) {
-      return res.status(400).json({ ok: "User doesnt exist" });
+    if (email !== userEmail) {
+      return res.status(400).json({ ok: "Invalid account" });
     }
 
-    const dbPassword = findPassword[0].password;
-    const passwordMatch = await bcrypt.compare(password, dbPassword);
-    if (!passwordMatch) {
-      return res.status(401).json({ error: "Authentication failed" });
+    const userExists = await User.findUser(req.params);
+    if (userExists.length <= 0) {
+      return res.status(400).json({ ok: "User doesn't exist" });
     }
 
-    const token = jwt.sign({ userEmail: email }, "your-secret-key", {
-      expiresIn: "1d",
+    const managerSchools = await School.getManagerSchools({ email });
+    if (managerSchools.length > 0) {
+      return res
+        .status(400)
+        .json({ ok: "Contact an admin to delete your account" });
+    }
+
+    const schoolRemovalResult = await SchoolUsers.removeUserSchool({
+      user: req.params.email,
     });
 
-    res.status(200).json({ token });
+    const deletionResult = await User.deleteUser(req.params);
+    return res.status(200).json({ ok: "User deleted" });
   }
 }
 

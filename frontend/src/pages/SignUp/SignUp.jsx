@@ -40,6 +40,11 @@ export default function SignUp() {
       return;
     }
 
+    const tempToken = (await axios.post("/login", {
+      email: email,
+      password: password,
+    })).data.token;
+
     if (isTeacher) {
       try {
         const responseSchool = await axios.post("/school", {
@@ -48,16 +53,18 @@ export default function SignUp() {
         });
         console.log("resposta:", responseSchool);
       } catch (error) {
-        // while (true) {
-        //   try {
-        //     const responseDelUser = await axios.delete("/users", {
-        //       email: email
-        //     });
-        //     break;
-        //   } catch (error) {
-        //     console.error(error);
-        //   }
-        // }
+        while (true) {
+          try {
+            const responseDelUser = await axios.delete(`/users/${email}`, {
+              headers: {
+                authorization: tempToken
+              }
+            });
+            break;
+          } catch (error) {
+            console.error(error);
+          }
+        }
         console.error(error);
         alert(`Ocorreu um erro ao criar a escola: '${error.response.data.ok}'`);
         return;
@@ -71,16 +78,18 @@ export default function SignUp() {
         permission: isTeacher ? "teacher" : "student"
       });
     } catch (error) {
-      // while (true) {
-      //   try {
-      //     const responseDelUser = await axios.delete("/users", {
-      //       email: email
-      //     });
-      //     break;
-      //   } catch (error) {
-      //     console.error(error);
-      //   }
-      // }
+      while (true) {
+        try {
+          const responseDelUser = await axios.delete(`/users/${email}`, {
+            headers: {
+              authorization: tempToken
+            }
+          });
+          break;
+        } catch (error) {
+          console.error(error);
+        }
+      }
       console.error(error);
       alert(`Ocorreu um erro ao inserir o usuário na escola: '${error.response.data.ok}'`);
       return;

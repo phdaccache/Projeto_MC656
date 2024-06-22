@@ -14,27 +14,34 @@ import SettingsPage from "./pages/SettingsPage/SettingsPage";
 import Home from "./pages/Home/Home";
 import CreateEvent from "./pages/CreateEvent/CreateEvent";
 import ViewEvent from "./pages/ViewEvent/ViewEvent";
+import { AuthProvider } from "./context/AuthContext";
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Main />,
+    element: <ProtectedRoute />,
     children: [
       {
-        path: "/home",
-        element: <Home />,
-      },
-      {
-        path: "/settings",
-        element: <SettingsPage />,
-      },
-      {
-        path: "/events/view/:id",
-        element: <ViewEvent />,
-      },
-      {
-        path: "/events/create",
-        element: <CreateEvent />,
+        element: <Main />,
+        children: [
+          {
+            path: "/home",
+            element: <Home />,
+          },
+          {
+            path: "/settings",
+            element: <SettingsPage />,
+          },
+          {
+            path: "/events/view/:id",
+            element: <ViewEvent />,
+          },
+          {
+            path: "/events/create",
+            element: <CreateEvent />,
+          }
+        ],
       }
     ],
   },
@@ -51,6 +58,8 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </React.StrictMode>
 );

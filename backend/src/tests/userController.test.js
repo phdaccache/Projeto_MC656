@@ -2,6 +2,7 @@ const request = require("supertest");
 const app = require("../app");
 const DbClient = require("../lib/dbConnection");
 const User = require("../models/User");
+const School = require("../models/School");
 const jwt = require("jsonwebtoken");
 
 let token;
@@ -145,6 +146,69 @@ describe("POST /users responses", () => {
       .then((res) => {
         expect(res.body).toHaveProperty("ok");
         expect(res.body.ok).toBe("Invalid password");
+      });
+  });
+});
+
+describe("DELETE /users/:email responses", () => {
+  const newUser = {
+    name: "Test User",
+    birth_date: "2001-01-01",
+    email: "testuseremail@gmail.com",
+    password: "Senh@123",
+    gender: "Test Gender",
+    phone_number: "95124-9087",
+  };
+
+  beforeEach(async () => {
+    await User.createUser(newUser);
+  });
+
+  afterEach(async () => {
+    await User.deleteUser(newUser);
+  });
+
+  it("should delete a user", async () => {
+    const loggedToken = jwt.sign(
+      { userEmail: newUser.email },
+      "your-secret-key",
+      {
+        expiresIn: "1min",
+      }
+    );
+
+    return request(app)
+      .delete(`/users/${newUser.email}`)
+      .set({ authorization: loggedToken })
+      .expect(200)
+      .then((res) => {
+        expect(res.body).toHaveProperty("ok");
+        expect(res.body.ok).toBe("User deleted");
+      });
+  });
+
+  it("shouldn't delete an account without a login", async () => {
+    return request(app).delete(`/users/${newUser.email}`).expect(401);
+  });
+
+  it("shouldn't delete an invalid user", async () => {
+    newUser.email = "invaliduser@gmail.com";
+
+    const loggedToken = jwt.sign(
+      { userEmail: newUser.email },
+      "your-secret-key",
+      {
+        expiresIn: "1min",
+      }
+    );
+
+    return request(app)
+      .delete(`/users/${newUser.email}`)
+      .set({ authorization: loggedToken })
+      .expect(400)
+      .then((res) => {
+        expect(res.body).toHaveProperty("ok");
+        expect(res.body.ok).toBe("User doesn't exist");
       });
   });
 });

@@ -64,7 +64,7 @@ export default function SettingsPage() {
         alert("Conta deletada com sucesso!");
         logout();
       } catch (error) {
-        alert(`Ocorreu um erro ao apagar a conta: '${error.response.data.ok}'`);
+        alert("Contate um administrador do sistema para apagar sua conta de professor.");
         console.error(error);
       }
     }

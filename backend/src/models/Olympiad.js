@@ -69,6 +69,17 @@ class OlympiadModel {
 
     return queryResult.rows;
   }
+
+  static async findOlympiadById(olympiadData) {
+    const databaseConnection = DbClient.getInstance();
+
+    const { id } = olympiadData;
+
+    const queryMessage = `SELECT * FROM olympiad WHERE id = '${id}';`;
+    const queryResult = await databaseConnection.query(queryMessage);
+
+    return queryResult.rows;
+  }
 }
 
 module.exports = OlympiadModel;

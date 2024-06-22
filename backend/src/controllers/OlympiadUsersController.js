@@ -24,6 +24,7 @@ class OlympiadUsersController {
       return res.status(400).json({ ok: "User already signed up" });
     }
 
+    const olympiadInterest = await Olympiad.addParticipant({ name: olympiad });
     const insertionResult = await OlympiadUsers.showInterest(req.body);
     return res.status(200).json({ ok: "User signed up" });
   }

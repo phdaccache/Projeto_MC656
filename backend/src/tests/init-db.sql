@@ -33,6 +33,7 @@ CREATE TABLE Olympiad (
     date_start DATE,
     date_end DATE,
     description VARCHAR,
+    participants INT,
 
     PRIMARY KEY (name, school),
     FOREIGN KEY (school)
@@ -109,13 +110,19 @@ INSERT INTO Users (name, email)
 INSERT INTO Users (name, email)
             VALUES ('Student', 'student@gmail.com');
 
+INSERT INTO Users (name, email)
+            VALUES ('Student', 'testuser@testing.com');
+
 -- Default school
 INSERT INTO School (name, manager)
             VALUES ('DefaultSchool', 'schoolmanager@gmail.com');
 
+INSERT INTO SchoolUsers (school, email, permission)
+            VALUES ('DefaultSchool', 'testuser@testing.com', 'Student');
+
 -- Default olympiad
-INSERT INTO Olympiad (name, school, date_start, date_end, description)
-            VALUES ('DefaultOlympiad', 'DefaultSchool', '2024-01-01', '2024-01-02', 'DefaultOlympiadDescription');
+INSERT INTO Olympiad (name, school, date_start, date_end, description, participants)
+            VALUES ('DefaultOlympiad', 'DefaultSchool', '2024-01-01', '2024-01-02', 'DefaultOlympiadDescription', 0);
 
 -- Default sports
 INSERT INTO Sports (name, min_players, max_players, duration, ruleset, extra_info)

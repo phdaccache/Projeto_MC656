@@ -1,6 +1,23 @@
 const DbClient = require("../lib/dbConnection");
+const SchoolUsers = require("./SchoolUsers");
 
 class OlympiadModel {
+  static async addParticipant(olympiadData) {
+    const databaseConnection = DbClient.getInstance();
+
+    const { name } = olympiadData;
+
+    const queryMessage = `
+      UPDATE olympiad
+      SET participants = participants + 1
+      WHERE name = '${name}';
+    `;
+
+    const queryResult = await databaseConnection.query(queryMessage);
+
+    return queryResult.rows;
+  }
+
   static async listOlympiadsBySchool(schoolData) {
     const databaseConnection = DbClient.getInstance();
 
@@ -12,7 +29,7 @@ class OlympiadModel {
     return queryResult.rows;
   }
 
-  static async listOlympiads() {
+  static async listOlympiads(userData) {
     const databaseConnection = DbClient.getInstance();
 
     const queryMessage = `SELECT * FROM olympiad;`;
@@ -33,8 +50,8 @@ class OlympiadModel {
     } = olympiadData;
 
     const queryMessage = `
-      INSERT INTO olympiad (name, school, date_start, date_end, description)
-      VALUES ('${name}', '${school}', '${dateStart}', '${dateEnd}', '${description}');
+      INSERT INTO olympiad (name, school, date_start, date_end, description, participants)
+      VALUES ('${name}', '${school}', '${dateStart}', '${dateEnd}', '${description}', 0);
       `;
 
     const queryResult = await databaseConnection.query(queryMessage);

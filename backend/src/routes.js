@@ -57,6 +57,7 @@ routes.put("/sports", SportsController.update);
 /*
 ======================= OLYMPIAD SPORTS =======================
 */
+routes.get("/olympiadsports/:id", OlympiadSportsController.index);
 routes.post("/olympiadsports", OlympiadSportsController.store);
 routes.put(
   "/olympiadsports/:olympiad/:school/:sport",

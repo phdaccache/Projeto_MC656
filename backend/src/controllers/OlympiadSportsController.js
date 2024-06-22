@@ -5,6 +5,15 @@ const OlympiadSports = require("../models/OlympiadSports");
 
 // TODO: only managers can create sports in olympiads
 class OlympiadSportsController {
+  static async index(req, res) {
+    const { id } = req.params;
+
+    const olympiad = await Olympiad.findOlympiadById({ id });
+
+    const olympiadSports = await OlympiadSports.getOlympiadSports(olympiad[0]);
+    return res.status(200).json(olympiadSports);
+  }
+
   static async store(req, res) {
     const { olympiad, school, sport } = req.body;
 

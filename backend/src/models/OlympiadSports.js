@@ -30,6 +30,21 @@ class OlympiadSportsModel {
     return queryResult.rows;
   }
 
+  static async addParticipant(olympiadSportData) {
+    const databaseConnection = DbClient.getInstance();
+
+    const { olympiad, school, sport } = olympiadSportData;
+
+    const queryMessage = `
+        UPDATE OlympiadSports
+        SET participants = participants + 1
+        WHERE olympiad = '${olympiad}' AND school = '${school}' AND sport = '${sport}';
+        `;
+
+    const queryResult = await databaseConnection.query(queryMessage);
+    return queryResult.rows;
+  }
+
   static async findOlympiadSport(olympiadSportData) {
     const databaseConnection = DbClient.getInstance();
 

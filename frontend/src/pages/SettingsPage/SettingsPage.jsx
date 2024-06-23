@@ -1,6 +1,7 @@
 import { React, useState, useContext, useEffect } from "react";
 import SettingsComponent from "../../components/SettingsComponent/SettingsComponent";
 import { AuthContext } from "../../context/AuthContext";
+import { useName } from "../../context/NameContext";
 import axios from "../../instances/axios";
 
 import "./SettingsPage.css";
@@ -8,6 +9,7 @@ import "./SettingsPage.css";
 export default function SettingsPage() {
   const { auth, logout } = useContext(AuthContext);
   const [settings, setSettings] = useState([{}]);
+  const { name, setName } = useName();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -63,14 +65,51 @@ export default function SettingsPage() {
     fetchData();
   }, []);
 
-  const handleSave = (settingName, newValue) => {
+  const handleSave = async (settingName, newValue) => {
+    const getPassword = () => {
+      const password = prompt("Digite sua senha para confirmar as alterações:");
+      return password;
+    };
+
     const updatedSettings = settings.map((setting) => {
       if (setting.settingName === settingName) {
         return { ...setting, settingValue: newValue };
       }
       return setting;
     });
-    setSettings(updatedSettings);
+
+    const loggedEmail = localStorage.getItem("email");
+
+    try {
+      const userPassword = (settingName === "Senha"
+        ? updatedSettings[6].settingValue
+        : getPassword());
+      if (!userPassword) {
+        return { ok: false };
+      }
+      const responseUpdtUser = await axios.put(
+        `/users/${loggedEmail}`,
+        {
+          name: updatedSettings[0].settingValue,
+          email: settings[2].settingValue,
+          phone_number: updatedSettings[3].settingValue,
+          birth_date: updatedSettings[4].settingValue,
+          gender: updatedSettings[5].settingValue,
+          password: userPassword,
+        },
+        {
+          headers: {
+            authorization: auth,
+          },
+        }
+      );
+      setName(updatedSettings[0].settingValue.split(" ")[0]);
+      setSettings(updatedSettings);
+      return { ok: true };
+    } catch (error) {
+      alert(`Erro ao atualizar os dados: ${error.response.data.ok}`);
+      return { ok: false };
+    }
   };
 
   const handleDeleteAcc = async () => {
@@ -87,7 +126,7 @@ export default function SettingsPage() {
             authorization: auth,
           },
         });
-        alert("Conta deletada com sucesso!");
+        // alert("Conta deletada com sucesso!");
         logout();
       } catch (error) {
         alert(

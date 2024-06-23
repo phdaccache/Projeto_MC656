@@ -62,6 +62,29 @@ class UserController {
     return res.status(200).json({ ok: "User created" });
   }
 
+  static async update(req, res) {
+    const { email } = req.params;
+    const { userEmail } = req;
+    const userData = req.body;
+
+    if (email !== userEmail) {
+      return res.status(400).json({ ok: "Invalid account" });
+    }
+
+    const userExists = await User.findUser(req.params);
+    if (userExists.length <= 0) {
+      return res.status(400).json({ ok: "User doesn't exist" });
+    }
+
+    const validation = UserController.#validateUserData(req.body);
+    if (validation.ok !== "Valid data") {
+      return res.status(400).json(validation);
+    }
+
+    const updateResult = await User.updateUser({ email, ...userData });
+    return res.status(200).json({ ok: "User updated" });
+  }
+
   static async delete(req, res) {
     const { email } = req.params;
     const { userEmail } = req;

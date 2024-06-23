@@ -1,13 +1,14 @@
 import { React, useState, useContext, useEffect } from "react";
 import { Link, NavLink, Outlet } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
+import { useName } from "../../context/NameContext";
 import axios from "../../instances/axios";
 
 import "./MainSidebar.css";
 
 export default function MainSidebar() {
   const { auth, logout } = useContext(AuthContext);
-  const [name, setName] = useState("");
+  const { name, setName } = useName();
 
   useEffect(() => {
     const fetchData = async () => {

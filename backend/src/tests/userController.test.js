@@ -167,6 +167,87 @@ describe("POST /users responses", () => {
   });
 });
 
+describe("PUT /users/:email responses", () => {
+  const newUser = {
+    name: "Test User",
+    birth_date: "2001-01-01",
+    email: "testuseremail@gmail.com",
+    password: "Senh@123",
+    gender: "Test Gender",
+    phone_number: "95124-9087",
+  };
+
+  beforeAll(async () => {
+    await User.createUser(newUser);
+  });
+
+  afterAll(async () => {
+    newUser.email = "testuseremail@gmail.com";
+    await User.deleteUser(newUser);
+  });
+
+  it("should update an account", async () => {
+    const token = jwt.sign({ userEmail: newUser.email }, "your-secret-key", {
+      expiresIn: "1min",
+    });
+
+    newUser.name = "Updated Name";
+    newUser.birth_date = "2002-02-02";
+    newUser.password = "UpdatedPassword123";
+    newUser.gender = "Updated Gender";
+    newUser.phone_number = "91234-5678";
+
+    return request(app)
+      .put(`/users/${newUser.email}`)
+      .set({ authorization: token })
+      .send(newUser)
+      .expect(200)
+      .then((res) => {
+        expect(res.body).toHaveProperty("ok");
+        expect(res.body.ok).toBe("User updated");
+      });
+  });
+
+  it("shouldn't update an account with invalid new parameters", async () => {
+    const token = jwt.sign({ userEmail: newUser.email }, "your-secret-key", {
+      expiresIn: "1min",
+    });
+
+    newUser.name = "InvalidName";
+
+    return request(app)
+      .put(`/users/${newUser.email}`)
+      .set({ authorization: token })
+      .send(newUser)
+      .expect(400)
+      .then((res) => {
+        expect(res.body).toHaveProperty("ok");
+        expect(res.body.ok).toBe("Invalid name");
+      });
+  });
+
+  it("shouldn't update an invalid user", async () => {
+    newUser.email = "invaliduser@gmail.com";
+
+    const token = jwt.sign({ userEmail: newUser.email }, "your-secret-key", {
+      expiresIn: "1min",
+    });
+
+    return request(app)
+      .put(`/users/${newUser.email}`)
+      .set({ authorization: token })
+      .expect(400)
+      .then((res) => {
+        expect(res.body).toHaveProperty("ok");
+        expect(res.body.ok).toBe("User doesn't exist");
+      });
+  });
+
+  it("shouldn't update an account without a login", async () => {
+    return request(app).put(`/users/${newUser.email}`).expect(401);
+  });
+});
+
 describe("DELETE /users/:email responses", () => {
   const newUser = {
     name: "Test User",

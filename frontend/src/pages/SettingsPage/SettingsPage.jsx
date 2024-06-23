@@ -61,9 +61,14 @@ export default function SettingsPage() {
     };
 
     fetchData();
-  }, []);
+  }, [settings]);
 
-  const handleSave = (settingName, newValue) => {
+  const handleSave = async (settingName, newValue) => {
+    const getPassword = () => {
+      const password = prompt("Digite sua senha para confirmar as alterações:");
+      return password;
+    };
+
     const updatedSettings = settings.map((setting) => {
       if (setting.settingName === settingName) {
         return { ...setting, settingValue: newValue };
@@ -71,6 +76,34 @@ export default function SettingsPage() {
       return setting;
     });
     setSettings(updatedSettings);
+
+    const loggedEmail = localStorage.getItem("email");
+
+    try {
+      const responseUpdtUser = await axios.put(
+        `/users/${loggedEmail}`,
+        {
+          name: updatedSettings[0].settingValue,
+          email: settings[2].settingValue,
+          phone_number: updatedSettings[3].settingValue,
+          birth_date: updatedSettings[4].settingValue,
+          gender: updatedSettings[5].settingValue,
+          password:
+            settingName === "Senha"
+              ? updatedSettings[6].settingValue
+              : getPassword(),
+        },
+        {
+          headers: {
+            authorization: auth,
+          },
+        }
+      );
+      return { ok: true };
+    } catch (error) {
+      alert(`Erro ao atualizar os dados: ${error.response.data.ok}`);
+      return { ok: false };
+    }
   };
 
   const handleDeleteAcc = async () => {

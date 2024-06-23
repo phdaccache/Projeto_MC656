@@ -14,9 +14,13 @@ export default function SettingsComponent({
   const [settingsSaved, setSettingsSaved] = useState(false);
 
   const toggleEditing = () => {
-    setEditando(!editando);
-    if (!editando) {
-      setInputValue(settingValue);
+    if (settingName !== "Email") {
+      setEditando(!editando);
+      if (!editando) {
+        setInputValue(settingValue);
+      }
+    } else {
+      alert("Não é possível alterar o email nessa versão.");
     }
   };
 
@@ -29,25 +33,15 @@ export default function SettingsComponent({
   const saveEdit = async () => {
     const confirm = window.confirm("Deseja salvar as alterações?");
     if (confirm) {
-      try {
-        // TODO - implementar a integração com o backend
-        // const response = axios.post('http://localhost:3000/', {
-        // if (!response.ok) {
-        //     throw new Error('Failed to save setting');
-        // }
-        // const data = await response.json();
-        alert(`${settingName}: ${inputValue}`);
+      const { ok } = await onSave(settingName, inputValue);
+      console.log(ok);
 
-        /* Para atualizar em outros lugares */
-        onSave(settingName, inputValue);
+      if (ok) {
         setSettingsSaved(true);
 
-        /* Define o tempo do Popup de salvar */
         setTimeout(() => {
           setSettingsSaved(false);
         }, 3130);
-      } catch (error) {
-        console.error(error);
       }
     }
     toggleEditing();

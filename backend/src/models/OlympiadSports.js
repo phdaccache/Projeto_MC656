@@ -22,8 +22,8 @@ class OlympiadSportsModel {
     const { olympiad, school, sport, date_start } = olympiadSportData;
 
     const queryMessage = `
-        INSERT INTO OlympiadSports (olympiad, school, sport, date_start)
-        VALUES ('${olympiad}', '${school}', '${sport}', '${date_start}');
+        INSERT INTO OlympiadSports (olympiad, school, sport, date_start, participants)
+        VALUES ('${olympiad}', '${school}', '${sport}', '${date_start}', 0);
         `;
 
     const queryResult = await databaseConnection.query(queryMessage);

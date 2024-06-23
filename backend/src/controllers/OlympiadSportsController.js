@@ -3,6 +3,7 @@ const Sports = require("../models/Sports");
 const SchoolUsers = require("../models/SchoolUsers");
 const Olympiad = require("../models/Olympiad");
 const OlympiadSports = require("../models/OlympiadSports");
+const DateChecks = require("../lib/DateChecks");
 
 // TODO: only managers can create sports in olympiads
 class OlympiadSportsController {
@@ -51,9 +52,11 @@ class OlympiadSportsController {
         .json({ ok: "Esporte já cadastrado na olimpíada." });
     }
 
-    const insertionResult = await OlympiadSports.createNewOlympiadSport(
-      req.body
-    );
+    const startDate = DateChecks.formatDate(olympiadExists[0].date_start);
+    const insertionResult = await OlympiadSports.createNewOlympiadSport({
+      date_start: startDate,
+      ...req.body,
+    });
     return res
       .status(200)
       .json({ ok: "Esporte criado no evento da olimpíada" });

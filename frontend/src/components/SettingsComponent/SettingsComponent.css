@@ -1,67 +1,77 @@
 .setting {
-    flex-basis: 30%;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    color: #eaeaee;
+  flex-basis: 30%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  color: #eaeaee;
+}
+
+.setting-value input, select {
+  width: 84%;
+}
+
+.setting-value select:disabled {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-overflow: '';
 }
 
 .setting-name {
-    font-weight: bold;
-    display: flex;
-    gap: 0.6rem;
-    /* flex-basis: 30%; */
+  font-weight: bold;
+  display: flex;
+  gap: 0.6rem;
+  /* flex-basis: 30%; */
 }
 
 .edit-field {
-    padding: 0.4375rem;
-    border: 0.0625rem solid #282828;
-    border-radius: 0.5rem;
-    display: block;
+  padding: 0.4375rem;
+  border: 0.0625rem solid #282828;
+  border-radius: 0.5rem;
+  display: block;
 }
 
 .edit-field::placeholder {
-    color: black;
+  color: black;
 }
 
 .edit-field:focus {
-    outline: none;
-    border: 0.0625rem solid #8ebbff;
+  outline: none;
+  border: 0.0625rem solid #8ebbff;
 }
 
 .edit-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 1rem;
-    color: #eaeaee;
-    transition: color 0.2s ease;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  color: #eaeaee;
+  transition: color 0.2s ease;
 }
 
 .edit-btn:hover {
-    color: #629aef;
+  color: #629aef;
 }
 
 .confirm-reject {
-    display: flex;
-    gap: 0.5rem;
+  display: flex;
+  gap: 0.5rem;
 }
 
 .confirm-reject > * {
-    cursor: pointer;
-    transition: color 0.2s;
+  cursor: pointer;
+  transition: color 0.2s;
 }
 
 .confirm-reject .confirm:hover {
-    color: rgb(46, 209, 46);
+  color: rgb(46, 209, 46);
 }
 
 .confirm-reject .reject:hover {
-    color: rgb(209, 46, 46);
+  color: rgb(209, 46, 46);
 }
 
 .fade-in {
-    position: fixed;
-    opacity: 0;
-    animation: fadeIn 0.5s ease-in forwards;
+  position: fixed;
+  opacity: 0;
+  animation: fadeIn 0.5s ease-in forwards;
 }

@@ -26,18 +26,26 @@ export default function SignUp() {
     }
 
     try {
-      const responseUser = await axios.post("/insert_user", {
+      const responseUser = await axios.post("/users", {
         name: nome,
         birth_date: date,
         email: email,
+        password,
         gender: gender,
-        phone_number: phone
+        phone_number: phone,
       });
     } catch (error) {
       console.error(error);
-      alert("Ocorreu um erro ao criar o usuário.");
+      alert(`Ocorreu um erro ao criar o usuário: '${error.response.data.ok}'`);
       return;
     }
+
+    const tempToken = (
+      await axios.post("/login", {
+        email: email,
+        password: password,
+      })
+    ).data.token;
 
     if (isTeacher) {
       try {
@@ -49,8 +57,10 @@ export default function SignUp() {
       } catch (error) {
         while (true) {
           try {
-            const responseDelUser = await axios.delete("/user", {
-              email: email
+            const responseDelUser = await axios.delete(`/users/${email}`, {
+              headers: {
+                authorization: tempToken,
+              },
             });
             break;
           } catch (error) {
@@ -58,7 +68,7 @@ export default function SignUp() {
           }
         }
         console.error(error);
-        alert("Ocorreu um erro ao criar a escola.");
+        alert(`Ocorreu um erro ao criar a escola: '${error.response.data.ok}'`);
         return;
       }
     }
@@ -67,17 +77,31 @@ export default function SignUp() {
       const responseSchoolUser = await axios.post("/schoolusers", {
         user: email,
         school: school,
-        permission: isTeacher ? "teacher" : "student"
+        permission: isTeacher ? "teacher" : "student",
       });
     } catch (error) {
+      while (true) {
+        try {
+          const responseDelUser = await axios.delete(`/users/${email}`, {
+            headers: {
+              authorization: tempToken,
+            },
+          });
+          break;
+        } catch (error) {
+          console.error(error);
+        }
+      }
       console.error(error);
-      alert("Ocorreu um erro ao inserir o usuário na escola.");
+      alert(
+        `Ocorreu um erro ao inserir o usuário na escola: '${error.response.data.ok}'`
+      );
       return;
     }
 
     setSuccess(true); // Redireciona para a página de login
     // setError(true);
-  }
+  };
 
   return (
     <div className="login-signup-background root-div-flex-row flex-center-vh">
@@ -89,17 +113,17 @@ export default function SignUp() {
         <h3>Insira suas credenciais</h3>
         <form onSubmit={handleSubmit} className="signup-form">
           <div className="main-infos">
-
             <div className="signup-column">
               <div className="signup-option">
                 <label for="nome">Nome Completo:</label>
                 <input
                   type="text"
-                  placeholder="Nome Completo"
+                  placeholder="Nome Sobrenome"
                   id="nome"
                   value={nome}
                   onChange={(e) => setNome(e.target.value)}
-                  required />
+                  required
+                />
               </div>
 
               <div className="signup-option">
@@ -107,20 +131,21 @@ export default function SignUp() {
                 <input
                   // type="email"
                   type="text"
-                  placeholder="E-mail"
+                  placeholder="exemplo@email.com"
                   id="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  required />
+                  required
+                />
               </div>
 
               <div className="signup-option">
-                <label for="telefone">Telefone: 12 12345-1234</label>
+                <label for="telefone">Telefone:</label>
                 <input
                   // type="tel"
                   // pattern="[0-9]{2} [0-9]{5}-[0-9]{4}"
                   type="text"
-                  placeholder="Telefone"
+                  placeholder="98765-4321"
                   id="telefone"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
@@ -142,9 +167,12 @@ export default function SignUp() {
                   onChange={(e) => setGender(e.target.value)}
                   required
                 >
-                  <option disabled value=""> -- selecione aqui -- </option>
-                  <option value="masculino">Masculino</option>
-                  <option value="feminino">Feminino</option>
+                  <option disabled value="">
+                    {" "}
+                    -- selecione aqui --{" "}
+                  </option>
+                  <option value="Masculino">Masculino</option>
+                  <option value="Feminino">Feminino</option>
                 </select>
               </div>
 
@@ -155,7 +183,8 @@ export default function SignUp() {
                   value={date}
                   id="data"
                   onChange={(e) => setDate(e.target.value)}
-                  required />
+                  required
+                />
               </div>
 
               <div className="signup-option">
@@ -163,10 +192,11 @@ export default function SignUp() {
                 <input
                   type="text"
                   placeholder="Escola"
-                  id = "escola"
+                  id="escola"
                   value={school}
                   onChange={(e) => setSchool(e.target.value)}
-                  required />
+                  required
+                />
               </div>
             </div>
           </div>
@@ -180,7 +210,8 @@ export default function SignUp() {
                 id="senha"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                required />
+                required
+              />
             </div>
 
             <div className="signup-option">
@@ -191,7 +222,8 @@ export default function SignUp() {
                 id="confirmar-senha"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                required />
+                required
+              />
             </div>
           </div>
 
@@ -207,7 +239,7 @@ export default function SignUp() {
 
           <button type="submit">Cadastrar</button>
         </form>
-        {success && (<Navigate to="/login" />)}
+        {success && <Navigate to="/login" />}
       </div>
     </div>
   );

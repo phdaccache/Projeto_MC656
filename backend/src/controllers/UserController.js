@@ -1,15 +1,29 @@
 const User = require("../models/User");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+const School = require("../models/School");
+const SchoolUsers = require("../models/SchoolUsers");
+const DateChecks = require("../lib/DateChecks");
 
 class UserController {
   static async index(req, res) {
-    const userList = await User.listUsers();
+    const { userEmail: email } = req;
+
+    const userList = await User.listUser({ email });
     return res.status(200).json({ userList });
   }
 
   static #validateUserData(userData) {
-    const { email, phone_number: phoneNumber, password } = userData;
+    const {
+      name,
+      birth_date: birthDate,
+      email,
+      phone_number: phoneNumber,
+      password,
+    } = userData;
+
+    const nameWords = name.split(" ");
+    if (nameWords.length < 2) {
+      return { ok: "Invalid name" };
+    }
 
     const emailRegex = /^\S+@\S+\.\S+$/;
     if (!emailRegex.test(email)) {
@@ -19,6 +33,10 @@ class UserController {
     const phoneNumberRegex = /^\d{5}-\d{4}$/;
     if (!phoneNumberRegex.test(phoneNumber)) {
       return { ok: "Invalid phone number" };
+    }
+
+    if (!DateChecks.isBeforeToday(birthDate)) {
+      return { ok: "Invalid birth date" };
     }
 
     const passwordRegex = /^(?=.*[A-Z])(?=.*\d).{6,}$/;
@@ -44,26 +62,55 @@ class UserController {
     return res.status(200).json({ ok: "User created" });
   }
 
-  static async login(req, res) {
-    const { email, password } = req.body;
+  static async update(req, res) {
+    const { email } = req.params;
+    const { userEmail } = req;
+    const userData = req.body;
 
-    const findPassword = await User.findPassword(req.body);
-
-    if (findPassword.length == 0) {
-      return res.status(400).json({ ok: "User doesnt exist" });
+    if (email !== userEmail) {
+      return res.status(400).json({ ok: "Invalid account" });
     }
 
-    const dbPassword = findPassword[0].password;
-    const passwordMatch = await bcrypt.compare(password, dbPassword);
-    if (!passwordMatch) {
-      return res.status(401).json({ error: "Authentication failed" });
+    const userExists = await User.findUser(req.params);
+    if (userExists.length <= 0) {
+      return res.status(400).json({ ok: "User doesn't exist" });
     }
 
-    const token = jwt.sign({ userEmail: email }, "your-secret-key", {
-      expiresIn: "1d",
+    const validation = UserController.#validateUserData(req.body);
+    if (validation.ok !== "Valid data") {
+      return res.status(400).json(validation);
+    }
+
+    const updateResult = await User.updateUser({ email, ...userData });
+    return res.status(200).json({ ok: "User updated" });
+  }
+
+  static async delete(req, res) {
+    const { email } = req.params;
+    const { userEmail } = req;
+
+    if (email !== userEmail) {
+      return res.status(400).json({ ok: "Invalid account" });
+    }
+
+    const userExists = await User.findUser(req.params);
+    if (userExists.length <= 0) {
+      return res.status(400).json({ ok: "User doesn't exist" });
+    }
+
+    const managerSchools = await School.getManagerSchools({ email });
+    if (managerSchools.length > 0) {
+      return res
+        .status(400)
+        .json({ ok: "Contact an admin to delete your account" });
+    }
+
+    const schoolRemovalResult = await SchoolUsers.removeUserSchool({
+      user: req.params.email,
     });
 
-    res.status(200).json({ token });
+    const deletionResult = await User.deleteUser(req.params);
+    return res.status(200).json({ ok: "User deleted" });
   }
 }
 

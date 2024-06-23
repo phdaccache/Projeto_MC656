@@ -1,12 +1,39 @@
 const DbClient = require("../lib/dbConnection");
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 class UserModel {
-  static async listUsers() {
+  static async listUser(userData) {
     const databaseConnection = DbClient.getInstance();
 
-    const queryMessage = `SELECT * FROM users;`;
+    const { email } = userData;
+
+    const queryMessage = `SELECT * FROM users WHERE email = '${email}';`;
+    const queryResult = await databaseConnection.query(queryMessage);
+
+    return queryResult.rows;
+  }
+
+  static async updateUser(userData) {
+    const databaseConnection = DbClient.getInstance();
+
+    const {
+      name,
+      birth_date: birthDate,
+      email,
+      password,
+      gender,
+      phone_number: phoneNumber,
+    } = userData;
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const queryMessage = `
+            UPDATE users
+            SET name = '${name}', birth_date = '${birthDate}', password = '${hashedPassword}',
+                gender = '${gender}', phone_number = '${phoneNumber}'
+            WHERE email = '${email}';
+            `;
     const queryResult = await databaseConnection.query(queryMessage);
 
     return queryResult.rows;
@@ -54,7 +81,18 @@ class UserModel {
     const queryMessage = `
             SELECT email, password FROM users WHERE email = '${email}';
         `;
-    
+
+    const queryResult = await databaseConnection.query(queryMessage);
+
+    return queryResult.rows;
+  }
+
+  static async deleteUser(userData) {
+    const databaseConnection = DbClient.getInstance();
+
+    const { email } = userData;
+
+    const queryMessage = `DELETE FROM users WHERE email = '${email}';`;
     const queryResult = await databaseConnection.query(queryMessage);
 
     return queryResult.rows;

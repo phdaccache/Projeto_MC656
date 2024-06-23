@@ -1,5 +1,6 @@
 const express = require("express");
 const authMiddleware = require("./middlewares/authMiddleware");
+const Login = require("./middlewares/login");
 const OlympiadController = require("./controllers/OlympiadController");
 const UserController = require("./controllers/UserController");
 const SchoolController = require("./controllers/SchoolController");
@@ -26,9 +27,15 @@ routes.post("/olympiad", OlympiadController.store);
 /*
 ======================= USUÁRIOS =======================
 */
-routes.get("/list_user", authMiddleware, UserController.index);
-routes.post("/insert_user", UserController.store);
-routes.post("/login", UserController.login);
+routes.get("/users", authMiddleware, UserController.index);
+routes.post("/users", UserController.store);
+routes.put("/users/:email", authMiddleware, UserController.update);
+routes.delete("/users/:email", authMiddleware, UserController.delete);
+
+/*
+======================= LOGIN =======================
+*/
+routes.post("/login", Login.login);
 
 /*
 ======================= SCHOOLS =======================
@@ -41,6 +48,7 @@ routes.delete("/school/:id", SchoolController.delete);
 */
 routes.post("/schoolusers", SchoolUsersController.store);
 routes.delete("/schoolusers/:id/", SchoolUsersController.delete);
+routes.get("/schoolusers", authMiddleware, SchoolUsersController.index);
 
 /*
 ======================= OLYMPIAD USERS =======================

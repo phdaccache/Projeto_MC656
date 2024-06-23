@@ -8,7 +8,7 @@ import "./SettingsPage.css";
 
 export default function SettingsPage() {
   const { auth, logout } = useContext(AuthContext);
-  const [settings, setSettings] = useState([{}]);
+  const [settings, setSettings] = useState(Array(7).fill({}));
   const { name, setName } = useName();
 
   useEffect(() => {

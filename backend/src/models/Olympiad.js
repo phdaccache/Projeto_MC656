@@ -80,6 +80,17 @@ class OlympiadModel {
 
     return queryResult.rows;
   }
+
+  static async deleteOlympiad(olympiadData) {
+    const databaseConnection = DbClient.getInstance();
+
+    const { name } = olympiadData;
+
+    const queryMessage = `DELETE FROM olympiad WHERE name = '${name}';`;
+    const queryResult = await databaseConnection.query(queryMessage);
+
+    return queryResult.rows;
+  }
 }
 
 module.exports = OlympiadModel;

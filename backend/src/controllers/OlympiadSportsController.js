@@ -14,9 +14,6 @@ class OlympiadSportsController {
     const olympiad = await Olympiad.findOlympiadById({ id });
     const olympiadSchool = olympiad[0].school;
 
-    console.log(userSchool[0].school);
-    console.log(olympiadSchool);
-
     if (userSchool[0].school !== olympiadSchool) {
       return res
         .status(400)

@@ -2,7 +2,11 @@ import { React, useState, useRef, useEffect } from "react";
 import "./SettingsComponent.css";
 import StatusPopup from "../StatusPopup/StatusPopup";
 
-export default function SettingsComponent({ settingName, settingValue, onSave }) {
+export default function SettingsComponent({
+  settingName,
+  settingValue,
+  onSave,
+}) {
   const [editando, setEditando] = useState(false);
   const [inputValue, setInputValue] = useState(settingValue);
   const inputRef = useRef(null);
@@ -42,7 +46,6 @@ export default function SettingsComponent({ settingName, settingValue, onSave })
         setTimeout(() => {
           setSettingsSaved(false);
         }, 3130);
-
       } catch (error) {
         console.error(error);
       }
@@ -72,7 +75,13 @@ export default function SettingsComponent({ settingName, settingValue, onSave })
         <div className="setting-value">
           <form onSubmit={(e) => e.preventDefault()}>
             <input
-              type="text"
+              type={
+                settingName != "Senha"
+                  ? settingName != "Data de Nascimento"
+                    ? "text"
+                    : "date"
+                  : "password"
+              }
               className="edit-field"
               value={editando ? inputValue : settingValue}
               onChange={handleInputChange}
@@ -94,10 +103,7 @@ export default function SettingsComponent({ settingName, settingValue, onSave })
         )}
       </div>
       {settingsSaved ? (
-        <StatusPopup
-          status="success"
-          message="Configurações salvas!"
-        />
+        <StatusPopup status="success" message="Configurações salvas!" />
       ) : null}
     </>
   );

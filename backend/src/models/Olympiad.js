@@ -1,5 +1,4 @@
 const DbClient = require("../lib/dbConnection");
-const SchoolUsers = require("./SchoolUsers");
 
 class OlympiadModel {
   static async addParticipant(olympiadData) {
@@ -65,6 +64,28 @@ class OlympiadModel {
     const { name } = olympiadData;
 
     const queryMessage = `SELECT * FROM olympiad WHERE name = '${name}';`;
+    const queryResult = await databaseConnection.query(queryMessage);
+
+    return queryResult.rows;
+  }
+
+  static async findOlympiadById(olympiadData) {
+    const databaseConnection = DbClient.getInstance();
+
+    const { id } = olympiadData;
+
+    const queryMessage = `SELECT * FROM olympiad WHERE id = '${id}';`;
+    const queryResult = await databaseConnection.query(queryMessage);
+
+    return queryResult.rows;
+  }
+
+  static async deleteOlympiad(olympiadData) {
+    const databaseConnection = DbClient.getInstance();
+
+    const { name } = olympiadData;
+
+    const queryMessage = `DELETE FROM olympiad WHERE name = '${name}';`;
     const queryResult = await databaseConnection.query(queryMessage);
 
     return queryResult.rows;

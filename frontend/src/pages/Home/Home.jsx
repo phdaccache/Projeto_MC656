@@ -21,7 +21,9 @@ export default function Home() {
           },
         });
 
-        setTeacher(schoolResponse.data.userSchoolList[0].permission !== "student");
+        setTeacher(
+          schoolResponse.data.userSchoolList[0].permission !== "student"
+        );
 
         const response = await axios.get("/olympiad", {
           headers: {
@@ -29,12 +31,15 @@ export default function Home() {
           },
         });
 
-        const { olympiadList } =  response.data;
+        const { olympiadList } = response.data;
         olympiadList.forEach((event) => {
           // TODO - mais papeis de parede, escolher um aleatório
-          event.date_start = new Date(event.date_start).toLocaleDateString("pt-BR");
+          event.date_start = new Date(event.date_start).toLocaleDateString(
+            "pt-BR"
+          );
           event.date_end = new Date(event.date_end).toLocaleDateString("pt-BR");
-          event.backgroundImage = "https://architectureofthegames.net/wp-content/uploads/2018/04/6_RIO-2016-OLYMPIC-STADIUM_88.jpg"
+          event.backgroundImage =
+            "https://architectureofthegames.net/wp-content/uploads/2018/04/6_RIO-2016-OLYMPIC-STADIUM_88.jpg";
         });
         console.log("eventos:", olympiadList);
         setEvents(olympiadList);
@@ -42,7 +47,7 @@ export default function Home() {
       } catch (error) {
         alert("Ocorreu um erro ao buscar as olimpíadas.");
       }
-    };
+    }
     fetchData();
   }, []);
 
@@ -51,12 +56,21 @@ export default function Home() {
   return (
     <div className="home-container">
       <div className="home-header page-title">
-        <h1><span>Minhas Olimpíadas</span></h1>
-        <p>Confira as olimpíadas que você pode participar! Clique em qualquer evento para entrar em sua página principal.</p>
+        <h1>
+          <span>Minhas Olimpíadas</span>
+        </h1>
+        <p>
+          Confira as olimpíadas que você pode participar! Clique em qualquer
+          evento para entrar em sua página principal.
+        </p>
       </div>
       <div className="home-events-container">
         {events.map((event) => (
-          <div onClick={() => navigate(`/events/view/${event.id}`, { state: { event }})}>
+          <div
+            onClick={() =>
+              navigate(`/events/view/${event.id}`, { state: { event } })
+            }
+          >
             <EventCard
               // key={index}
               olympiadName={event.name}
@@ -65,15 +79,18 @@ export default function Home() {
               endDate={event.date_end}
               description={event.description}
               backgroundImage={event.backgroundImage}
+              participants={event.participants}
             />
           </div>
         ))}
       </div>
       {teacher && (
         <div className="add-event-button">
-          <Link to={"/events/create"}><i class="fa-solid fa-circle-plus"></i></Link>
+          <Link to={"/events/create"}>
+            <i class="fa-solid fa-circle-plus"></i>
+          </Link>
         </div>
       )}
     </div>
   );
-};
+}

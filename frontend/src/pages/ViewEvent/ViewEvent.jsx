@@ -1,70 +1,52 @@
 import { Link, useLocation, useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
-
+import { useState, useEffect, useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
+import axios from "../../instances/axios";
 import SportComponent from "../../components/SportComponent/SportComponent";
 import "./ViewEvent.css";
 
 export default function ViewEvent() {
   const location = useLocation();
   const { event } = location.state || {};
+  const [sportsList, setSportsList] = useState([]);
+  const { id } = useParams();
+  const { auth } = useContext(AuthContext);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await axios.get(`/olympiadsports/${id}`, {
+        headers: {
+          authorization: auth,
+        },
+      });
+      setSportsList(response.data);
+      console.log(response.data);
+    };
+    fetchData();
+  }, []);
 
   const currDateObj = new Date();
-  const startDateObj = new Date(event.date_start.split("/").reverse().join("-"));
-  const endDateObj =  new Date(event.date_end.split("/").reverse().join("-"));
+  const startDateObj = new Date(
+    event.date_start.split("/").reverse().join("-")
+  );
+  const endDateObj = new Date(event.date_end.split("/").reverse().join("-"));
 
-  let eventStatus = "", eventMessage = "";
+  let eventStatus = "",
+    eventMessage = "";
   if (currDateObj.getTime() < startDateObj.getTime()) {
     eventStatus = "not-started";
-    eventMessage = "aberta"
-  }
-  else if (currDateObj.getTime() < endDateObj.getTime()) {
+    eventMessage = "aberta";
+  } else if (currDateObj.getTime() < endDateObj.getTime()) {
     eventStatus = "in-progress";
-    eventMessage = "em andamento"
-  }
-  else {
+    eventMessage = "em andamento";
+  } else {
     eventStatus = "finished";
-    eventMessage = "finalizada"
+    eventMessage = "finalizada";
   }
 
-  const participantes = 100;
-  const esportes = 10;
-  const sports_data = [
-    {
-      name: "Basquete",
-      players: 5,
-      duration: "40 minutos",
-      rules: "Cada time tem 5 jogadores e o objetivo é fazer mais pontos que o adversário.",
-      description: "Basquete é um esporte coletivo que consiste em arremessar uma bola em um cesto.",
-      backgroundColor: "#FF0000",
-    },
-    {
-      name: "Futebol",
-      players: 11,
-      duration: "90 minutos",
-      rules: "Cada time tem 11 jogadores e o objetivo é fazer mais gols que o adversário.",
-      description: "Futebol é um esporte coletivo que consiste em fazer gols no gol adversário.",
-      backgroundColor: "#00FF00",
-    },
-    {
-      name: "Natação",
-      players: 1,
-      duration: "1 minuto",
-      rules: "Cada nadador tem que nadar o mais rápido possível.",
-      description: "Natação é um esporte individual que consiste em nadar o mais rápido possível.",
-      backgroundColor: "#0000FF",
-    },
-    {
-      name: "Vôlei",
-      players: 6,
-      duration: "60 minutos",
-      rules: "Cada time tem 6 jogadores e o objetivo é fazer mais pontos que o adversário.",
-      description: "Vôlei é um esporte coletivo que consiste em fazer pontos no campo adversário.",
-      backgroundColor: "#FFFF00",
-    },
-  ];
+  const esportes = 4;
 
   return (
-    // TODO - criar botão para participar da olimpíada
     // TODO - alterar botão registrar/gostar para gostar
     <div className="view-event-container">
       {/* <div className="page-title">
@@ -72,45 +54,73 @@ export default function ViewEvent() {
         <p>Confira nesta página todas as informações sobre o evento atual. Aqui você encontrará seu <i>status</i>, seus esportes presentes, a quantidade de participantes e datas de início e fim.</p>
       </div> */}
       <Link to={"/home"} className="back-view-event">
-          <i class="fa-solid fa-circle-arrow-left"></i>
+        <i class="fa-solid fa-circle-arrow-left"></i>
       </Link>
-      <div className="event-header-container" >
+      <div className="event-header-container">
         <div className="event-info">
           <div className="event-title-status">
-            <h1>{event.name}
+            <h1>
+              {event.name}
               <span className={eventStatus}>{eventMessage}</span>
             </h1>
           </div>
           <ul>
-            <li><p><b>Nome da Olimpíada:</b> {event.name}</p></li>
-            <li><p><b>Nome da Escola:</b> {event.school}</p></li>
-            <li><p><b>Descrição:</b> {event.description}</p></li>
+            <li>
+              <p>
+                <b>Nome da Olimpíada:</b> {event.name}
+              </p>
+            </li>
+            <li>
+              <p>
+                <b>Nome da Escola:</b> {event.school}
+              </p>
+            </li>
+            <li>
+              <p>
+                <b>Descrição:</b> {event.description}
+              </p>
+            </li>
           </ul>
         </div>
         <div className="event-summary">
           <h2>Sumário</h2>
           <ul>
-            <li><h3>Participantes:</h3> <span className="summary-data">{event.participants}</span></li>
-            <li><h3>Esportes:</h3> <span className="summary-data">{esportes}</span></li>
-            <li><h3>Início:</h3> <span className="summary-data">{event.date_start}</span></li>
-            <li><h3>Fim:</h3> <span className="summary-data">{event.date_end}</span></li>
+            <li>
+              <h3>Esportes:</h3>{" "}
+              <span className="summary-data">{esportes}</span>
+            </li>
+            <li>
+              <h3>Início:</h3>{" "}
+              <span className="summary-data">{event.date_start}</span>
+            </li>
+            <li>
+              <h3>Fim:</h3>{" "}
+              <span className="summary-data">{event.date_end}</span>
+            </li>
           </ul>
         </div>
       </div>
       <div className="event-body-container">
         <div className="event-sports">
           <h1>Lista de Esportes:</h1>
-          <p>Expanda um esporte para poder se cadastrar e ver mais informações.</p>
+          <p>
+            Expanda um esporte para poder se cadastrar e ver mais informações.
+          </p>
           <ul>
-            {sports_data.map((sport) => (
+            {sportsList.map((sport) => (
               <li>
                 <SportComponent
+                  eventName={event.name}
                   name={sport.name}
-                  players={sport.players}
-                  duration={sport.duration}
-                  rules={sport.rules}
-                  description={sport.description}
-                  backgroundColor={sport.backgroundColor}
+                  players={sport.max_players}
+                  participants={sport.participants}
+                  duration={`${
+                    (sport.duration.minutes ? sport.duration.minutes : 0) +
+                    60 * (sport.duration.hours ? sport.duration.hours : 0)
+                  } minutos`}
+                  rules={sport.ruleset}
+                  description={sport.extra_info}
+                  backgroundColor={"#FF0000"}
                 />
               </li>
             ))}
@@ -119,4 +129,4 @@ export default function ViewEvent() {
       </div>
     </div>
   );
-};
+}

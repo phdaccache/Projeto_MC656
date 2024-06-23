@@ -1,4 +1,7 @@
 const UserOlympiadSports = require("../models/UserOlympiadSports");
+const Olympiad = require("../models/Olympiad");
+const OlympiadSports = require("../models/OlympiadSports");
+const OlympiadUsers = require("../models/OlympiadUsers");
 
 class UserOlympiadSportsController {
   static async store(req, res) {
@@ -9,7 +12,16 @@ class UserOlympiadSportsController {
         .json({ ok: "Usuário já decidiu sua preferência." });
     }
 
+    const isNewToOlympiad = await OlympiadUsers.hasSignedUp(req.body);
+    if (isNewToOlympiad.length <= 0) {
+      const olympiadParticipant = await Olympiad.addParticipant({
+        name: req.body.olympiad,
+      });
+      const olympiadUser = await OlympiadUsers.showInterest(req.body);
+    }
+    const sportParticipant = await OlympiadSports.addParticipant(req.body);
     const insertionResult = await UserOlympiadSports.addPreference(req.body);
+
     return res.status(200).json({ ok: "Preferência criada." });
   }
 

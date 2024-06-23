@@ -188,7 +188,7 @@
 
 .logout-link-a p:hover {
   color: lightcoral;
-  border-bottom: 0.1rem solid lightcoral;
+  /* border-bottom: 0.1rem solid lightcoral; */
   text-decoration-color: lightcoral;
 }
 
@@ -211,10 +211,12 @@
   padding: 1.17rem 0rem 1rem 2.5rem;
   margin-left: 15rem;
   transition: margin-left 0.5s ease;
+  /* width: 100%; */
 }
 
 .childApp-small-sidebar {
   padding: 1.17rem 0rem 1rem 2.5rem;
   margin-left: 5rem;
   transition: margin-left 0.5s ease;
+  /* width: 100%; */
 }

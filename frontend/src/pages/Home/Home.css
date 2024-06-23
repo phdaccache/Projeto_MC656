@@ -1,12 +1,17 @@
 .home-container {
-  width: 85%;
+  /* width: 85%; */
   margin: 0 auto;
 }
 
 .home-events-container {
-  display: flex;
+  /* display: flex;
   flex-wrap: wrap;
-  gap: 5%;
+  justify-content: space-between;
+  gap: 2%; */
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 3.5rem;
+  grid-row-gap: 0.9rem;
 }
 
 .add-event-button {

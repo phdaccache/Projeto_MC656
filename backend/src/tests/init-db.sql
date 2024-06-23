@@ -34,6 +34,7 @@ CREATE TABLE Olympiad (
     date_end DATE,
     description VARCHAR,
     participants INT,
+    id SERIAL,
 
     PRIMARY KEY (name, school),
     FOREIGN KEY (school)

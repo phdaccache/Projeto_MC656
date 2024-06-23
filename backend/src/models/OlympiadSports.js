@@ -8,8 +8,8 @@ class OlympiadSportsModel {
 
     const queryMessage = `
         SELECT *
-        FROM OlympiadSports
-        WHERE olympiad = '${olympiad}' AND school = '${school}';
+        FROM OlympiadSports, Sports
+        WHERE olympiad = '${olympiad}' AND school = '${school}' AND OlympiadSports.sport = Sports.name;
         `;
 
     const queryResult = await databaseConnection.query(queryMessage);

@@ -23,13 +23,13 @@ describe("GET /olympiad responses", () => {
       .expect(200);
   });
 
-  it("should be empty for a new user", async () => {
+  it("should not be empty if there's an event", async () => {
     return await request(app)
       .get("/olympiad")
       .set({ authorization: token })
       .expect(200)
       .then((res) => {
-        expect(res.body.olympiadList).toEqual([]);
+        expect(res.body.olympiadList).not.toEqual([]);
       });
   });
 });

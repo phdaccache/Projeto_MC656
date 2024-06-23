@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Link, Navigate } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
 import axios from "../../instances/axios";
 
 import "./CreateEvent.css";
@@ -9,9 +10,25 @@ export default function CreateEvent() {
   const [eventStartDate, setEventStartDate] = useState("");
   const [eventEndDate, setEventEndDate] = useState("");
   const [eventDescription, setEventDescription] = useState("");
+  const [school, setSchool] = useState("");
+  const { auth } = useContext(AuthContext);
 
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const schoolResponse = await axios.get("/schoolusers", {
+        headers: {
+          authorization: `${auth}`,
+        },
+      });
+      setSchool(schoolResponse.data.userSchoolList[0].school);
+    };
+
+    fetchData();
+
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,7 +40,7 @@ export default function CreateEvent() {
         name: eventName,
         date_start: eventStartDate,
         date_end: eventEndDate,
-        school: "DefaultSchool", // TODO - pegar a escola do professor logado
+        school: school,
         description: eventDescription,
       })
       success = (response.status === 200);

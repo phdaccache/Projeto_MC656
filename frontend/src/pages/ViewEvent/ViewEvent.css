@@ -1,5 +1,5 @@
 .view-event-container {
-  width: 85%;
+  width: 65vw;
   margin: 0 auto;
   background-color: #141724;
   padding: 2rem 0;
@@ -72,7 +72,7 @@
 }
 
 .event-info {
-  /* width: 70%; */
+  width: 70%;
   /* height: 100%; */
   padding: 1.5rem;
   padding-bottom: 0.6rem;
@@ -130,7 +130,7 @@
   padding: 1.3rem 1.5rem;
   padding-bottom: 0.6rem;
   border-radius: 0.6rem;
-  width: 25%;
+  width: 22%;
   font-size: 0.8rem;
   display: flex;
   flex-direction: column;

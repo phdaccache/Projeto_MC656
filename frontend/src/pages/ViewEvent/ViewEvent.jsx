@@ -1,4 +1,5 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 import SportComponent from "../../components/SportComponent/SportComponent";
 import "./ViewEvent.css";
@@ -8,15 +9,17 @@ export default function ViewEvent() {
   const { event } = location.state || {};
 
   const currDateObj = new Date();
-  const startDateObj = new Date(event.date_start);
-  const endDateObj = new Date(event.date_end);
+  const startDateObj = new Date(
+    event.date_start.split("/").reverse().join("-")
+  );
+  const endDateObj = new Date(event.date_end.split("/").reverse().join("-"));
 
   let eventStatus = "",
     eventMessage = "";
-  if (currDateObj < startDateObj) {
+  if (currDateObj.getTime() < startDateObj.getTime()) {
     eventStatus = "not-started";
     eventMessage = "aberta";
-  } else if (currDateObj < endDateObj) {
+  } else if (currDateObj.getTime() < endDateObj.getTime()) {
     eventStatus = "in-progress";
     eventMessage = "em andamento";
   } else {
@@ -69,8 +72,6 @@ export default function ViewEvent() {
   ];
 
   return (
-    // TODO - mudar o design para ficar mais largo
-
     // TODO - criar botão para participar da olimpíada
     // TODO - alterar botão registrar/gostar para gostar
     <div className="view-event-container">
@@ -113,6 +114,22 @@ export default function ViewEvent() {
             <li>
               <h3>Participantes:</h3>{" "}
               <span className="summary-data">{participantes}</span>
+            </li>
+            <li>
+              <h3>Esportes:</h3>{" "}
+              <span className="summary-data">{esportes}</span>
+            </li>
+            <li>
+              <h3>Início:</h3>{" "}
+              <span className="summary-data">{event.date_start}</span>
+            </li>
+            <li>
+              <h3>Fim:</h3>{" "}
+              <span className="summary-data">{event.date_end}</span>
+            </li>
+            <li>
+              <h3>Participantes:</h3>{" "}
+              <span className="summary-data">{event.participants}</span>
             </li>
             <li>
               <h3>Esportes:</h3>{" "}

@@ -21,7 +21,7 @@ class OlympiadModel {
   static async listOlympiadsBySchool(schoolData) {
     const databaseConnection = DbClient.getInstance();
 
-    const { school } = schoolData;
+    const { school } = schoolData[0];
 
     const queryMessage = `SELECT * FROM olympiad WHERE school = '${school}';`;
     const queryResult = await databaseConnection.query(queryMessage);

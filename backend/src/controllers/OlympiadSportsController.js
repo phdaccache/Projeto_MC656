@@ -1,14 +1,27 @@
 const School = require("../models/School");
 const Sports = require("../models/Sports");
+const SchoolUsers = require("../models/SchoolUsers");
 const Olympiad = require("../models/Olympiad");
 const OlympiadSports = require("../models/OlympiadSports");
 
 // TODO: only managers can create sports in olympiads
 class OlympiadSportsController {
   static async index(req, res) {
+    const { userEmail } = req;
     const { id } = req.params;
 
+    const userSchool = await SchoolUsers.findUserSchool({ email: userEmail });
     const olympiad = await Olympiad.findOlympiadById({ id });
+    const olympiadSchool = olympiad[0].school;
+
+    console.log(userSchool[0].school);
+    console.log(olympiadSchool);
+
+    if (userSchool[0].school !== olympiadSchool) {
+      return res
+        .status(400)
+        .json({ ok: "You don't have permission to access this resource" });
+    }
 
     const olympiadSports = await OlympiadSports.getOlympiadSports(olympiad[0]);
     return res.status(200).json(olympiadSports);

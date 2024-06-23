@@ -3,6 +3,13 @@ const User = require("../models/User");
 const SchoolUsers = require("../models/SchoolUsers");
 
 class SchoolUsersController {
+  static async index(req, res) {
+    const { userEmail: email } = req;
+
+    const userSchoolList = await SchoolUsers.findUserSchool({ email });
+    return res.status(200).json({ userSchoolList });
+  }
+
   static async store(req, res) {
     const { school, user } = req.body;
     const userExists = await User.findUser({ email: user });

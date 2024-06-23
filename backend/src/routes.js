@@ -47,6 +47,7 @@ routes.delete("/school/:id", SchoolController.delete);
 */
 routes.post("/schoolusers", SchoolUsersController.store);
 routes.delete("/schoolusers/:id/", SchoolUsersController.delete);
+routes.get("/schoolusers", authMiddleware, SchoolUsersController.index);
 
 /*
 ======================= OLYMPIAD USERS =======================

@@ -86,10 +86,6 @@ export default function ViewEvent() {
           <h2>Sumário</h2>
           <ul>
             <li>
-              <h3>Participantes:</h3>{" "}
-              <span className="summary-data">{event.participants}</span>
-            </li>
-            <li>
               <h3>Esportes:</h3>{" "}
               <span className="summary-data">{esportes}</span>
             </li>

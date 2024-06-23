@@ -68,20 +68,38 @@ export default function SettingsComponent({
         </div>
         <div className="setting-value">
           <form onSubmit={(e) => e.preventDefault()}>
-            <input
-              type={
-                settingName != "Senha"
-                  ? settingName != "Data de Nascimento"
-                    ? "text"
-                    : "date"
-                  : "password"
-              }
-              className="edit-field"
-              value={editando ? inputValue : settingValue}
-              onChange={handleInputChange}
-              ref={inputRef}
-              readOnly={!editando}
-            />
+            {settingName !== "Gênero" ? (
+              <input
+                type={
+                  settingName != "Senha"
+                    ? settingName != "Data de Nascimento"
+                      ? "text"
+                      : "date"
+                    : "password"
+                }
+                className="edit-field"
+                value={editando ? inputValue : settingValue}
+                onChange={handleInputChange}
+                ref={inputRef}
+                readOnly={!editando}
+              />
+            ) : (
+              <select
+                className="edit-field"
+                value={editando ? inputValue : settingValue}
+                onChange={handleInputChange}
+                ref={inputRef}
+                disabled={!editando}
+                style={{ opacity: "1", color: "black", }}
+              >
+                <option disabled value="">
+                    {" "}
+                    -- selecione aqui --{" "}
+                </option>
+                <option value="Masculino">Masculino</option>
+                <option value="Feminino">Feminino</option>
+              </select>
+            )}
           </form>
         </div>
         {editando ? (

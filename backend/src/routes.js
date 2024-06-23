@@ -29,6 +29,7 @@ routes.post("/olympiad", OlympiadController.store);
 */
 routes.get("/users", authMiddleware, UserController.index);
 routes.post("/users", UserController.store);
+routes.put("/users/:email", authMiddleware, UserController.update);
 routes.delete("/users/:email", authMiddleware, UserController.delete);
 
 /*

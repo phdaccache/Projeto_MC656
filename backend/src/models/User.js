@@ -14,6 +14,31 @@ class UserModel {
     return queryResult.rows;
   }
 
+  static async updateUser(userData) {
+    const databaseConnection = DbClient.getInstance();
+
+    const {
+      name,
+      birth_date: birthDate,
+      email,
+      password,
+      gender,
+      phone_number: phoneNumber,
+    } = userData;
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const queryMessage = `
+            UPDATE users
+            SET name = '${name}', birth_date = '${birthDate}', password = '${hashedPassword}',
+                gender = '${gender}', phone_number = '${phoneNumber}'
+            WHERE email = '${email}';
+            `;
+    const queryResult = await databaseConnection.query(queryMessage);
+
+    return queryResult.rows;
+  }
+
   static async createUser(userData) {
     const databaseConnection = DbClient.getInstance();
 

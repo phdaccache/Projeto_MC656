@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import axios from "../../instances/axios";
+import image from "../../assets/icongrid.png";
 
 import EventCard from "../../components/EventCard/EventCard";
 import "./Home.css";
@@ -33,13 +34,11 @@ export default function Home() {
 
         const { olympiadList } = response.data;
         olympiadList.forEach((event) => {
-          // TODO - mais papeis de parede, escolher um aleatório
           event.date_start = new Date(event.date_start).toLocaleDateString(
             "pt-BR"
           );
           event.date_end = new Date(event.date_end).toLocaleDateString("pt-BR");
-          event.backgroundImage =
-            "https://architectureofthegames.net/wp-content/uploads/2018/04/6_RIO-2016-OLYMPIC-STADIUM_88.jpg";
+          event.backgroundImage = image;
         });
         console.log("eventos:", olympiadList);
         setEvents(olympiadList);

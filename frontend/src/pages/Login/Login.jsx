@@ -26,6 +26,7 @@ export default function Login() {
     } catch (error) {
       alert("Ocorreu um erro ao fazer login.");
       console.error(error);
+      return;
     }
     setUser(true);
     // setError(true);
@@ -57,7 +58,7 @@ export default function Login() {
             {/* <Link to={"/forgot"}>Esqueceu a senha?</Link> */}
           </div>
           <button type="submit">Login</button>
-          {user && (<Navigate to="/home" />)}
+          {user && <Navigate to="/home" />}
           {/* {error && (<StatusPopup status="failure" message="Ocorreu um Erro..." />)} */}
         </form>
       </div>

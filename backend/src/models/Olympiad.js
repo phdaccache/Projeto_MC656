@@ -1,5 +1,4 @@
 const DbClient = require("../lib/dbConnection");
-const SchoolUsers = require("./SchoolUsers");
 
 class OlympiadModel {
   static async addParticipant(olympiadData) {

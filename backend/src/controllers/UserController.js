@@ -1,13 +1,13 @@
 const User = require("../models/User");
 const School = require("../models/School");
 const SchoolUsers = require("../models/SchoolUsers");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
 const DateChecks = require("../lib/DateChecks");
 
 class UserController {
   static async index(req, res) {
-    const userList = await User.listUsers();
+    const { userEmail: email } = req;
+
+    const userList = await User.listUser({ email });
     return res.status(200).json({ userList });
   }
 

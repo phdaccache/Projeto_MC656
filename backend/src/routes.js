@@ -27,7 +27,7 @@ routes.post("/olympiad", OlympiadController.store);
 /*
 ======================= USUÁRIOS =======================
 */
-routes.get("/list_user", authMiddleware, UserController.index);
+routes.get("/users", authMiddleware, UserController.index);
 routes.post("/users", UserController.store);
 routes.delete("/users/:email", authMiddleware, UserController.delete);
 
@@ -47,6 +47,7 @@ routes.delete("/school/:id", SchoolController.delete);
 */
 routes.post("/schoolusers", SchoolUsersController.store);
 routes.delete("/schoolusers/:id/", SchoolUsersController.delete);
+routes.get("/schoolusers", authMiddleware, SchoolUsersController.index);
 
 /*
 ======================= OLYMPIAD USERS =======================

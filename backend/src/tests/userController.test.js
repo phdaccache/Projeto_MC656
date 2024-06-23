@@ -5,22 +5,35 @@ const User = require("../models/User");
 const School = require("../models/School");
 const jwt = require("jsonwebtoken");
 
-let token;
-
-beforeAll(async () => {
-  token = jwt.sign({ userEmail: "testuser@testing.com" }, "your-secret-key", {
-    expiresIn: "10min",
-  });
-});
-
 afterAll(async () => {
   await DbClient.getInstance().close();
 });
 
-describe("GET /list_user responses", () => {
-  it("should be 200", async () => {
+describe("GET /users responses", () => {
+  const newUser = {
+    name: "Test User",
+    birth_date: "2001-01-01",
+    email: "testuseremail@gmail.com",
+    password: "Senh@123",
+    gender: "Test Gender",
+    phone_number: "95124-9087",
+  };
+
+  beforeAll(async () => {
+    await User.createUser(newUser);
+  });
+
+  afterAll(async () => {
+    await User.deleteUser(newUser);
+  });
+
+  it("should return status 200", async () => {
+    const token = jwt.sign({ userEmail: newUser.email }, "your-secret-key", {
+      expiresIn: "1min",
+    });
+
     return request(app)
-      .get("/list_user")
+      .get("/users")
       .set({ authorization: token })
       .expect(200)
       .then((res) => {
@@ -28,9 +41,13 @@ describe("GET /list_user responses", () => {
       });
   });
 
-  it("should not be empty", async () => {
+  it("should return the information of the requested user", async () => {
+    const token = jwt.sign({ userEmail: newUser.email }, "your-secret-key", {
+      expiresIn: "1min",
+    });
+
     return request(app)
-      .get("/list_user")
+      .get("/users")
       .set({ authorization: token })
       .expect(200)
       .then((res) => {
@@ -165,21 +182,18 @@ describe("DELETE /users/:email responses", () => {
   });
 
   afterEach(async () => {
+    newUser.email = "testuseremail@gmail.com";
     await User.deleteUser(newUser);
   });
 
   it("should delete a user", async () => {
-    const loggedToken = jwt.sign(
-      { userEmail: newUser.email },
-      "your-secret-key",
-      {
-        expiresIn: "1min",
-      }
-    );
+    const token = jwt.sign({ userEmail: newUser.email }, "your-secret-key", {
+      expiresIn: "1min",
+    });
 
     return request(app)
       .delete(`/users/${newUser.email}`)
-      .set({ authorization: loggedToken })
+      .set({ authorization: token })
       .expect(200)
       .then((res) => {
         expect(res.body).toHaveProperty("ok");
@@ -194,17 +208,13 @@ describe("DELETE /users/:email responses", () => {
   it("shouldn't delete an invalid user", async () => {
     newUser.email = "invaliduser@gmail.com";
 
-    const loggedToken = jwt.sign(
-      { userEmail: newUser.email },
-      "your-secret-key",
-      {
-        expiresIn: "1min",
-      }
-    );
+    const token = jwt.sign({ userEmail: newUser.email }, "your-secret-key", {
+      expiresIn: "1min",
+    });
 
     return request(app)
       .delete(`/users/${newUser.email}`)
-      .set({ authorization: loggedToken })
+      .set({ authorization: token })
       .expect(400)
       .then((res) => {
         expect(res.body).toHaveProperty("ok");

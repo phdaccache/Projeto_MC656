@@ -1,12 +1,6 @@
 const Olympiad = require("../models/Olympiad");
 const SchoolUsers = require("../models/SchoolUsers");
-
-function formatDate(date) {
-  const year = date.getFullYear();
-  const month = (date.getMonth() + 1).toString().padStart(2, "0");
-  const day = date.getDate().toString().padStart(2, "0");
-  return `${year}-${month}-${day}`;
-}
+const DateChecks = require("../lib/DateChecks");
 
 class OlympiadController {
   static async index(req, res) {
@@ -24,16 +18,15 @@ class OlympiadController {
       return res.status(400).json({ ok: "Olimpíada já cadastrada." });
     }
 
-    const today = new Date();
-
     const { date_end } = req.body;
-    if (date_end < formatDate(today)) {
+
+    if (DateChecks.isBeforeToday(date_end)) {
       return res.status(400).json({
         ok: "Data de término da olimpíada não pode ser antes de hoje.",
       });
     }
-    today.setFullYear(today.getFullYear() + 1);
-    if (date_end > formatDate(today)) {
+
+    if (DateChecks.isMoreThan1Year(date_end)) {
       return res.status(400).json({
         ok: "Data de término da olimpíada não pode ser mais de um ano a partir de hoje.",
       });

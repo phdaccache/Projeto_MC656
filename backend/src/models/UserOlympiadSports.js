@@ -1,6 +1,20 @@
 const DbClient = require("../lib/dbConnection");
 
 class UserOlympiadSportsModel {
+  static async getInterestedUsers(userOlympiadSportsData) {
+    const databaseConnection = DbClient.getInstance();
+
+    const { olympiad, school, sport } = userOlympiadSportsData;
+
+    const queryMessage = `
+        SELECT *
+        FROM UserOlympiadSports
+        WHERE olympiad = '${olympiad}' AND school = '${school}' AND sport = '${sport}' AND preference = 'true';`;
+
+    const queryResult = await databaseConnection.query(queryMessage);
+    return queryResult.rows;
+  }
+
   static async getPreference(userOlympiadSportsData) {
     const databaseConnection = DbClient.getInstance();
 

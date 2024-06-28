@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import {
   createBrowserRouter,
+  Navigate,
   RouterProvider
 } from "react-router-dom"
 
@@ -16,12 +17,15 @@ import CreateEvent from "./pages/CreateEvent/CreateEvent";
 import ViewEvent from "./pages/ViewEvent/ViewEvent";
 import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
+import ErrorPage from "./pages/ErrorPage/ErrorPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <ProtectedRoute />,
+    errorElement: <ErrorPage />,
     children: [
+      { index: true, element: <Navigate to="/home" /> },
       {
         element: <Main />,
         children: [

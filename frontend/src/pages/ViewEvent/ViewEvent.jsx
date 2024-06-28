@@ -154,6 +154,7 @@ export default function ViewEvent() {
               <li>
                 <SportComponent
                   eventName={event.name}
+                  teacher={teacher}
                   name={sport.name}
                   players={sport.max_players}
                   participants={sport.participants}

@@ -1,3 +1,24 @@
-.error {
+.error-container {
+    color: #eaeaee;
+    max-width: 35%;
+    text-align: center;
+}
 
+.error-container h1 {
+    font-size: 3rem;
+    margin: 0 0 0.5rem;
+    color: #f9f9f9;
+}
+
+.error-container h3 {
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin: 0 0 1rem;
+    color: #f9f9f9;
+}
+
+.error-container p {
+    font-size: 1rem;
+    margin: 0;
+    color: #acacac;
 }

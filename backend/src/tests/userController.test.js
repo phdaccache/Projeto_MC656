@@ -125,7 +125,9 @@ describe("POST /users responses", () => {
       .expect(400)
       .then((res) => {
         expect(res.body).toHaveProperty("ok");
-        expect(res.body.ok).toBe("Email inválido.");
+        expect(res.body.ok).toBe(
+          "Email inválido. O email deve estar no formato xx@xx.xx."
+        );
       });
   });
 
@@ -138,7 +140,9 @@ describe("POST /users responses", () => {
       .expect(400)
       .then((res) => {
         expect(res.body).toHaveProperty("ok");
-        expect(res.body.ok).toBe("Número de telefone inválido.");
+        expect(res.body.ok).toBe(
+          "Número de telefone inválido. O número de telefone deve ser no formato XXXXX-XXXX."
+        );
       });
   });
 
@@ -151,7 +155,9 @@ describe("POST /users responses", () => {
       .expect(400)
       .then((res) => {
         expect(res.body).toHaveProperty("ok");
-        expect(res.body.ok).toBe("Data de nascimento inválida.");
+        expect(res.body.ok).toBe(
+          "Data de nascimento inválida. A data de nascimento deve ser anterior à data atual."
+        );
       });
   });
 
@@ -164,7 +170,10 @@ describe("POST /users responses", () => {
       .expect(400)
       .then((res) => {
         expect(res.body).toHaveProperty("ok");
-        expect(res.body.ok).toBe("Senha inválida.");
+        expect(res.body.ok).toBe(
+          "Senha inválida. A senha deve ser composta por pelo menos" +
+            "1 letra maiúscula e 1 número e deve ter pelo menos 6 caracteres."
+        );
       });
   });
 });

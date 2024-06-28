@@ -27,21 +27,29 @@ class UserController {
 
     const emailRegex = /^\S+@\S+\.\S+$/;
     if (!emailRegex.test(email)) {
-      return { ok: "Email inválido." };
+      return { ok: "Email inválido. O email deve estar no formato xx@xx.xx." };
     }
 
     const phoneNumberRegex = /^\d{5}-\d{4}$/;
     if (!phoneNumberRegex.test(phoneNumber)) {
-      return { ok: "Número de telefone inválido." };
+      return {
+        ok: "Número de telefone inválido. O número de telefone deve ser no formato XXXXX-XXXX.",
+      };
     }
 
     if (!DateChecks.isBeforeToday(birthDate)) {
-      return { ok: "Data de nascimento inválida." };
+      return {
+        ok: "Data de nascimento inválida. A data de nascimento deve ser anterior à data atual.",
+      };
     }
 
     const passwordRegex = /^(?=.*[A-Z])(?=.*\d).{6,}$/;
     if (!passwordRegex.test(password)) {
-      return { ok: "Senha inválida." };
+      return {
+        ok:
+          "Senha inválida. A senha deve ser composta por pelo menos" +
+          "1 letra maiúscula e 1 número e deve ter pelo menos 6 caracteres.",
+      };
     }
 
     return { ok: "Dado válido." };
@@ -100,11 +108,9 @@ class UserController {
 
     const managerSchools = await School.getManagerSchools({ email });
     if (managerSchools.length > 0) {
-      return res
-        .status(400)
-        .json({
-          ok: "Entre em contato com um administrador para deletar sua conta.",
-        });
+      return res.status(400).json({
+        ok: "Entre em contato com um administrador para deletar sua conta.",
+      });
     }
 
     const schoolRemovalResult = await SchoolUsers.removeUserSchool({

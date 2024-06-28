@@ -84,7 +84,7 @@ describe("POST /users responses", () => {
       .expect(200)
       .then((res) => {
         expect(res.body).toHaveProperty("ok");
-        expect(res.body.ok).toBe("User created");
+        expect(res.body.ok).toBe("Usuário criado.");
       });
   });
 
@@ -97,7 +97,7 @@ describe("POST /users responses", () => {
       .expect(400)
       .then((res) => {
         expect(res.body).toHaveProperty("ok");
-        expect(res.body.ok).toBe("User already exists");
+        expect(res.body.ok).toBe("Usuário já existe.");
       });
   });
 
@@ -110,7 +110,7 @@ describe("POST /users responses", () => {
       .expect(400)
       .then((res) => {
         expect(res.body).toHaveProperty("ok");
-        expect(res.body.ok).toBe("Invalid name");
+        expect(res.body.ok).toBe("Nome inválido.");
       });
   });
 
@@ -123,7 +123,7 @@ describe("POST /users responses", () => {
       .expect(400)
       .then((res) => {
         expect(res.body).toHaveProperty("ok");
-        expect(res.body.ok).toBe("Invalid email");
+        expect(res.body.ok).toBe("Email inválido.");
       });
   });
 
@@ -136,7 +136,7 @@ describe("POST /users responses", () => {
       .expect(400)
       .then((res) => {
         expect(res.body).toHaveProperty("ok");
-        expect(res.body.ok).toBe("Invalid phone number");
+        expect(res.body.ok).toBe("Número de telefone inválido.");
       });
   });
 
@@ -149,7 +149,7 @@ describe("POST /users responses", () => {
       .expect(400)
       .then((res) => {
         expect(res.body).toHaveProperty("ok");
-        expect(res.body.ok).toBe("Invalid birth date");
+        expect(res.body.ok).toBe("Data de nascimento inválida.");
       });
   });
 
@@ -162,7 +162,7 @@ describe("POST /users responses", () => {
       .expect(400)
       .then((res) => {
         expect(res.body).toHaveProperty("ok");
-        expect(res.body.ok).toBe("Invalid password");
+        expect(res.body.ok).toBe("Senha inválida.");
       });
   });
 });
@@ -204,7 +204,7 @@ describe("PUT /users/:email responses", () => {
       .expect(200)
       .then((res) => {
         expect(res.body).toHaveProperty("ok");
-        expect(res.body.ok).toBe("User updated");
+        expect(res.body.ok).toBe("Usuário atualizado.");
       });
   });
 
@@ -222,7 +222,7 @@ describe("PUT /users/:email responses", () => {
       .expect(400)
       .then((res) => {
         expect(res.body).toHaveProperty("ok");
-        expect(res.body.ok).toBe("Invalid name");
+        expect(res.body.ok).toBe("Nome inválido.");
       });
   });
 
@@ -239,7 +239,7 @@ describe("PUT /users/:email responses", () => {
       .expect(400)
       .then((res) => {
         expect(res.body).toHaveProperty("ok");
-        expect(res.body.ok).toBe("User doesn't exist");
+        expect(res.body.ok).toBe("Usuário não existe.");
       });
   });
 
@@ -278,7 +278,7 @@ describe("DELETE /users/:email responses", () => {
       .expect(200)
       .then((res) => {
         expect(res.body).toHaveProperty("ok");
-        expect(res.body.ok).toBe("User deleted");
+        expect(res.body.ok).toBe("Usuário deletado.");
       });
   });
 
@@ -299,7 +299,7 @@ describe("DELETE /users/:email responses", () => {
       .expect(400)
       .then((res) => {
         expect(res.body).toHaveProperty("ok");
-        expect(res.body.ok).toBe("User doesn't exist");
+        expect(res.body.ok).toBe("Usuário não existe.");
       });
   });
 });

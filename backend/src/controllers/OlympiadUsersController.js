@@ -8,7 +8,7 @@ class OlympiadUsersController {
 
     const userExists = await User.findUser({ email });
     if (userExists.length <= 0) {
-      return res.status(400).json({ ok: "User doesn't exist" });
+      return res.status(400).json({ ok: "Usuário não existe." });
     }
 
     const olympiadExists = await Olympiad.findOlympiad({
@@ -16,17 +16,17 @@ class OlympiadUsersController {
       school,
     });
     if (olympiadExists.length <= 0) {
-      return res.status(400).json({ ok: "Olympiad doesn't exist" });
+      return res.status(400).json({ ok: "Olimpíada não existe." });
     }
 
     const userOlympiadExists = await OlympiadUsers.hasSignedUp(req.body);
     if (userOlympiadExists.length > 0) {
-      return res.status(400).json({ ok: "User already signed up" });
+      return res.status(400).json({ ok: "Usuário já cadastrado." });
     }
 
     const olympiadInterest = await Olympiad.addParticipant({ name: olympiad });
     const insertionResult = await OlympiadUsers.showInterest(req.body);
-    return res.status(200).json({ ok: "User signed up" });
+    return res.status(200).json({ ok: "Usuário cadastrado." });
   }
 
   static async update(req, res) {
@@ -34,7 +34,7 @@ class OlympiadUsersController {
 
     const userExists = await User.findUser({ email });
     if (userExists.length <= 0) {
-      return res.status(400).json({ ok: "User doesn't exist" });
+      return res.status(400).json({ ok: "Usuário não existe." });
     }
 
     const olympiadExists = await Olympiad.findOlympiad({
@@ -42,16 +42,16 @@ class OlympiadUsersController {
       school,
     });
     if (olympiadExists.length <= 0) {
-      return res.status(400).json({ ok: "Olympiad doesn't exist" });
+      return res.status(400).json({ ok: "Olimpíada não existe." });
     }
 
     const userOlympiadExists = await OlympiadUsers.hasSignedUp(req.body);
     if (userOlympiadExists.length <= 0) {
-      return res.status(400).json({ ok: "User hasn't signed up" });
+      return res.status(400).json({ ok: "Usuáio não cadastrado." });
     }
 
     const updateResult = await OlympiadUsers.updateInterest(req.body);
-    return res.status(200).json({ ok: "User interest updated" });
+    return res.status(200).json({ ok: "Interesse do usuário atualizado." });
   }
 }
 

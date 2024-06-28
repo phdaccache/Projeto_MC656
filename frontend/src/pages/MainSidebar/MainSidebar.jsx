@@ -77,7 +77,7 @@ export default function MainSidebar() {
               }
             >
               <i className="fa-solid fa-user"></i>
-              <span className="sidebar-text">My Account</span>
+              <span className="sidebar-text">Minha Conta</span>
             </NavLink>
           </li>
           <li className="nav-link">
@@ -88,7 +88,7 @@ export default function MainSidebar() {
               }
             >
               <i className="fa-solid fa-circle-question"></i>
-              <span className="sidebar-text">Help</span>
+              <span className="sidebar-text">Ajuda</span>
             </NavLink>
           </li>
         </ul>
@@ -111,7 +111,7 @@ export default function MainSidebar() {
             ></i>
           </div>
           <div className={`logout-link-a ${showConfirmation ? "active" : ""}`}>
-            <p onClick={logout}>Log Out</p>
+            <p onClick={logout}>Deslogar</p>
           </div>
         </div>
       </nav>

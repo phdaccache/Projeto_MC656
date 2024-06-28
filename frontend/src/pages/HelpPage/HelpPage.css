@@ -1,0 +1,22 @@
+.help-container {
+  color: #eaeaea;
+  max-width: 65vw;
+  margin: 0 auto;
+}
+
+.help-section h2 {
+  margin-bottom: 0.55rem;
+}
+
+.help-section p {
+  color: #e4dede;
+  margin-bottom: 1.2rem;
+  font-size: 1.1rem;
+  word-wrap: break-word;
+  margin-bottom: 1.85rem;
+}
+
+.help-section span {
+  color: #becdff;
+  font-weight: bold;
+}

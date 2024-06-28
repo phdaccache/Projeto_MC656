@@ -1,5 +1,5 @@
 .login-signup-background {
-  background-image: url(../../assets/login-signup-background.svg);
+  background-image: url(../../assets/login-signup-bg.svg);
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -7,13 +7,14 @@
 .login-container {
   position: relative;
   z-index: 3;
-  max-width: 28%;
-  padding: 5rem 2rem 4rem;
+  max-width: 24%;
+  padding: 3.1rem 2rem 0rem;
   border-radius: 1rem;
-  background: rgb(24 21 36 / 66%);
+  background: rgb(17 26 45 / 32%);
   backdrop-filter: blur(10px);
   text-align: center;
   animation: fadeIn 0.7s ease-out;
+  height: 62vh;
 }
 
 .login-container > h2 {
@@ -66,14 +67,14 @@
   font-size: 16px;
   text-decoration: none;
   text-align: left;
-  color: #7656f0;
+  color: #7d8ac0;
   /* margin-bottom: 0.7rem; */
   transition: all 0.375s;
   /* width: fit-content; */
 }
 
 .login-form  a:hover {
-  color: #9481e3;
+  color: #a0b0ee;
 }
 
 .login-form button {
@@ -81,7 +82,7 @@
   width: 100%;
   height: 3.5rem;
   padding: 0 1rem;
-  background: #7656f0;
+  background: #3a446e;
   color: #f9f9f9;
   border: 0;
   font-family: inherit;
@@ -92,5 +93,5 @@
 }
 
 .login-form button:hover {
-  background: #9481e3;
+  background: #49568d;
 }

@@ -53,7 +53,7 @@ routes.get("/schoolusers", authMiddleware, SchoolUsersController.index);
 /*
 ======================= OLYMPIAD USERS =======================
 */
-routes.get("/olympiadusers", OlympiadUsersController.index);
+routes.get("/olympiadusers/:id", authMiddleware, OlympiadUsersController.index);
 routes.post("/olympiadusers", OlympiadUsersController.store);
 routes.put("/olympiadusers", OlympiadUsersController.update);
 

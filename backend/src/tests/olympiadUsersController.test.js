@@ -1,6 +1,7 @@
 const request = require("supertest");
 const app = require("../app");
 const DbClient = require("../lib/dbConnection");
+const jwt = require("jsonwebtoken");
 
 afterAll(async () => {
   await DbClient.getInstance().close();
@@ -8,14 +9,17 @@ afterAll(async () => {
 
 describe("GET /olympiadusers responses", () => {
   it("should return a list of users interested in an olympiad", async () => {
-    const olympiadUsers = {
-      olympiad: "DefaultOlympiad",
-      school: "DefaultSchool",
-    };
+    token = jwt.sign(
+      { userEmail: "schoolmanager@gmail.com" },
+      "your-secret-key",
+      {
+        expiresIn: "1min",
+      }
+    );
 
     return request(app)
-      .get("/olympiadusers")
-      .send(olympiadUsers)
+      .get("/olympiadusers/1")
+      .set({ authorization: token })
       .expect(200)
       .then((res) => {
         expect(res.body).toBeInstanceOf(Array);

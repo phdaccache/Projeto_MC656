@@ -4,19 +4,16 @@ const OlympiadUsers = require("../models/OlympiadUsers");
 
 class OlympiadUsersController {
   static async index(req, res) {
-    const { olympiad, school } = req.body;
+    const { id } = req.params;
 
-    const olympiadExists = await Olympiad.findOlympiad({
-      name: olympiad,
+    const olympiad = await Olympiad.findOlympiadById({ id });
+
+    const { name, school } = olympiad[0];
+
+    const olympiadUsers = await OlympiadUsers.getInterestedOlympiadUsers({
+      olympiad: name,
       school,
     });
-    if (olympiadExists.length <= 0) {
-      return res.status(400).json({ ok: "Olympiad doesn't exist" });
-    }
-
-    const olympiadUsers = await OlympiadUsers.getInterestedOlympiadUsers(
-      req.body
-    );
     return res.status(200).json(olympiadUsers);
   }
 

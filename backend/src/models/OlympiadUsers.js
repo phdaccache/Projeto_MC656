@@ -8,8 +8,8 @@ class OlympiadUsersModel {
 
     const queryMessage = `
         SELECT *
-        FROM OlympiadUsers
-        WHERE olympiad = '${olympiad}' AND school = '${school}' AND interested = 'true';`;
+        FROM OlympiadUsers, Users
+        WHERE OlympiadUsers.email = Users.email AND olympiad = '${olympiad}' AND school = '${school}' AND interested = 'true';`;
     const queryResult = await databaseConnection.query(queryMessage);
 
     return queryResult.rows;

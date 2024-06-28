@@ -110,7 +110,9 @@ describe("POST /users responses", () => {
       .expect(400)
       .then((res) => {
         expect(res.body).toHaveProperty("ok");
-        expect(res.body.ok).toBe("Nome inválido.");
+        expect(res.body.ok).toBe(
+          "Nome inválido. Digite pelo menos um nome e um sobrenome."
+        );
       });
   });
 
@@ -222,7 +224,9 @@ describe("PUT /users/:email responses", () => {
       .expect(400)
       .then((res) => {
         expect(res.body).toHaveProperty("ok");
-        expect(res.body.ok).toBe("Nome inválido.");
+        expect(res.body.ok).toBe(
+          "Nome inválido. Digite pelo menos um nome e um sobrenome."
+        );
       });
   });
 

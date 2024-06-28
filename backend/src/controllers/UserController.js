@@ -22,7 +22,7 @@ class UserController {
 
     const nameWords = name.split(" ");
     if (nameWords.length < 2) {
-      return { ok: "Nome inválido." };
+      return { ok: "Nome inválido. Digite pelo menos um nome e um sobrenome." };
     }
 
     const emailRegex = /^\S+@\S+\.\S+$/;
@@ -102,7 +102,9 @@ class UserController {
     if (managerSchools.length > 0) {
       return res
         .status(400)
-        .json({ ok: "Entre em contato com um administrador para deletar sua conta." });
+        .json({
+          ok: "Entre em contato com um administrador para deletar sua conta.",
+        });
     }
 
     const schoolRemovalResult = await SchoolUsers.removeUserSchool({

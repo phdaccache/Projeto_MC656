@@ -8,12 +8,13 @@
   position: relative;
   z-index: 3;
   max-width: 28%;
-  padding: 5rem 2rem 4rem;
+  padding: 4.5rem 2rem 4rem;
   border-radius: 1rem;
   background: rgb(24 21 36 / 66%);
   backdrop-filter: blur(10px);
   text-align: center;
   animation: fadeIn 0.7s ease-out;
+  height: 60vh;
 }
 
 .login-container > h2 {

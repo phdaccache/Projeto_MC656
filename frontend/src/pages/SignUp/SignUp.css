@@ -9,6 +9,7 @@
   backdrop-filter: blur(10px);
   text-align: center;
   animation: fadeIn 1s ease-out;
+  height: 95vh;
 }
 
 .signup-back {
@@ -55,7 +56,7 @@
 .signup-option {
   text-align: left;
   /* width: 40%; */
-  margin-bottom: 1.2rem;
+  margin-bottom: 3%;
 }
 
 .main-infos {

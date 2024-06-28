@@ -6,7 +6,7 @@ const OlympiadUsers = require("../models/OlympiadUsers");
 class UserOlympiadSportsController {
   static async index(req, res) {
     const interestedUsers = await UserOlympiadSports.getInterestedUsers(
-      req.body
+      req.params
     );
     return res.status(200).json(interestedUsers);
   }

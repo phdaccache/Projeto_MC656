@@ -84,7 +84,10 @@ routes.delete(
 /*
 ======================= USER PREFERENCE FOR OLYMPIAD SPORTS =======================
 */
-routes.get("/userolympiadsports", UserOlympiadSportsController.index);
+routes.get(
+  "/userolympiadsports/:olympiad/:school/:sport",
+  UserOlympiadSportsController.index
+);
 routes.post("/userolympiadsports", UserOlympiadSportsController.store);
 routes.put(
   "/userolympiadsports/:olympiad/:school/:sport/:email",

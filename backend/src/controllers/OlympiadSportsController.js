@@ -18,7 +18,7 @@ class OlympiadSportsController {
     if (userSchool[0].school !== olympiadSchool) {
       return res
         .status(400)
-        .json({ ok: "You don't have permission to access this resource" });
+        .json({ ok: "Você não tem permissão para acessar esse recurso" });
     }
 
     const olympiadSports = await OlympiadSports.getOlympiadSports(olympiad[0]);

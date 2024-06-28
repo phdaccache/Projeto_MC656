@@ -42,7 +42,7 @@ describe("POST /olympiadusers responses", () => {
       .expect(200)
       .then((res) => {
         expect(res.body).toHaveProperty("ok");
-        expect(res.body.ok).toBe("User signed up");
+        expect(res.body.ok).toBe("Usuário cadastrado.");
       });
   });
 });
@@ -62,7 +62,7 @@ describe("PUT /olympiadusers responses", () => {
       .expect(200)
       .then((res) => {
         expect(res.body).toHaveProperty("ok");
-        expect(res.body.ok).toBe("User interest updated");
+        expect(res.body.ok).toBe("Interesse do usuário atualizado.");
       });
   });
 });

@@ -22,44 +22,44 @@ class UserController {
 
     const nameWords = name.split(" ");
     if (nameWords.length < 2) {
-      return { ok: "Invalid name" };
+      return { ok: "Nome inválido. Digite pelo menos um nome e um sobrenome." };
     }
 
     const emailRegex = /^\S+@\S+\.\S+$/;
     if (!emailRegex.test(email)) {
-      return { ok: "Invalid email" };
+      return { ok: "Email inválido." };
     }
 
     const phoneNumberRegex = /^\d{5}-\d{4}$/;
     if (!phoneNumberRegex.test(phoneNumber)) {
-      return { ok: "Invalid phone number" };
+      return { ok: "Número de telefone inválido." };
     }
 
     if (!DateChecks.isBeforeToday(birthDate)) {
-      return { ok: "Invalid birth date" };
+      return { ok: "Data de nascimento inválida." };
     }
 
     const passwordRegex = /^(?=.*[A-Z])(?=.*\d).{6,}$/;
     if (!passwordRegex.test(password)) {
-      return { ok: "Invalid password" };
+      return { ok: "Senha inválida." };
     }
 
-    return { ok: "Valid data" };
+    return { ok: "Dado válido." };
   }
 
   static async store(req, res) {
     const validation = UserController.#validateUserData(req.body);
-    if (validation.ok !== "Valid data") {
+    if (validation.ok !== "Dado válido.") {
       return res.status(400).json(validation);
     }
 
     const userExists = await User.findUser(req.body);
     if (userExists.length > 0) {
-      return res.status(400).json({ ok: "User already exists" });
+      return res.status(400).json({ ok: "Usuário já existe." });
     }
 
     const insertionResult = await User.createUser(req.body);
-    return res.status(200).json({ ok: "User created" });
+    return res.status(200).json({ ok: "Usuário criado." });
   }
 
   static async update(req, res) {
@@ -68,21 +68,21 @@ class UserController {
     const userData = req.body;
 
     if (email !== userEmail) {
-      return res.status(400).json({ ok: "Invalid account" });
+      return res.status(400).json({ ok: "Conta inválida." });
     }
 
     const userExists = await User.findUser(req.params);
     if (userExists.length <= 0) {
-      return res.status(400).json({ ok: "User doesn't exist" });
+      return res.status(400).json({ ok: "Usuário não existe." });
     }
 
     const validation = UserController.#validateUserData(req.body);
-    if (validation.ok !== "Valid data") {
+    if (validation.ok !== "Dado válido.") {
       return res.status(400).json(validation);
     }
 
     const updateResult = await User.updateUser({ email, ...userData });
-    return res.status(200).json({ ok: "User updated" });
+    return res.status(200).json({ ok: "Usuário atualizado." });
   }
 
   static async delete(req, res) {
@@ -90,19 +90,21 @@ class UserController {
     const { userEmail } = req;
 
     if (email !== userEmail) {
-      return res.status(400).json({ ok: "Invalid account" });
+      return res.status(400).json({ ok: "Conta inválida." });
     }
 
     const userExists = await User.findUser(req.params);
     if (userExists.length <= 0) {
-      return res.status(400).json({ ok: "User doesn't exist" });
+      return res.status(400).json({ ok: "Usuário não existe." });
     }
 
     const managerSchools = await School.getManagerSchools({ email });
     if (managerSchools.length > 0) {
       return res
         .status(400)
-        .json({ ok: "Contact an admin to delete your account" });
+        .json({
+          ok: "Entre em contato com um administrador para deletar sua conta.",
+        });
     }
 
     const schoolRemovalResult = await SchoolUsers.removeUserSchool({
@@ -110,7 +112,7 @@ class UserController {
     });
 
     const deletionResult = await User.deleteUser(req.params);
-    return res.status(200).json({ ok: "User deleted" });
+    return res.status(200).json({ ok: "Usuário deletado." });
   }
 }
 

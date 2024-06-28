@@ -9,18 +9,37 @@ export default function ViewEvent() {
   const location = useLocation();
   const { event } = location.state || {};
   const [sportsList, setSportsList] = useState([]);
+  const [participantsList, setParticipantsList] = useState([]);
+  const [teacher, setTeacher] = useState(false);
   const { id } = useParams();
   const { auth } = useContext(AuthContext);
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await axios.get(`/olympiadsports/${id}`, {
+      const schoolResponse = await axios.get("/schoolusers", {
+        headers: {
+          authorization: `${auth}`,
+        },
+      });
+
+      setTeacher(
+        schoolResponse.data.userSchoolList[0].permission !== "student"
+      );
+
+      const participantResponse = await axios.get(`/olympiadusers/${id}`, {
         headers: {
           authorization: auth,
         },
       });
-      setSportsList(response.data);
-      console.log(response.data);
+      setParticipantsList(participantResponse.data);
+      console.log(participantResponse.data);
+
+      const sportsResponse = await axios.get(`/olympiadsports/${id}`, {
+        headers: {
+          authorization: auth,
+        },
+      });
+      setSportsList(sportsResponse.data);
     };
     fetchData();
   }, []);
@@ -101,6 +120,30 @@ export default function ViewEvent() {
         </div>
       </div>
       <div className="event-body-container">
+        {teacher && (
+          <div className="event-participants-container">
+            <h1>Lista de Participantes:</h1>
+            <p>Veja a lista de alunos participantes (apenas professores).</p>
+            <ol>
+              {participantsList.map((participant) => (
+                <li>
+                  <p>
+                    <b>Nome: </b>
+                    {participant.name}
+                  </p>
+                  <p>
+                    <b>Email: </b>
+                    {participant.email}
+                  </p>
+                  <p>
+                    <b>Telefone: </b>
+                    {participant.phone_number}
+                  </p>
+                </li>
+              ))}
+            </ol>
+          </div>
+        )}
         <div className="event-sports">
           <h1>Lista de Esportes:</h1>
           <p>

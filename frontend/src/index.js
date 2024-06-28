@@ -18,6 +18,7 @@ import ViewEvent from "./pages/ViewEvent/ViewEvent";
 import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import ErrorPage from "./pages/ErrorPage/ErrorPage";
+import HelpPage from "./pages/HelpPage/HelpPage";
 
 const router = createBrowserRouter([
   {
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
           {
             path: "/events/create",
             element: <CreateEvent />,
+          },
+          {
+            path: "/help",
+            element: <HelpPage />,
           }
         ],
       }

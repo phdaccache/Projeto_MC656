@@ -3,6 +3,20 @@ const Olympiad = require("../models/Olympiad");
 const OlympiadUsers = require("../models/OlympiadUsers");
 
 class OlympiadUsersController {
+  static async index(req, res) {
+    const { id } = req.params;
+
+    const olympiad = await Olympiad.findOlympiadById({ id });
+
+    const { name, school } = olympiad[0];
+
+    const olympiadUsers = await OlympiadUsers.getInterestedOlympiadUsers({
+      olympiad: name,
+      school,
+    });
+    return res.status(200).json(olympiadUsers);
+  }
+
   static async store(req, res) {
     const { olympiad, school, email } = req.body;
 

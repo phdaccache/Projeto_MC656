@@ -133,7 +133,7 @@
   color: rgb(255 255 255 / 96%);
   background: rgb(255 255 255 / 8%);
   font-weight: 400;
-  font-size: 0.97rem;
+  font-size: 1rem;
   padding: 0 1rem;
   width: 100%;
   height: 3rem;
@@ -143,7 +143,7 @@
 
 .signup-option select option {
   color: #eaeaea;
-  background-color: #191F2E;
+  background-color: #191f2e;
 }
 
 .signup-option select option:disabled {

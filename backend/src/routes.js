@@ -53,6 +53,7 @@ routes.get("/schoolusers", authMiddleware, SchoolUsersController.index);
 /*
 ======================= OLYMPIAD USERS =======================
 */
+routes.get("/olympiadusers/:id", authMiddleware, OlympiadUsersController.index);
 routes.post("/olympiadusers", OlympiadUsersController.store);
 routes.put("/olympiadusers", OlympiadUsersController.update);
 
@@ -83,6 +84,10 @@ routes.delete(
 /*
 ======================= USER PREFERENCE FOR OLYMPIAD SPORTS =======================
 */
+routes.get(
+  "/userolympiadsports/:olympiad/:school/:sport",
+  UserOlympiadSportsController.index
+);
 routes.post("/userolympiadsports", UserOlympiadSportsController.store);
 routes.put(
   "/userolympiadsports/:olympiad/:school/:sport/:email",

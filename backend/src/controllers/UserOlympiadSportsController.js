@@ -4,6 +4,13 @@ const OlympiadSports = require("../models/OlympiadSports");
 const OlympiadUsers = require("../models/OlympiadUsers");
 
 class UserOlympiadSportsController {
+  static async index(req, res) {
+    const interestedUsers = await UserOlympiadSports.getInterestedUsers(
+      req.params
+    );
+    return res.status(200).json(interestedUsers);
+  }
+
   static async store(req, res) {
     const userHasPreference = await UserOlympiadSports.getPreference(req.body);
     if (userHasPreference.length > 0) {

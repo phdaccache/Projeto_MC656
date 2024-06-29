@@ -61,7 +61,7 @@ class OlympiadUsersController {
 
     const userOlympiadExists = await OlympiadUsers.hasSignedUp(req.body);
     if (userOlympiadExists.length <= 0) {
-      return res.status(400).json({ ok: "Usuáio não cadastrado." });
+      return res.status(400).json({ ok: "Usuário não cadastrado." });
     }
 
     const updateResult = await OlympiadUsers.updateInterest(req.body);

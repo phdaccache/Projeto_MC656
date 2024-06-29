@@ -9,7 +9,9 @@ class SchoolController {
     }
     const nameWords = name.split(" ");
     if (nameWords.length < 2) {
-      return { ok: "Dado inválido." };
+      return {
+        ok: "Nome da escola inválido. O nome deve ser composto por pelo menos 2 palavras.",
+      };
     }
     return { ok: "Dado válido." };
   }

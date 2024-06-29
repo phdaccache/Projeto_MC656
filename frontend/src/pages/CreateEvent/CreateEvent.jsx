@@ -59,7 +59,9 @@ export default function CreateEvent() {
 
       success = response.status === 200;
     } catch (error) {
-      alert("Ocorreu um erro ao criar a olimpíada.");
+      alert(
+        `Ocorreu um erro ao criar a olimpíada: '${error.response.data.ok}'`
+      );
       console.error(error);
     }
 

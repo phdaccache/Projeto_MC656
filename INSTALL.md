@@ -7,11 +7,18 @@ git clone git@github.com:phdaccache/Projeto_MC656.git
 cd Projeto_MC656
 ```
 
-Alterando a branch para `develop`:
+Alterando a branch para `develop` (para ter as alterações mais recentes):
 
 ```bash
 git fetch
 git checkout develop
+```
+
+A branch `main` também pode ser utilizada, e contém a versão recente mais estável:
+
+```bash
+git fetch
+git checkout main
 ```
 
 ## Inicialização do Banco de Dados

@@ -1,5 +1,6 @@
 const express = require("express");
 const authMiddleware = require("./middlewares/authMiddleware");
+const Login = require("./middlewares/login");
 const OlympiadController = require("./controllers/OlympiadController");
 const UserController = require("./controllers/UserController");
 const SchoolController = require("./controllers/SchoolController");
@@ -20,15 +21,21 @@ routes.get("/", (req, res) => {
 /*
 ======================= OLIMPÍADAS =======================
 */
-routes.get("/olympiad", OlympiadController.index);
+routes.get("/olympiad", authMiddleware, OlympiadController.index);
 routes.post("/olympiad", OlympiadController.store);
 
 /*
 ======================= USUÁRIOS =======================
 */
-routes.get("/list_user", authMiddleware, UserController.index);
-routes.post("/insert_user", UserController.store);
-routes.post("/login", UserController.login);
+routes.get("/users", authMiddleware, UserController.index);
+routes.post("/users", UserController.store);
+routes.put("/users/:email", authMiddleware, UserController.update);
+routes.delete("/users/:email", authMiddleware, UserController.delete);
+
+/*
+======================= LOGIN =======================
+*/
+routes.post("/login", Login.login);
 
 /*
 ======================= SCHOOLS =======================
@@ -41,10 +48,12 @@ routes.delete("/school/:id", SchoolController.delete);
 */
 routes.post("/schoolusers", SchoolUsersController.store);
 routes.delete("/schoolusers/:id/", SchoolUsersController.delete);
+routes.get("/schoolusers", authMiddleware, SchoolUsersController.index);
 
 /*
 ======================= OLYMPIAD USERS =======================
 */
+routes.get("/olympiadusers/:id", authMiddleware, OlympiadUsersController.index);
 routes.post("/olympiadusers", OlympiadUsersController.store);
 routes.put("/olympiadusers", OlympiadUsersController.update);
 
@@ -57,6 +66,11 @@ routes.put("/sports", SportsController.update);
 /*
 ======================= OLYMPIAD SPORTS =======================
 */
+routes.get(
+  "/olympiadsports/:id",
+  authMiddleware,
+  OlympiadSportsController.index
+);
 routes.post("/olympiadsports", OlympiadSportsController.store);
 routes.put(
   "/olympiadsports/:olympiad/:school/:sport",
@@ -70,6 +84,10 @@ routes.delete(
 /*
 ======================= USER PREFERENCE FOR OLYMPIAD SPORTS =======================
 */
+routes.get(
+  "/userolympiadsports/:olympiad/:school/:sport",
+  UserOlympiadSportsController.index
+);
 routes.post("/userolympiadsports", UserOlympiadSportsController.store);
 routes.put(
   "/userolympiadsports/:olympiad/:school/:sport/:email",

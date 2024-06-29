@@ -20,7 +20,7 @@ describe("POST /schoolusers responses", () => {
       .expect(200)
       .then((res) => {
         expect(res.body).toHaveProperty("ok");
-        expect(res.body.ok).toBe("User School updated");
+        expect(res.body.ok).toBe("Escola do usuário atualizada.");
       });
   });
 });
@@ -36,7 +36,7 @@ describe("DELETE /schoolusers/:id responses", () => {
       .expect(200)
       .then((res) => {
         expect(res.body).toHaveProperty("ok");
-        expect(res.body.ok).toBe("User School deleted");
+        expect(res.body.ok).toBe("Escola do usuário deletada.");
       });
   });
 });

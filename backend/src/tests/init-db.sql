@@ -33,6 +33,8 @@ CREATE TABLE Olympiad (
     date_start DATE,
     date_end DATE,
     description VARCHAR,
+    participants INT,
+    id SERIAL,
 
     PRIMARY KEY (name, school),
     FOREIGN KEY (school)
@@ -80,6 +82,7 @@ CREATE TABLE OlympiadSports (
     school VARCHAR,
     sport VARCHAR,
     date_start DATE,
+    participants INT,
 
     PRIMARY KEY (olympiad, school, sport),
     FOREIGN KEY (olympiad, school)
@@ -109,15 +112,28 @@ INSERT INTO Users (name, email)
 INSERT INTO Users (name, email)
             VALUES ('Student', 'student@gmail.com');
 
+INSERT INTO Users (name, email)
+            VALUES ('Student', 'testuser@testing.com');
+
 -- Default school
 INSERT INTO School (name, manager)
             VALUES ('DefaultSchool', 'schoolmanager@gmail.com');
 
+INSERT INTO SchoolUsers (school, email, permission)
+            VALUES ('DefaultSchool', 'testuser@testing.com', 'Student');
+
 -- Default olympiad
-INSERT INTO Olympiad (name, school, date_start, date_end, description)
-            VALUES ('DefaultOlympiad', 'DefaultSchool', '2024-01-01', '2024-01-02', 'DefaultOlympiadDescription');
+INSERT INTO Olympiad (name, school, date_start, date_end, description, participants)
+            VALUES ('DefaultOlympiad', 'DefaultSchool', '2024-01-01', '2024-01-02', 'DefaultOlympiadDescription', 0);
 
 -- Default sports
+INSERT INTO Sports (name, min_players, max_players, duration, ruleset, extra_info)
+            VALUES
+            ('Corrida de 100m', 4, 10, '15M', 'Regras da IAAF', 'Evento de atletismo'),
+            ('Tênis de Mesa', 2, 8, '1H30M', 'Regras da ITTF', 'Esporte de raquete indoor'),
+            ('Natação 100m livre', 2, 6, '20M', 'Regras da FINA', 'Evento de natação em piscina'),
+            ('Esgrima', 2, 8, '1H', 'Regras da FIE', 'Esporte de combate com espadas');
+
 INSERT INTO Sports (name, min_players, max_players, duration, ruleset, extra_info)
             VALUES ('Athletics', 1, 1, '30M', 'DefaultRuleset', 'DefaultExtraInfo');
 
@@ -125,5 +141,5 @@ INSERT INTO Sports (name, min_players, max_players, duration, ruleset, extra_inf
             VALUES ('Default Sport', 1, 1, '60M', 'DefaultRuleset', 'DefaultExtraInfo');
 
 -- Default olympiad sport
-INSERT INTO OlympiadSports (olympiad, school, sport, date_start)
-            VALUES ('DefaultOlympiad', 'DefaultSchool', 'Default Sport', '2024-01-01');
+INSERT INTO OlympiadSports (olympiad, school, sport, date_start, participants)
+            VALUES ('DefaultOlympiad', 'DefaultSchool', 'Default Sport', '2024-01-01', 0);

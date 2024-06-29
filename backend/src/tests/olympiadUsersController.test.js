@@ -1,9 +1,30 @@
 const request = require("supertest");
 const app = require("../app");
 const DbClient = require("../lib/dbConnection");
+const jwt = require("jsonwebtoken");
 
 afterAll(async () => {
   await DbClient.getInstance().close();
+});
+
+describe("GET /olympiadusers responses", () => {
+  it("should return a list of users interested in an olympiad", async () => {
+    token = jwt.sign(
+      { userEmail: "schoolmanager@gmail.com" },
+      "your-secret-key",
+      {
+        expiresIn: "1min",
+      }
+    );
+
+    return request(app)
+      .get("/olympiadusers/1")
+      .set({ authorization: token })
+      .expect(200)
+      .then((res) => {
+        expect(res.body).toBeInstanceOf(Array);
+      });
+  });
 });
 
 describe("POST /olympiadusers responses", () => {
@@ -21,7 +42,7 @@ describe("POST /olympiadusers responses", () => {
       .expect(200)
       .then((res) => {
         expect(res.body).toHaveProperty("ok");
-        expect(res.body.ok).toBe("User signed up");
+        expect(res.body.ok).toBe("Usuário cadastrado.");
       });
   });
 });
@@ -41,7 +62,7 @@ describe("PUT /olympiadusers responses", () => {
       .expect(200)
       .then((res) => {
         expect(res.body).toHaveProperty("ok");
-        expect(res.body.ok).toBe("User interest updated");
+        expect(res.body.ok).toBe("Interesse do usuário atualizado.");
       });
   });
 });

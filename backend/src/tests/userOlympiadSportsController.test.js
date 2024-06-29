@@ -6,6 +6,21 @@ afterAll(async () => {
   await DbClient.getInstance().close();
 });
 
+describe("GET /userolympiadsports responses", () => {
+  it("should allow an user to see all users interested in a sport", async () => {
+    const olympiad = "DefaultOlympiad";
+    const school = "DefaultSchool";
+    const sport = "Default Sport";
+
+    return request(app)
+      .get(`/userolympiadsports/${olympiad}/${school}/${sport}`)
+      .expect(200)
+      .then((res) => {
+        expect(res.body).toBeInstanceOf(Array);
+      });
+  });
+});
+
 describe("POST /userolympiadsports responses", () => {
   it("should allow an user to show their preference for a sport", async () => {
     const newPreference = {

@@ -19,7 +19,7 @@ describe("POST /school responses", () => {
       .expect(200)
       .then((res) => {
         expect(res.body).toHaveProperty("ok");
-        expect(res.body.ok).toBe("School created");
+        expect(res.body.ok).toBe("Escola criada.");
       });
   });
 });
@@ -35,7 +35,7 @@ describe("DELETE /school/:id responses", () => {
       .expect(200)
       .then((res) => {
         expect(res.body).toHaveProperty("ok");
-        expect(res.body.ok).toBe("School deleted");
+        expect(res.body.ok).toBe("Escola deletada.");
       });
   });
 });

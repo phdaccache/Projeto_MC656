@@ -1,10 +1,30 @@
 const School = require("../models/School");
 const Sports = require("../models/Sports");
+const SchoolUsers = require("../models/SchoolUsers");
 const Olympiad = require("../models/Olympiad");
 const OlympiadSports = require("../models/OlympiadSports");
+const DateChecks = require("../lib/DateChecks");
 
 // TODO: only managers can create sports in olympiads
 class OlympiadSportsController {
+  static async index(req, res) {
+    const { userEmail } = req;
+    const { id } = req.params;
+
+    const userSchool = await SchoolUsers.findUserSchool({ email: userEmail });
+    const olympiad = await Olympiad.findOlympiadById({ id });
+    const olympiadSchool = olympiad[0].school;
+
+    if (userSchool[0].school !== olympiadSchool) {
+      return res
+        .status(400)
+        .json({ ok: "Você não tem permissão para acessar esse recurso" });
+    }
+
+    const olympiadSports = await OlympiadSports.getOlympiadSports(olympiad[0]);
+    return res.status(200).json(olympiadSports);
+  }
+
   static async store(req, res) {
     const { olympiad, school, sport } = req.body;
 
@@ -32,9 +52,11 @@ class OlympiadSportsController {
         .json({ ok: "Esporte já cadastrado na olimpíada." });
     }
 
-    const insertionResult = await OlympiadSports.createNewOlympiadSport(
-      req.body
-    );
+    const startDate = DateChecks.formatDate(olympiadExists[0].date_start);
+    const insertionResult = await OlympiadSports.createNewOlympiadSport({
+      date_start: startDate,
+      ...req.body,
+    });
     return res
       .status(200)
       .json({ ok: "Esporte criado no evento da olimpíada" });

@@ -1,6 +1,21 @@
 const DbClient = require("../lib/dbConnection");
 
 class SchoolModel {
+  static async getManagerSchools(schoolData) {
+    const databaseConnection = DbClient.getInstance();
+
+    const { email } = schoolData;
+
+    const queryMessage = `
+            SELECT *
+            FROM School
+            WHERE School.manager = '${email}';
+            `;
+    const queryResult = await databaseConnection.query(queryMessage);
+
+    return queryResult.rows;
+  }
+
   static async createSchool(schoolData) {
     const databaseConnection = DbClient.getInstance();
 

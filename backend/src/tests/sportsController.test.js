@@ -23,7 +23,7 @@ describe("POST /sports responses", () => {
       .expect(200)
       .then((res) => {
         expect(res.body).toHaveProperty("ok");
-        expect(res.body.ok).toBe("Sport created");
+        expect(res.body.ok).toBe("Esporte criado.");
       });
   });
 });
@@ -45,7 +45,7 @@ describe("PUT /sports responses", () => {
       .expect(200)
       .then((res) => {
         expect(res.body).toHaveProperty("ok");
-        expect(res.body.ok).toBe("Sport updated");
+        expect(res.body.ok).toBe("Esporte atualizado.");
       });
   });
 });

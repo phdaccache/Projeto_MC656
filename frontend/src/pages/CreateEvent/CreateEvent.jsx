@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Link, Navigate } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
 import axios from "../../instances/axios";
 
 import "./CreateEvent.css";
@@ -9,9 +10,24 @@ export default function CreateEvent() {
   const [eventStartDate, setEventStartDate] = useState("");
   const [eventEndDate, setEventEndDate] = useState("");
   const [eventDescription, setEventDescription] = useState("");
+  const [school, setSchool] = useState("");
+  const { auth } = useContext(AuthContext);
 
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const schoolResponse = await axios.get("/schoolusers", {
+        headers: {
+          authorization: `${auth}`,
+        },
+      });
+      setSchool(schoolResponse.data.userSchoolList[0].school);
+    };
+
+    fetchData();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,12 +39,29 @@ export default function CreateEvent() {
         name: eventName,
         date_start: eventStartDate,
         date_end: eventEndDate,
-        school: "DefaultSchool", // TODO - pegar a escola do professor logado
+        school: school,
         description: eventDescription,
-      })
-      success = (response.status === 200);
+      });
+
+      const defaultEvents = [
+        "Corrida de 100m",
+        "Tênis de Mesa",
+        "Natação 100m livre",
+        "Esgrima",
+      ];
+      for (let i = 0; i < defaultEvents.length; i++) {
+        await axios.post("/olympiadsports", {
+          sport: defaultEvents[i],
+          olympiad: eventName,
+          school: school,
+        });
+      }
+
+      success = response.status === 200;
     } catch (error) {
-      alert("Ocorreu um erro ao criar a olimpíada.");
+      alert(
+        `Ocorreu um erro ao criar a olimpíada: '${error.response.data.ok}'`
+      );
       console.error(error);
     }
 
@@ -39,7 +72,9 @@ export default function CreateEvent() {
   return (
     <div className="create-event-container">
       <div className="create-event-header page-title">
-        <h1><span>Criar Olimpíada</span></h1>
+        <h1>
+          <span>Criar Olimpíada</span>
+        </h1>
         <p>Preencha os campos abaixo para criar uma nova olimpíada.</p>
       </div>
       <form onSubmit={handleSubmit} className="create-event-form">
@@ -84,12 +119,16 @@ export default function CreateEvent() {
             required
           ></textarea>
         </div>
+        <div className="create-event-form-fieldpadrao-esportes">
+          <label for="esportes">Pré-definir esportes?</label>
+          <input type="checkbox" id="esportes" checked={true} disabled />
+        </div>
         <div className="create-event-form-field">
           <button type="submit">Criar Olimpíada</button>
         </div>
       </form>
-      {success && (<Navigate to="/home" />)}
+      {success && <Navigate to="/home" />}
       {/* {error && (<StatusPopup status="failure" message="Ocorreu um Erro..." />)} */}
     </div>
   );
-};
+}

@@ -1,6 +1,15 @@
 const request = require("supertest");
 const app = require("../app");
 const DbClient = require("../lib/dbConnection");
+const jwt = require("jsonwebtoken");
+
+let token;
+
+beforeAll(async () => {
+  token = jwt.sign({ userEmail: "testuser@testing.com" }, "your-secret-key", {
+    expiresIn: "10min",
+  });
+});
 
 afterAll(async () => {
   await DbClient.getInstance().close();
@@ -8,12 +17,16 @@ afterAll(async () => {
 
 describe("GET /olympiad responses", () => {
   it("should be 200", async () => {
-    return await request(app).get("/olympiad").expect(200);
-  });
-
-  it("should not be empty", async () => {
     return await request(app)
       .get("/olympiad")
+      .set({ authorization: token })
+      .expect(200);
+  });
+
+  it("should not be empty if there's an event", async () => {
+    return await request(app)
+      .get("/olympiad")
+      .set({ authorization: token })
       .expect(200)
       .then((res) => {
         expect(res.body.olympiadList).not.toEqual([]);

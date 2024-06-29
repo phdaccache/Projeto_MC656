@@ -5,29 +5,31 @@ class SchoolController {
   static #validateSchoolData(schoolData) {
     const { name, manager } = schoolData;
     if (!name || !manager) {
-      return { ok: "Invalid data" };
+      return { ok: "Dado inválido." };
     }
     const nameWords = name.split(" ");
     if (nameWords.length < 2) {
-      return { ok: "Invalid data" };
+      return {
+        ok: "Nome da escola inválido. O nome deve ser composto por pelo menos 2 palavras.",
+      };
     }
-    return { ok: "Valid data" };
+    return { ok: "Dado válido." };
   }
 
   static async store(req, res) {
     const validation = SchoolController.#validateSchoolData(req.body);
-    if (validation.ok !== "Valid data") {
+    if (validation.ok !== "Dado válido.") {
       return res.status(400).json(validation);
     }
 
     const { manager } = req.body;
     const managerExists = await User.findUser({ email: manager });
     if (managerExists.length <= 0) {
-      return res.status(400).json({ ok: "Manager doesn't exist" });
+      return res.status(400).json({ ok: "Gerente não existe." });
     }
 
     const insertionResult = await School.createSchool(req.body);
-    return res.status(200).json({ ok: "School created" });
+    return res.status(200).json({ ok: "Escola criada." });
   }
 
   static async delete(req, res) {
@@ -35,11 +37,11 @@ class SchoolController {
 
     const school = await School.findSchool({ name });
     if (!school) {
-      return res.status(400).json({ ok: "School not found" });
+      return res.status(400).json({ ok: "Escola não encontrada." });
     }
 
     const deletionResult = await School.deleteSchool({ name });
-    return res.status(200).json({ ok: "School deleted" });
+    return res.status(200).json({ ok: "Escola deletada." });
   }
 }
 

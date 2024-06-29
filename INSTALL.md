@@ -7,11 +7,18 @@ git clone git@github.com:phdaccache/Projeto_MC656.git
 cd Projeto_MC656
 ```
 
-Alterando a branch para `develop`:
+Alterando a branch para `develop` (para ter as alterações mais recentes):
 
 ```bash
 git fetch
 git checkout develop
+```
+
+A branch `main` também pode ser utilizada, e contém a versão recente mais estável:
+
+```bash
+git fetch
+git checkout main
 ```
 
 ## Inicialização do Banco de Dados
@@ -29,6 +36,13 @@ Inicialize, também, as tabelas:
 ```bash
 psql -d postgresql://backend_user:S3cret@localhost/olimpiada -f ./backend/src/tests/init-db.sql
 ```
+
+> Observação: Certifique-se que o PostgreSQL está utilizando a encodificação UTF8 para que as tabelas sejam iniciadas corretamente. Uma maneira de ajustar isso "manualmente" é utilizando os seguintes comandos:
+> ```bash
+> psql -d postgresql://backend_user:S3cret@localhost/olimpiada
+> \encoding UTF8
+> \i ./backend/src/tests/init-db.sql
+> ```
 
 ## Inicialização do servidor Backend
 

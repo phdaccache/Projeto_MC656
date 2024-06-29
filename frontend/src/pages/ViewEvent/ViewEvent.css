@@ -1,5 +1,5 @@
 .view-event-container {
-  width: 85%;
+  width: 65vw;
   margin: 0 auto;
   background-color: #141724;
   padding: 2rem 0;
@@ -18,7 +18,7 @@
 }
 
 .back-view-event:hover {
-  color: #5575A6;
+  color: #5575a6;
 }
 
 .event-header-background {
@@ -52,8 +52,32 @@
   margin-bottom: 2rem;
 }
 
-.event-header-container b {
+.event-header-container b,
+.event-participants-container b {
   color: #eaeaea;
+}
+
+.event-participants-container {
+  padding: 0 3.5rem;
+  margin-bottom: 2rem;
+}
+
+.event-participants-container h1 {
+  color: #eaeaea;
+  margin-bottom: 0.5rem;
+}
+
+.event-participants-container ol {
+  font-size: 1.15rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  color: #c5c5cf;
+  margin-left: 1.25rem;
+  border-radius: 0.5rem;
+}
+
+.event-participants-container ol li {
+  padding-left: 0.15rem;
 }
 
 .event-header-container p {
@@ -72,7 +96,7 @@
 }
 
 .event-info {
-  /* width: 70%; */
+  width: 70%;
   /* height: 100%; */
   padding: 1.5rem;
   padding-bottom: 0.6rem;
@@ -130,7 +154,7 @@
   padding: 1.3rem 1.5rem;
   padding-bottom: 0.6rem;
   border-radius: 0.6rem;
-  width: 25%;
+  width: 22%;
   font-size: 0.8rem;
   display: flex;
   flex-direction: column;
@@ -144,7 +168,7 @@
   margin-bottom: 1rem;
 }
 
-.event-summary .summary-data  {
+.event-summary .summary-data {
   color: #c5c5cf;
 }
 
@@ -195,7 +219,8 @@
   margin-bottom: 0.5rem;
 }
 
-.event-sports p {
+.event-sports p,
+.event-participants-container p {
   color: #c5c5cf;
   font-size: 1.1rem;
   margin-bottom: 1.2rem;

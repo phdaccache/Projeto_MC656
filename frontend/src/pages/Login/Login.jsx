@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Link, Navigate } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
+import axios from "../../instances/axios";
 import "./Login.css";
 
 // import StatusPopup from "../../components/StatusPopup/StatusPopup";
@@ -11,9 +13,21 @@ export default function Login() {
   const [user, setUser] = useState(false);
   const [error, setError] = useState(false);
 
+  const { login } = useContext(AuthContext);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    alert(`email: ${email} password: ${password}`);
+    try {
+      const response = await axios.post("/login", {
+        email: email,
+        password: password,
+      });
+      login(response.data.token);
+    } catch (error) {
+      alert("Ocorreu um erro ao fazer login.");
+      console.error(error);
+      return;
+    }
     setUser(true);
     // setError(true);
   };
@@ -44,7 +58,7 @@ export default function Login() {
             {/* <Link to={"/forgot"}>Esqueceu a senha?</Link> */}
           </div>
           <button type="submit">Login</button>
-          {user && (<Navigate to="/home" />)}
+          {user && <Navigate to="/home" />}
           {/* {error && (<StatusPopup status="failure" message="Ocorreu um Erro..." />)} */}
         </form>
       </div>

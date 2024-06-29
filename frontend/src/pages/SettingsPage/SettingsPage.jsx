@@ -1,67 +1,166 @@
-import { React, useState } from "react";
+import { React, useState, useContext, useEffect } from "react";
 import SettingsComponent from "../../components/SettingsComponent/SettingsComponent";
+import { AuthContext } from "../../context/AuthContext";
+import { useName } from "../../context/NameContext";
+import axios from "../../instances/axios";
 
 import "./SettingsPage.css";
 
 export default function SettingsPage() {
-  const [settings, setSettings] = useState([
-    {
-      settingName: "Name",
-      settingValue: "John Doe",
-    },
-    {
-      settingName: "School",
-      settingValue: "School Name",
-    },
-    {
-      settingName: "Email",
-      settingValue: "johndoe123@email.com",
-    },
-    {
-      settingName: "Phone Number",
-      settingValue: "123-456-7890",
-    },
-    {
-      settingName: "Birthday",
-      settingValue: "01/01/2000",
-    },
-    {
-      settingName: "Gender",
-      settingValue: "Male",
-    },
-    {
-      settingName: "Password",
-      settingValue: "********",
-    },
-  ]);
+  const { auth, logout } = useContext(AuthContext);
+  const [settings, setSettings] = useState(Array(7).fill({}));
+  const { name, setName } = useName();
 
-  const handleSave = (settingName, newValue) => {
+  useEffect(() => {
+    const fetchData = async () => {
+      const userDataResponse = await axios.get("/users/", {
+        headers: {
+          authorization: auth,
+        },
+      });
+
+      const userSchoolResponse = await axios.get("/schoolusers/", {
+        headers: {
+          authorization: auth,
+        },
+      });
+
+      const userData = userDataResponse.data.userList[0];
+      const schoolData = userSchoolResponse.data.userSchoolList[0];
+
+      setSettings([
+        {
+          settingName: "Nome",
+          settingValue: userData.name,
+        },
+        {
+          settingName: "Escola",
+          settingValue: schoolData.school,
+        },
+        {
+          settingName: "Email",
+          settingValue: userData.email,
+        },
+        {
+          settingName: "Telefone",
+          settingValue: userData.phone_number,
+        },
+        {
+          settingName: "Data de Nascimento",
+          settingValue: new Date(userData.birth_date)
+            .toISOString()
+            .split("T")[0],
+        },
+        {
+          settingName: "Gênero",
+          settingValue: userData.gender,
+        },
+        {
+          settingName: "Senha",
+          settingValue: userData.password.slice(0, 10),
+        },
+      ]);
+    };
+
+    fetchData();
+  }, []);
+
+  const handleSave = async (settingName, newValue) => {
+    const getPassword = () => {
+      const password = prompt("Digite sua senha para confirmar as alterações:");
+      return password;
+    };
+
     const updatedSettings = settings.map((setting) => {
       if (setting.settingName === settingName) {
         return { ...setting, settingValue: newValue };
       }
       return setting;
     });
-    setSettings(updatedSettings);
+
+    const loggedEmail = localStorage.getItem("email");
+
+    try {
+      const userPassword = (settingName === "Senha"
+        ? updatedSettings[6].settingValue
+        : getPassword());
+      if (!userPassword) {
+        return { ok: false };
+      }
+      const responseUpdtUser = await axios.put(
+        `/users/${loggedEmail}`,
+        {
+          name: updatedSettings[0].settingValue,
+          email: settings[2].settingValue,
+          phone_number: updatedSettings[3].settingValue,
+          birth_date: updatedSettings[4].settingValue,
+          gender: updatedSettings[5].settingValue,
+          password: userPassword,
+        },
+        {
+          headers: {
+            authorization: auth,
+          },
+        }
+      );
+      setName(updatedSettings[0].settingValue.split(" ")[0]);
+      setSettings(updatedSettings);
+      return { ok: true };
+    } catch (error) {
+      alert(`Erro ao atualizar os dados: ${error.response.data.ok}`);
+      return { ok: false };
+    }
+  };
+
+  const handleDeleteAcc = async () => {
+    const confirm = window.confirm(
+      "Você tem certeza que quer excluir sua conta permanentemente?"
+    );
+
+    if (confirm) {
+      try {
+        const loggedEmail = localStorage.getItem("email");
+
+        const responseDelUser = await axios.delete(`/users/${loggedEmail}`, {
+          headers: {
+            authorization: auth,
+          },
+        });
+        // alert("Conta deletada com sucesso!");
+        logout();
+      } catch (error) {
+        alert(
+          "Contate um administrador do sistema para apagar sua conta de professor."
+        );
+        console.error(error);
+      }
+    }
   };
 
   return (
     <div className="settings-info-page-container">
       <div className="page-title">
-        <h1><span>Minhas Configurações</span></h1>
-        <p>Altere suas informações pessoais e visualize sua política de privacidade.</p>
+        <h1>
+          <span>Minhas Configurações</span>
+        </h1>
+        <p>
+          Altere suas informações pessoais e visualize sua política de
+          privacidade.
+        </p>
       </div>
       <div className="settings-container">
         <div className="settings-profile">
           <h2>Meu Perfil</h2>
           <img
-            src="https://via.placeholder.com/150"
+            src={`https://robohash.org/${localStorage.getItem(
+              "email"
+            )}?set=set4`}
             alt="profile"
             className="profile-picture"
           />
           <h3>{settings[0].settingValue}</h3>
-          <div className="delete-profile-btn">
-            <button>Delete Profile</button>
+          <div onClick={handleDeleteAcc} className="delete-profile-btn">
+            Apagar Conta
           </div>
         </div>
         <hr />
@@ -81,19 +180,10 @@ export default function SettingsPage() {
       <div className="politica-privacidade">
         <h2>Política de Privacidade</h2>
         <p>
-          Croissant carrot cake dessert marzipan gingerbread sweet. Tiramisu
-          cotton candy gingerbread sugar plum toffee croissant cupcake carrot
-          cake pudding. Apple pie caramels icing croissant fruitcake danish.
-          Sesame snaps cake cotton candy caramels gummies jelly. Gingerbread
-          cupcake candy canes apple pie donut ice cream sugar plum. Toffee
-          brownie chocolate bar chocolate cake candy canes cupcake muffin. Cake
-          liquorice pie oat cake chocolate cake. Dessert halvah icing toffee
-          wafer bonbon caramels oat cake cheesecake. Topping dragée powder jelly
-          beans candy danish. Shortbread gingerbread candy canes sesame snaps
-          apple pie toffee candy lollipop tiramisu. Jujubes liquorice chupa
-          chups gingerbread icing. Icing marshmallow gummi bears jujubes sesame
-          snaps ice cream. Jujubes carrot cake icing chocolate cake oat cake
-          jujubes jujubes.
+          As únicas informações armazenadas pelo sistema são as disponibilizadas
+          diretamente no cadastro (seja da conta ou de alguma olimpíada). A
+          senha utilizada no cadastro é armazenada com segurança. Ao deletar a
+          sua conta, as informações são removidas completamente do sistema.
         </p>
       </div>
     </div>

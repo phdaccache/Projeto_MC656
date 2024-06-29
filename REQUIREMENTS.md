@@ -32,7 +32,7 @@ Com isso, o grupo conseguiu ter uma visão ainda maior sobre como o software pod
 
 ### Brainstorming
 
-A fim de levantar todas as possíveis ideias e considerando também o conhecimento de cada integrante sobre o contexto em que o software se insere, a técnica de brainstorming foi utilizada para pensar em ideias para o sistema. 
+A fim de levantar todas as possíveis ideias e considerando também o conhecimento de cada integrante sobre o contexto em que o software se insere, a técnica de brainstorming foi utilizada para pensar em ideias para o sistema.
 
 Em um tempo especificado de 30 minutos, cada membro da equipe pensaria e escreveria todas as funcionalidades que conseguisse pensar sobre o sistema. O objetivo era gerar o máximo de ideias possíveis individualmente para depois discuti-las e combiná-las conjuntamente. Com isso definido, a técnica foi executada e as ideias foram levantadas por cada um. As ideias pensadas foram:
 

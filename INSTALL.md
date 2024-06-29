@@ -37,6 +37,13 @@ Inicialize, também, as tabelas:
 psql -d postgresql://backend_user:S3cret@localhost/olimpiada -f ./backend/src/tests/init-db.sql
 ```
 
+> Observação: Certifique-se que o PostgreSQL está utilizando a encodificação UTF8 para que as tabelas sejam iniciadas corretamente. Uma maneira de ajustar isso "manualmente" é utilizando os seguintes comandos:
+> ```bash
+> psql -d postgresql://backend_user:S3cret@localhost/olimpiada
+> \encoding UTF8
+> \i ./backend/src/tests/init-db.sql
+> ```
+
 ## Inicialização do servidor Backend
 
 O Backend está configurado para usar a porta `3333`.

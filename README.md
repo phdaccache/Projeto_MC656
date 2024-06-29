@@ -56,9 +56,13 @@ Para esse diagrama, é feito um zoom-in para cada componente do diagrama de cont
 
 #### Detalhamento Componente 1 - Aplicação API
 
-No estado atual do código, a aplicação API conta com alguns models e controllers. Esses controllers têm responsabilidades específicas relacionadas a olimpíadas ou ao gerenciamento de usuários, com base nos modelos específicos. Esses modelos, por sua vez, são responsáveis pela conexão com o banco de dados.
+No estado atual do código, a aplicação API conta 8 models e 8 controllers. Esses controllers têm responsabilidades específicas relacionadas a olimpíadas ou ao gerenciamento de usuários, com base nos modelos específicos. Esses modelos, por sua vez, são responsáveis pela conexão com o banco de dados.
+
+A seguir, uma imagem contendo todos eles e, em seguida, links para as imagens individuais para permitir uma melhor visualização (as descrições das setas não são bem visíveis no diagrama completo)
 
 ![C4_Nivel_3_API](./assets/images/Diagrama_C4_Nivel_3_API.png)
+
+[OlympiadModel](./assets/images/Diagrama_C4_OlympiadModel.png), [OlympiadSportsModel](./assets/images/Diagrama_C4_OlympiadSportsModel.png), [OlympiadUsersModel](./assets/images/Diagrama_C4_OlympiadUsersModel.png), [SchoolModel](./assets/images/Diagrama_C4_SchoolModel.png), [SchoolUsersModel](./assets/images/Diagrama_C4_SchoolUsersModel.png), [SportsModel](./assets/images/Diagrama_C4_SportsModel.png), [UserOlympiadSportsModel](./assets/images/Diagrama_C4_UserOlympiadSportsModel.png), [UsersModel](./assets/images/Diagrama_C4_UsersModel.png)
 
 #### Detalhamento Componente 2 - Banco de Dados
 
@@ -68,6 +72,6 @@ Detalhando o banco de dados, é possível verificar dois componentes principais:
 
 ### Visualização completa
 
-O diagrama completo é mostrado a seguir:
+O diagrama completo é mostrado a seguir (mais uma vez, algumas setas não estão bem visíveis, o diagrama apenas mostra uma visão geral):
 
 ![C4_Nivel_3_Completo](./assets/images/Diagrama_C4_Nivel_3_Tudo.png)
